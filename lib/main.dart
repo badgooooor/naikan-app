@@ -1,64 +1,59 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'SNAPSHOT'),
-    );
-  }
+void main(){
+  // const PrimaryColor = const Color(0xF34949);
+  runApp(MaterialApp(
+    title: 'test',
+    home: Body(),
+    
+    // theme: ThemeData(
+    //   primaryColor: PrimaryColor,
+    // ),
+ 
+  ));
 }
 
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-  final String title;
-
+class Body extends StatelessWidget{
+  //static const PrimaryColor = const Color(0xFFFFFF100);
   @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        backgroundColor: new Color(0xFFF34343),
+       // backgroundColor: PrimaryColor,
+        centerTitle: true ,
+        title: Text('SNAPSHOT'),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'eiei!',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), 
+      body: BodyContent(),
     );
   }
+
+}
+
+class BodyContent extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+
+    return Container(
+      child: Column(
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text('tao'),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text('tao'),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+
+
 }
