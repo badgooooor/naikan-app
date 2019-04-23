@@ -21,7 +21,18 @@ class Body extends StatelessWidget{
     return Scaffold(
       backgroundColor: new Color(0xFFF34343),
       appBar: AppBar(
+        leading: Icon(Icons.chevron_left,size:30,),
+        actions: <Widget>[
+          Container( 
+            margin: EdgeInsets.only(
+              right: 16,
+            
+            ),
+            child: Icon(Icons.search,size:30)),
+          
+        ],
         backgroundColor: new Color(0xFFF34343),
+        
        // backgroundColor: PrimaryColor,
         centerTitle: true ,
         title: Text('SNAPSHOT'),
@@ -124,6 +135,7 @@ class ViewsnapState extends State<Viewsnap>{
   @override
   Widget build(BuildContext context) {
     return new ListView.builder(
+      
       itemCount: 10,
       itemBuilder: (BuildContext context, int index){
         return new Row(
@@ -154,7 +166,7 @@ class ContentState extends State<Content>{
       ),
       width: 334,
       height: 157,
-      margin: EdgeInsets.all(3),
+      margin: EdgeInsets.all(4),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
@@ -185,6 +197,7 @@ class ContentState extends State<Content>{
             width: 334,
             height: 94,
             color: Colors.white,
+            child: new,
            
           ),
           new Divider(
@@ -192,8 +205,17 @@ class ContentState extends State<Content>{
             color: Colors.grey,
             
           ),
-          
-          
+          Container(
+            padding: EdgeInsets.only(
+              left: 20,
+              top: 10
+            ),
+            child: new Row(
+              children: <Widget>[
+                Text('View detail')
+              ],
+            ),
+          ),
         ],
       ),
       
