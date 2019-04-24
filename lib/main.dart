@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'login.dart';
+import 'pixelCalendar.dart';
 
 void main() => runApp(MyApp());
 
@@ -11,8 +12,10 @@ class MyApp extends StatelessWidget {
       title: 'Naikan',
       theme: ThemeData(
         primarySwatch: Colors.red,
+        fontFamily: 'Leelawadee'
       ),
-      home: LoginPage(title: 'Naikan_Login'),
+      //home: LoginPage(title: 'Naikan_Login'),
+      home: PixelCalendar(title: 'Naikan_PixelCalendar'),
     );
   }
 }
