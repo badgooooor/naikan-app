@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import './Model/Model.dart';
 class AddPixel extends StatelessWidget{
   @override
   Widget build(BuildContext context){
@@ -26,6 +28,8 @@ class _AddPixelPage extends State<AddPixelPage> {
   double passive=0;
   double confused=0;
   double sad=0;
+  String finalEmotion='Nong GAme noi kloy jai';
+  Api api = new Api();
 
   String getDate(DateTime _date) {
     var month = ['January', 'February', 'March',
@@ -50,8 +54,24 @@ class _AddPixelPage extends State<AddPixelPage> {
     print('Confused\t=\t'+confused.toString());
     print('Sad  \t=\t'+sad.toString());
   }
-  save(){
-    print('save');
+
+  save() async{
+    Map data={
+      "angry": angry,
+      "confuse": confused,
+      "happy": happy,
+      "passive": passive,
+      "sad": sad,
+      "finalEmotion": finalEmotion
+    };
+    print('-------------save-------------');
+    http.Response res = await api.postPixel(data);
+//    if(res.statusCode != 200){
+//      print(res.statusCode);
+//      print(res.body);
+//    }
+    print('------------------------------');
+
   }
   ///////////////////////////////////////////////////////////
   @override
@@ -93,8 +113,7 @@ class _AddPixelPage extends State<AddPixelPage> {
                       fontSize: 40),),
                   IconButton(icon: Icon(Icons.score),onPressed: display,),
                   IconButton(icon: Icon(Icons.add_box),onPressed: save,)
-                ]
-            )
+            ])
 
 
         )
