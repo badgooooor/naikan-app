@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:event_bus/event_bus.dart';
-import 'Page/Pages.dart';
+import 'Page/Page.dart';
 EventBus eventBus = EventBus();
 void main(){
   const PrimaryColor = const Color(0xF34949);
