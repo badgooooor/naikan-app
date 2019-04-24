@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'AddSnapshot.dart';
-import 'AddPixel.dart';
-
+import 'Page/Page.dart';
 void main() => runApp(AddPixel());
 
 

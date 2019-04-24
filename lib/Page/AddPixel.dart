@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import './Model/Model.dart';
+import 'package:naikan/Model/Model.dart';
 class AddPixel extends StatelessWidget{
   @override
   Widget build(BuildContext context){
@@ -22,13 +22,12 @@ class AddPixelPage extends StatefulWidget{
 class _AddPixelPage extends State<AddPixelPage> {
   DateTime _date = new DateTime.now();
   int dateInt = new DateTime.now().year*10000+new DateTime.now().month*100+new DateTime.now().day;
-  double happy=0;
-  double angry=0;
-  double love=0;
-  double passive=0;
-  double confused=0;
-  double sad=0;
-  String finalEmotion='Nong GAme noi kloy jai';
+  int happy=0;
+  int angry=0;
+  int love=0;
+  int passive=0;
+  int confused=0;
+  int sad=0;
   Api api = new Api();
 
   String getDate(DateTime _date) {
@@ -53,8 +52,12 @@ class _AddPixelPage extends State<AddPixelPage> {
     print('Passive\t=\t'+passive.toString());
     print('Confused\t=\t'+confused.toString());
     print('Sad  \t=\t'+sad.toString());
+    print('finalEmotion=\t'+getFinalEmotion());
   }
-
+  String getFinalEmotion(){
+    String mostEmotion = 'Happier';
+    return mostEmotion;
+  }
   save() async{
     Map data={
       "angry": angry,
@@ -62,7 +65,9 @@ class _AddPixelPage extends State<AddPixelPage> {
       "happy": happy,
       "passive": passive,
       "sad": sad,
-      "finalEmotion": finalEmotion
+      "love": love,
+      "finalEmotion": getFinalEmotion()
+//      ,"date" : 19990326
     };
     print('-------------save-------------');
     http.Response res = await api.postPixel(data);
@@ -79,6 +84,7 @@ class _AddPixelPage extends State<AddPixelPage> {
     return Scaffold(
         appBar: AppBar(
           title: Text(
+
               getDate(_date), style: new TextStyle(color: Colors.black)),
           backgroundColor: new Color(0xFFFFFFFF),
           centerTitle: false,
@@ -95,16 +101,16 @@ class _AddPixelPage extends State<AddPixelPage> {
                       fontSize: 40),),
                   Row(
                       children: [
-                        Column(children: <Widget>[Text('Happy'),IconButton(icon: Icon(Icons.save),onPressed: (){happy+=1.0;})],),
-                        Column(children: <Widget>[Text('Angry'),IconButton(icon: Icon(Icons.save),onPressed: (){angry+=1.0;})],),
-                        Column(children: <Widget>[Text('Love'),IconButton(icon: Icon(Icons.save),onPressed: (){love+=1.0;})],),
+                        Column(children: <Widget>[Text('Happy'),IconButton(icon: Icon(Icons.save),onPressed: (){happy+=1;})],),
+                        Column(children: <Widget>[Text('Angry'),IconButton(icon: Icon(Icons.save),onPressed: (){angry+=1;})],),
+                        Column(children: <Widget>[Text('Love'),IconButton(icon: Icon(Icons.save),onPressed: (){love+=1;})],),
                       ]
                   ),
                   Row(
                       children: [
-                        Column(children: <Widget>[Text('Passive'),IconButton(icon: Icon(Icons.save),onPressed: (){passive+=1.0;})],),
-                        Column(children: <Widget>[Text('Confused'),IconButton(icon: Icon(Icons.save),onPressed: (){confused+=1.0;})],),
-                        Column(children: <Widget>[Text('Sad'),IconButton(icon: Icon(Icons.save),onPressed: (){sad+=1.0;})],),
+                        Column(children: <Widget>[Text('Passive'),IconButton(icon: Icon(Icons.save),onPressed: (){passive+=1;})],),
+                        Column(children: <Widget>[Text('Confused'),IconButton(icon: Icon(Icons.save),onPressed: (){confused+=1;})],),
+                        Column(children: <Widget>[Text('Sad'),IconButton(icon: Icon(Icons.save),onPressed: (){sad+=1;})],),
                       ]
                   ),
                   Text('Feeling of the day', style: new TextStyle(
