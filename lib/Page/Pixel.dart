@@ -19,16 +19,18 @@ class Pixel{
     isLoading=status;
   }
 
-  Map<String,dynamic> getEmotionSummary(){
-    int _angry=0;
-    int _confuse=0;
-    int _happy=0;
-    int _love=0;
-    int _passive=0;
-    int _sad=0;
-    Map<String,dynamic> emotionSummary;
+  Map<String,dynamic> getEmotionSummary() {
+    int _angry = 0;
+    int _confuse = 0;
+    int _happy = 0;
+    int _love = 0;
+    int _passive = 0;
+    int _sad = 0;
+    Map<String, dynamic> emotionSummary;
 
-    for(int i =0;i<data.length;i++) {
+    if (data != null) {
+      //print('###DEBUG###\n\t\tdata.length = $data.length.toString()');
+    for (int i = 0; i < data.length; i++) {
       switch (data.values.elementAt(i)['finalEmotion']) {
         case 'angry':
           {
@@ -64,67 +66,51 @@ class Pixel{
     }
 
     emotionSummary = {
-      'angry':_angry,
-      'confuse':_confuse,
-      'happy':_happy,
-      'love':_love,
-      'passive':_passive,
-      'sad':_sad
+      'angry': _angry,
+      'confuse': _confuse,
+      'happy': _happy,
+      'love': _love,
+      'passive': _passive,
+      'sad': _sad
     };
 
     return emotionSummary;
+  }
+    return null;
 
   }
 
   static List<charts.Series<LinearData, int>> _toChart(Map<String,dynamic> data){
     List<LinearData> dataList = [];
 
-    //print('###DEBUG###\n\tdata.length = '+data.length.toString());
+    if (data != null) {
+      for (int i = 0; i < data.length; i++) {
+        dataList.add(new LinearData(i, data.values.elementAt(i).toInt(), null));
+        dataList[i].setColor(i);
+        print(dataList[i].toList().toString());
+      }
 
-    for(int i =0;i<data.length;i++){
-      dataList.add(new LinearData(i,data.values.elementAt(i).toInt(),null));
-      dataList[i].setColor(i);
-      print(dataList[i].toList().toString());
+      return [
+        new charts.Series<LinearData, int>(
+          id: 'Pixel_Chart',
+          domainFn: (LinearData cell, _) => cell.getDomain(),
+          measureFn: (LinearData cell, _) => cell.getMeasure(),
+          colorFn: (LinearData cell, _) => cell.getColor(),
+          data: dataList,
+        )
+      ];
     }
-
-    return [
-      new charts.Series<LinearData, int>(
-        id: 'Pixel_Chart',
-        domainFn: (LinearData cell, _) => cell.getDomain(),
-        measureFn: (LinearData cell, _) => cell.getMeasure(),
-        colorFn: (LinearData cell, _) => cell.getColor(),
-        data: dataList,
-        labelAccessorFn: (LinearData row, _) => '${row.domainName(row.domain)}',
-      )
-    ];
+    return null;
   }
 
   List<charts.Series<LinearData, int>> toChart(){
     return _toChart(getEmotionSummary());
   }
-}
-
-class YearPixel extends Pixel{
-  YearPixel(String year){
-    loadYearPixel(year);
-  }
-
-  Future loadYearPixel(String year) async{
-    resp= await http.get("https://us-central1-naikan-87838.cloudfunctions.net/webApi/api/v1/pixels/yearPixel/$year");
-    if(resp.body=='No such document!') {
-      data=null;
-    }
-    else {
-      data = json.decode(resp.body);
-    }
-    print('###DEBUG###\n\tloadYearPixel.data = $data');
-    super.data=data;
-    setLoadingStatus(false);
-  }
 
 }
 
 class MonthPixel extends Pixel{
+
   MonthPixel(String year,String month){
     loadMonthPixel(year, month);
   }
@@ -137,27 +123,39 @@ class MonthPixel extends Pixel{
     else {
       data = json.decode(resp.body);
     }
-    print('###DEBUG###\n\tloadMonthPixel.data = $data');
+    //print('###DEBUG###\n\tloadMonthPixel.data = $data');
     setLoadingStatus(false);
     return resp;
   }
-}
 
-class TodayPixel extends Pixel{
-  TodayPixel();
+  List getMonthPixel(year,month){
+    int days;
+    List pixelList=[];
 
-  Future loadTodayPixel() async{
-    http.Response resp= await http.get("https://us-central1-naikan-87838.cloudfunctions.net/webApi/api/v1/pixels/todayPixel");
-    //print('###DEBUG###\n\tloadTodayPixel.resp.body = '+resp.body);
-    //print('###DEBUG###\n\tloadTodayPixel.resp.bodyBytes = '+resp.bodyBytes.toString());
-    if(resp.body=='No such document!') {
-      data=null;
+    if(data != null){
+      if(month==1||month==3||month==5||month==7||month==8||month==10||month==12){
+        days=31;
+      }
+      else if(month==4||month==6||month==9||month==11) days=31;
+      else if(month==2) {
+        if (year % 4 == 0) days=29;
+        else days=28;
+      }
+      //print('###DEBUG###\n\t\tdata = $data,\n\t\tmonth = $month, days = $days');
+      for(int i=1;i<=days;i++){
+
+        //String date=(i<10?('0'+i.toString()):i.toString());
+        String value='NULL';
+        for(int j=0;j<data.length;j++){
+          int date=data.values.elementAt(j)['date']%100;
+          if(i==date) value=data.values.elementAt(j)['finalEmotion'];
+          //print('###DEBUG###\n\t\ti = $i, date = $date,j = $j, value = $value');
+        }
+        pixelList.add(value);
+        //print('###DEBUG###\n\t\tpixelList = $pixelList');
+      }
     }
-    else {
-      data = json.decode(resp.body);
-    }
-    print('###DEBUG###\n\tloadTodayPixel.data = $data');
-    setLoadingStatus(false);
+    return pixelList;
   }
 }
 

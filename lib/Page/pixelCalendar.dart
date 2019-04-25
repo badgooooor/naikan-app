@@ -4,10 +4,11 @@ import 'dart:async';
 
 import 'Pixel.dart';
 
-String year='2019';
-String month='4';
-MonthPixel pixel = MonthPixel(year,month);
+int year = DateTime.now().year;
+int month = DateTime.now().month;
+MonthPixel pixel = MonthPixel(year.toString(),month.toString());
 int _count = 0;
+bool _isChangeMonth=false;
 
 class PixelCalendarSet extends StatelessWidget {
 
@@ -30,46 +31,73 @@ class PixelCalendar extends StatefulWidget {
   final String title;
 
   @override
-  CalendarState createState() => CalendarState();
-}
+  CalendarState createState(){
 
-class WaitingState extends State<PixelCalendar> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: <Widget>[
-          Text('LOADING...')
-        ],
-      ),
-    );
+    return CalendarState();
   }
 }
 
 class CalendarState extends State<PixelCalendar> {
-  
+  /*if(_isChangeMonth){
+    pixel = MonthPixel(year.toString(),month.toString());
+  }*/
 
-  void _getEmotion() {
-    print(pixel.getEmotionSummary());
+  Color _toColor(String value){
+    switch(value){
+      case 'angry':
+        return new Color.fromARGB(255,255,58,58);
+      case 'confuse':
+        return new Color.fromARGB(255,221,120,251);
+      case 'happy':
+        return new Color.fromARGB(255,255,226,110);
+      case 'love':
+        return new Color.fromARGB(255,255,117,150);
+      case 'passive':
+        return new Color.fromARGB(255,104,232,142);
+      case 'sad':
+        return new Color.fromARGB(255,64,64,64);
+      default:
+        return new Color.fromARGB(255,128,128,128);
+    }
   }
-  
+
+  Color pixelColor(int date){
+    List pixelList = pixel.getMonthPixel(year,month);
+    if(date>pixelList.length){
+      return new Color.fromARGB(255,255,255,255);
+    }
+    return _toColor(pixelList[date-1]);
+  }
+
   void _reload(){
     runApp(PixelCalendarSet());
-    print('###DEBUG###\npixel.getLoadingStatus() = '+pixel.getLoadingStatus().toString());
-  }
-  
-  Future _wait(int milliseconds)async{
-    return await(Duration(milliseconds: milliseconds));
+    //print('###DEBUG###\npixel.getLoadingStatus() = '+pixel.getLoadingStatus().toString());
   }
 
   void _back(){
     print('ButtonDebugger: _back pressed');
   }
 
+  void _lastMonth(){
+    print('ButtonDebugger: _lastMonth pressed');
+    //month++;
+    _count=0;
+    _isChangeMonth = true;
+    _reload();
+  }
+
+  void _nextMonth(){
+    print('ButtonDebugger: _nextMonth pressed');
+    //month--;
+    _count=0;
+    _isChangeMonth = true;
+    _reload();
+  }
+
   @override
   Widget build(BuildContext context) {
-    Timer _timer = new Timer(const Duration(milliseconds: 2000),()async{
-      _wait(200);
+
+    new Timer(const Duration(milliseconds: 2000),()async{
       if(pixel.getLoadingStatus()) {
         _reload();
       }
@@ -77,7 +105,7 @@ class CalendarState extends State<PixelCalendar> {
         _reload();
         _count++;
       }
-      print('###DEBUG###\n\t_count = $_count');
+      //print('###DEBUG###\n\t_count = $_count');
     });
     final List<charts.Series<LinearData, int>> seriesList = pixel.toChart();
     
@@ -95,16 +123,7 @@ class CalendarState extends State<PixelCalendar> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('LOADING...'),
-            /*Text('Something went wrong ;('),
-            RaisedButton(
-              onPressed: _reload,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30)
-              ),
-              child: Text('Reload')
-            ),*/
-
+            CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.red),)
           ],
         )
       )
@@ -119,7 +138,6 @@ class CalendarState extends State<PixelCalendar> {
                 animate: false,
                 defaultRenderer: new charts.ArcRendererConfig(
                     arcWidth: 20,
-                    //arcRendererDecorators: [new charts.ArcLabelDecorator()]
                 )
             ),
           ),
@@ -142,6 +160,7 @@ class CalendarState extends State<PixelCalendar> {
               color: Colors.red,
             ),
           ),
+          //Calendar Box
           new Container(
             margin: EdgeInsets.fromLTRB(45,45,45,345),
             decoration: new BoxDecoration(
@@ -150,9 +169,82 @@ class CalendarState extends State<PixelCalendar> {
               boxShadow: [BoxShadow(spreadRadius: 1.5,color: Colors.black12)],
             ),
           ),
+          //Calendar Month Layer
           new Container(
-            margin: EdgeInsets.fromLTRB(125,98,0,0),
-            child: Text('PIXEL CALENDAR',style: TextStyle(color: Color.fromARGB(255, 224, 61, 61)),)
+            margin: EdgeInsets.fromLTRB(45,5,45,345),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                IconButton(icon: Icon(Icons.chevron_left,color: Colors.white), onPressed: _lastMonth),
+                Text('$year/$month',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+                IconButton(icon: Icon(Icons.chevron_right,color: Colors.white), onPressed: _nextMonth),
+              ],
+            )
+          ),
+          //Calendar
+          new Container(
+            margin: EdgeInsets.fromLTRB(45,45,45,345),
+            child: Table(
+              defaultColumnWidth: FixedColumnWidth(38.5),
+              children: [
+                TableRow(
+                  children: [
+                    Icon(Icons.stop,color: pixelColor(1)),
+                    Icon(Icons.stop,color: pixelColor(2)),
+                    Icon(Icons.stop,color: pixelColor(3)),
+                    Icon(Icons.stop,color: pixelColor(4)),
+                    Icon(Icons.stop,color: pixelColor(5)),
+                    Icon(Icons.stop,color: pixelColor(6)),
+                    Icon(Icons.stop,color: pixelColor(7)),
+                  ]
+                ),
+                TableRow(
+                    children: [
+                      Icon(Icons.stop,color: pixelColor(8)),
+                      Icon(Icons.stop,color: pixelColor(9)),
+                      Icon(Icons.stop,color: pixelColor(10)),
+                      Icon(Icons.stop,color: pixelColor(11)),
+                      Icon(Icons.stop,color: pixelColor(12)),
+                      Icon(Icons.stop,color: pixelColor(13)),
+                      Icon(Icons.stop,color: pixelColor(14)),
+                    ]
+                ),
+                TableRow(
+                    children: [
+                      Icon(Icons.stop,color: pixelColor(15)),
+                      Icon(Icons.stop,color: pixelColor(16)),
+                      Icon(Icons.stop,color: pixelColor(17)),
+                      Icon(Icons.stop,color: pixelColor(18)),
+                      Icon(Icons.stop,color: pixelColor(19)),
+                      Icon(Icons.stop,color: pixelColor(20)),
+                      Icon(Icons.stop,color: pixelColor(21)),
+                    ]
+                ),
+                TableRow(
+                    children: [
+                      Icon(Icons.stop,color: pixelColor(22)),
+                      Icon(Icons.stop,color: pixelColor(23)),
+                      Icon(Icons.stop,color: pixelColor(24)),
+                      Icon(Icons.stop,color: pixelColor(25)),
+                      Icon(Icons.stop,color: pixelColor(26)),
+                      Icon(Icons.stop,color: pixelColor(27)),
+                      Icon(Icons.stop,color: pixelColor(28)),
+                    ]
+                ),
+                TableRow(
+                    children: [
+                      Icon(Icons.stop,color: pixelColor(29)),
+                      Icon(Icons.stop,color: pixelColor(30)),
+                      Icon(Icons.stop,color: pixelColor(31)),
+                      Icon(Icons.stop,color: pixelColor(32)),
+                      Icon(Icons.stop,color: pixelColor(33)),
+                      Icon(Icons.stop,color: pixelColor(34)),
+                      Icon(Icons.stop,color: pixelColor(35)),
+                    ]
+                ),
+              ],
+            )
+            //Text('PIXEL CALENDAR',style: TextStyle(color: Color.fromARGB(255, 224, 61, 61)),)
           ),
           //Lower Decoration Box Background
           new Container(
@@ -161,8 +253,7 @@ class CalendarState extends State<PixelCalendar> {
               color: Colors.red,
             ),
           ),
-          
-
+          //AddButton Background
           new Container(
             margin: EdgeInsets.only(top:425,bottom: 25),
             foregroundDecoration: new BoxDecoration(
@@ -170,6 +261,7 @@ class CalendarState extends State<PixelCalendar> {
               shape: BoxShape.circle
             ),
           ),
+          //AddButton
           new Container(
             margin: EdgeInsets.only(top:431,left:135.5),
             child: RaisedButton(
