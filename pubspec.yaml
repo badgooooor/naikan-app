@@ -34,6 +34,8 @@ flutter:
         - asset: assets/leelawad.ttf
         - asset: assets/leelawdb.ttf
           weight: 700
-
+    - family: Cooper
+      fonts:
+        - asset: assets/Cooper.ttf
 
 

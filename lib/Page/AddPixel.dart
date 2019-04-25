@@ -83,22 +83,32 @@ class _AddPixelPage extends State<AddPixelPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(
+          titleSpacing: 40,
+          title: new Text(
 
-              getDate(_date), style: new TextStyle(color: Colors.black)),
+              getDate(_date), style: new TextStyle(
+                color: Colors.black54,
+                fontFamily: 'Cooper',
+                fontSize: 18.0
+                
+                )),
           backgroundColor: new Color(0xFFFFFFFF),
-          centerTitle: false,
+          
         ),
         body: Center(
 
             child: Column(
-
+                
                 children: [
-
+                  Container(
+                    height: 90,
+                  ),
                   Text('HOW ARE YOU?', style: new TextStyle(
+                      fontFamily: 'Cooper',
+                   
                       color: new Color(0xFFF34949),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 40),),
+                      
+                      fontSize: 36),),
                   Row(
                       children: [
                         Column(children: <Widget>[Text('Happy'),IconButton(icon: Icon(Icons.save),onPressed: (){happy+=1;})],),
