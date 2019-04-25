@@ -1,6 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:event_bus/event_bus.dart';
 import 'package:configurable_expansion_tile/configurable_expansion_tile.dart';
+class ViewSnapPage extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    
+    return MaterialApp(
+      title: "ViewSnap",
+      home: Body(),
+    );
+  }
+  
+}
 class Body extends StatelessWidget{
   //static const PrimaryColor = const Color(0xFFFFFF100);
   @override
@@ -159,16 +170,26 @@ class Viewsnap extends StatefulWidget{
 }
 
 class ViewsnapState extends State<Viewsnap>{
+  var data = [
+    {
+      'title':'PLAYING FOOTBAL WITH FRIEND'
+    },{
+      'title':'bananababanana'
+    },{
+      'title':'First time with my dog'
+    }
+  ];
+  
   @override
   Widget build(BuildContext context) {
     return new ListView.builder(
       
-      itemCount: 1,
+      itemCount: data.length,
       itemBuilder: (BuildContext context, int index){
         return new Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Content()
+            Content(data[index])
           ],
         );
       },
@@ -177,13 +198,17 @@ class ViewsnapState extends State<Viewsnap>{
 }
 
 class Content extends StatefulWidget{
+  Map data = new Map();
+  Content(this.data);
 @override
 ContentState createState() {
-      return new ContentState();
+      return new ContentState(data);
     }
 
 }
 class ContentState extends State<Content>{
+  Map data = new Map();
+  ContentState(this.data);
   @override
   Widget build(BuildContext context){
     return Container(
@@ -265,7 +290,7 @@ class ContentState extends State<Content>{
                         width:250 ,
                         child: 
                         
-                        new Text('PLAYING FOOTBAL WITH FRIENDS',
+                        new Text(data['title'],
                         style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14,color: Color(0xFFF34949)),
                         ),
                         
