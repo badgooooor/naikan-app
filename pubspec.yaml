@@ -11,6 +11,7 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^0.1.2
   http: ^0.11.3
+  charts_flutter: ^0.6.0
 
 dev_dependencies:
   flutter_test:
@@ -19,7 +20,13 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-   - image/background.jpg
+   - assets/
+  fonts:
+    - family: Leelawadee
+      fonts:
+        - asset: assets/leelawad.ttf
+        - asset: assets/leelawdb.ttf
+          weight: 700
 
 
 
