@@ -27,7 +27,14 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-   - assets/
+   - assets/moodpixel/Group35.png
+   - assets/moodpixel/Group36.png
+   - assets/moodpixel/Group37.png
+   - assets/moodpixel/Group38.png
+   - assets/moodpixel/Group39.png
+   - assets/moodpixel/Group40.png
+   
+
   fonts:
     - family: Leelawadee
       fonts:
@@ -37,5 +44,9 @@ flutter:
     - family: Cooper
       fonts:
         - asset: assets/Cooper.ttf
+    - family: happy
+      fonts:
+        - asset: assets/happy.ttf
+
 
 

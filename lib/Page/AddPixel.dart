@@ -83,8 +83,12 @@ class _AddPixelPage extends State<AddPixelPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          
           leading: IconButton(
-            icon: Icon(Icons.date_range,size: 25,color: Colors.black54,),
+            padding: EdgeInsets.only(
+              left: 5
+            ),
+            icon: Icon(Icons.date_range,size: 25,color: Colors.black45,),
             onPressed:(){
               print('select date');
             },
@@ -93,13 +97,13 @@ class _AddPixelPage extends State<AddPixelPage> {
           title: new Text(
           
               getDate(_date), style: new TextStyle(
-                color: Colors.black54,
+                color: Colors.black45,
                 fontFamily: 'Cooper',
                 fontSize: 18.0,
                 
                 
                 )),
-          backgroundColor: new Color(0xFFFFFFFF),
+          backgroundColor: new Color(0xFFF34949),
           
         ),
         body: Container(
@@ -126,30 +130,47 @@ class _AddPixelPage extends State<AddPixelPage> {
                   Container(
                     height: 15,
                   ),
-                  
-                      
-                
+
                   Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
-                          Text('Happy', style: new TextStyle(
-                            
-                          )),
                           
-                          IconButton(icon: Icon(Icons.save),onPressed: (){happy+=1;})
-                           ],),
+                          Text('Happy', style: new TextStyle(
+                            fontStyle: FontStyle.italic,
+                            color: Colors.red[900],
+                            fontWeight: FontWeight.bold
+                          )),
+                          GestureDetector(
+                            onTap: (){
+                              happy+=1;
+                            },
+                            child: Image(
+                              image: AssetImage('assets/moodpixel/Group35.png'),width: 80,
+                            )
+                          ),
+                          // IconButton(icon: Icon( IconData(0xe900, fontFamily: 'happy')),onPressed: (){happy+=1;})
+                            ],),
                           Container(
                             width: 22,
                           ),
                         Column(
                           children: <Widget>[
                           Text('Angry',style: new TextStyle(
-
+                            fontStyle: FontStyle.italic,
+                            color: Colors.red[900],
+                            fontWeight: FontWeight.bold
                           )),
-                          IconButton(icon: Icon(Icons.save),onPressed: (){angry+=1;})
+                          GestureDetector(
+                            onTap: (){
+                              angry+=1;
+                            },
+                            child: Image(
+                              image: AssetImage('assets/moodpixel/Group36.png'),width: 80,
+                            )
+                          ),
                           ],),
                           Container(
                             width: 22,
@@ -157,9 +178,18 @@ class _AddPixelPage extends State<AddPixelPage> {
                         Column(
                           children: <Widget>[
                           Text('Love',style: new TextStyle(
-
+                            fontStyle: FontStyle.italic,
+                            color: Colors.red[900],
+                            fontWeight: FontWeight.bold
                           )),
-                          IconButton(icon: Icon(Icons.save),onPressed: (){love+=1;})
+                          GestureDetector(
+                            onTap: (){
+                              love+=1;
+                            },
+                            child: Image(
+                              image: AssetImage('assets/moodpixel/Group37.png'),width: 80,
+                            )
+                          ),
                           ],)
                       ]
                   ),
@@ -173,10 +203,19 @@ class _AddPixelPage extends State<AddPixelPage> {
                         
                         Column(
                           children: <Widget>[
-                          Text('Passive',style: new TextStyle(
-
+                          Text('Neutral',style: new TextStyle(
+                            fontStyle: FontStyle.italic,
+                            color: Colors.red[900],
+                            fontWeight: FontWeight.bold
                           )),
-                          IconButton(icon: Icon(Icons.save),onPressed: (){passive+=1;})
+                          GestureDetector(
+                            onTap: (){
+                              passive+=1;
+                            },
+                            child: Image(
+                              image: AssetImage('assets/moodpixel/Group38.png'),width: 80,
+                            )
+                          ),
                           ],),
                           Container(
                             width: 15,
@@ -184,9 +223,18 @@ class _AddPixelPage extends State<AddPixelPage> {
                         Column(
                           children: <Widget>[
                           Text('Confused',style: new TextStyle(
-
+                            fontStyle: FontStyle.italic,
+                            color: Colors.red[900],
+                            fontWeight: FontWeight.bold
                           )),
-                          IconButton(icon: Icon(Icons.save),onPressed: (){confused+=1;})
+                          GestureDetector(
+                            onTap: (){
+                              confused+=1;
+                            },
+                            child: Image(
+                              image: AssetImage('assets/moodpixel/Group39.png'),width: 80,
+                            )
+                          ),
                           ],),
                           Container(
                             width: 15,
@@ -194,9 +242,18 @@ class _AddPixelPage extends State<AddPixelPage> {
                         Column(
                           children: <Widget>[
                           Text('Sad',style: new TextStyle(
-
+                            fontStyle: FontStyle.italic,
+                            color: Colors.red[900],
+                            fontWeight: FontWeight.bold
                           )),
-                          IconButton(icon: Icon(Icons.save),onPressed: (){sad+=1;})
+                          GestureDetector(
+                            onTap: (){
+                              sad+=1;
+                            },
+                            child: Image(
+                              image: AssetImage('assets/moodpixel/Group40.png'),width: 80,
+                            )
+                          ),
                           ],),
                       
                       ]
@@ -222,11 +279,24 @@ class _AddPixelPage extends State<AddPixelPage> {
                                   )
                               ],
                           fontSize: 20),
-                          ),
+                          ),  
                       ],
-                    )),
-                  IconButton(icon: Icon(Icons.score),onPressed: display,),
-                  IconButton(icon: Icon(Icons.add_box),onPressed: save,)
+                    ),
+                    ),
+                    Container(
+                    height: 10,  
+                    ),
+                    Row(
+                      children: <Widget>[
+                        new Column(
+                          children: <Widget>[
+                            
+                          ],
+                        )
+                      ],
+                    ),
+                    IconButton(icon: Icon(Icons.score),onPressed: display,),
+                    IconButton(icon: Icon(Icons.add_box),onPressed: save,)
             ])
 
 
