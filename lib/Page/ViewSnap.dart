@@ -72,7 +72,7 @@ class FooterState extends State<Footer>{
     return Container(
       
       width: 370,
-      height: 51,
+      height: 54,
       color: new Color(0xFFF34949),
       child: new Row(
         children: <Widget>[

@@ -20,6 +20,7 @@ class AddPixelPage extends StatefulWidget{
 }
 
 class _AddPixelPage extends State<AddPixelPage> {
+  
   DateTime _date = new DateTime.now();
   int dateInt = new DateTime.now().year*10000+new DateTime.now().month*100+new DateTime.now().day;
   int happy=0;
@@ -82,6 +83,8 @@ class _AddPixelPage extends State<AddPixelPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Color(0xFFFFFFFF),
+        bottomNavigationBar: Footerr(),
         appBar: AppBar(
           
           leading: IconButton(
@@ -107,12 +110,12 @@ class _AddPixelPage extends State<AddPixelPage> {
           
         ),
         body: Container(
-
+            
             child: Column(
                 
                 children: [
                   Container(
-                    height: 85,
+                    height: 100,
                   ),
                   Text('HOW ARE YOU?', style: new TextStyle(
                       fontFamily: 'Cooper',
@@ -127,8 +130,9 @@ class _AddPixelPage extends State<AddPixelPage> {
                           ]
                       ),
                   ),
+                  
                   Container(
-                    height: 15,
+                    height: 25,
                   ),
 
                   Row(
@@ -154,7 +158,7 @@ class _AddPixelPage extends State<AddPixelPage> {
                           // IconButton(icon: Icon( IconData(0xe900, fontFamily: 'happy')),onPressed: (){happy+=1;})
                             ],),
                           Container(
-                            width: 22,
+                            width: 15,
                           ),
                         Column(
                           children: <Widget>[
@@ -173,7 +177,7 @@ class _AddPixelPage extends State<AddPixelPage> {
                           ),
                           ],),
                           Container(
-                            width: 22,
+                            width: 15,
                           ),
                         Column(
                           children: <Widget>[
@@ -259,7 +263,7 @@ class _AddPixelPage extends State<AddPixelPage> {
                       ]
                   ),
                   Container(
-                    height: 10,
+                    height: 25,
                   ),
                   Container(
                     margin: EdgeInsets.only(
@@ -284,27 +288,136 @@ class _AddPixelPage extends State<AddPixelPage> {
                     ),
                     ),
                     Container(
-                    height: 10,  
+                    height: 20,
+                  ),
+                    Container(
+                      decoration: new BoxDecoration(
+                        color: Color(0xFFF7A8A8),
+                        borderRadius: BorderRadius.all(Radius.circular(40.0)),
+                      ),
+                      width: 350,
+                      height: 80,
+                      
+                      child: Row(
+                        children: <Widget>[
+                          Padding(
+                            padding: EdgeInsets.only(
+                              left: 0
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: (){
+                              display();
+                            },
+                            child: Image(
+                            image: AssetImage('assets/moodpixel/Group 36.png'),
+                            width: 80,
+                            height: 80,
+                          
+                            )
+                          ),
+                          
+                        ],
+                         
+                      ),
                     ),
-                    Row(
-                      children: <Widget>[
-                        new Column(
-                          children: <Widget>[
-                            
-                          ],
-                        )
-                      ],
-                    ),
-                    IconButton(icon: Icon(Icons.score),onPressed: display,),
-                    IconButton(icon: Icon(Icons.add_box),onPressed: save,)
+                    Container(
+                    height: 30,
+                  ),
+                  GestureDetector(
+                            onTap: (){
+                              save();
+                            },
+                            child: Image(
+                              image: AssetImage('assets/moodpixel/update.png'),height: 65,
+                            )
+                          ),
+
             ])
 
 
         )
+        
 
 
     
     );
   }
 
+}
+class Footerr extends StatefulWidget{
+  @override
+  FooterrState createState(){
+    return new FooterrState();
+}
+
+}
+class FooterrState extends State<Footerr>{
+  @override
+  Widget build(BuildContext context){
+    return Container(
+      
+      width: 370,
+      height: 54,
+      color: new Color(0xFFF34949),
+      child: new Row(
+        children: <Widget>[
+          Container(
+            margin: EdgeInsets.only(
+              left: 45
+            ),
+            child:
+            new IconButton(
+              icon: Icon(Icons.home,color: Colors.white30,size: 30,),
+              onPressed: (){
+                print('home');
+              },
+            )
+            
+          ),
+          Container(
+            margin: EdgeInsets.only(
+              left: 45
+            ),
+            child:
+            new IconButton(
+              icon :Icon(Icons.edit,color: Colors.white30,size: 30),
+              onPressed: (){
+                print('addsnap');
+              },
+            )
+          
+          ),
+          Container(
+            margin: EdgeInsets.only(
+              left: 45
+            ),
+            child:
+             new IconButton(
+              icon: Icon(Icons.favorite,color: Colors.white30,size: 30),
+              onPressed: (){
+                print('snap');
+              },
+            )
+            
+            ),
+          Container(
+            margin: EdgeInsets.only(
+              left: 45
+            ),
+            child:
+            new IconButton(
+              icon:Icon(Icons.settings,color: Colors.white30,size: 30),
+              onPressed: (){
+                print('setting');
+              },
+            )
+           
+          ),
+          
+        
+        ],
+      ),
+    );
+  }
 }
