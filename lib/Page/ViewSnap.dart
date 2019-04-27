@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:event_bus/event_bus.dart';
 import 'package:configurable_expansion_tile/configurable_expansion_tile.dart';
 import 'package:naikan/Model/Model.dart';
+import 'package:month_picker_dialog/month_picker_dialog.dart';
 
 class ViewSnapPage extends StatelessWidget{
   @override
@@ -158,6 +159,8 @@ class Viewsnap extends StatefulWidget{
 
 class ViewsnapState extends State<Viewsnap>{
   Api api = new Api(); 
+  DateTime test_ym = new DateTime.now();
+  
   @override
   initState() {
     getAll();
@@ -167,16 +170,20 @@ class ViewsnapState extends State<Viewsnap>{
   getAll() async{
     data = await api.getSnapshotAll();
   }
-  // var data = [
-  //   {
-  //     'title':'PLAYING FOOTBAL WITH FRIEND'
-  //   },{
-  //     'title':'bananababanana'
-  //   },{
-  //     'title':'First time with my dog'
-  //   }
-  // ];
+
   
+ Future<Null> selectYearMonth(BuildContext context) async{
+    final DateTime pickedYearMonth = await showMonthPicker(
+      context: context,initialDate: DateTime(2019)
+    );
+        if(pickedYearMonth != null){
+      setState(() {
+        test_ym = pickedYearMonth;
+        print(test_ym);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return new ListView.builder(
@@ -205,6 +212,18 @@ ContentState createState() {
 }
 class ContentState extends State<Content>{
   Snapshot data = new Snapshot();
+  String getStingDate(int date){
+    int y = date~/10000;
+    int d = date%100;
+    int m = (date~/100)%100;
+        var month = ['January', 'February', 'March',
+    'April', 'May', 'June',
+    'July', 'August', 'September',
+    'October', 'November', 'December'
+    ];
+
+    return  d.toString()+'  ' +month[m-1] +'  ' + y.toString();
+  }
   ContentState(this.data);
   @override
   Widget build(BuildContext context){
@@ -235,7 +254,7 @@ class ContentState extends State<Content>{
             height: 26,
             child: new Row(
               children: <Widget>[
-                new Text(data.date.toString(),
+                new Text(getStingDate(data.date),
                         style: TextStyle(fontSize: 13.5,color: Colors.grey[700]),
                         ),
             
