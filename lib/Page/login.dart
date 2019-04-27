@@ -70,67 +70,104 @@ class _LoginState extends State<LoginPage> {
       body: new Stack(
         children: <Widget>[
           new Container(
-            decoration: new BoxDecoration(
-              image: new DecorationImage(
-                  image: AssetImage('assets/Login_background.jpg'),
-                  fit: BoxFit.fill
-              ),
-            ),
-          ),
-          new Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(64.0, 120.0, 64.0, 4.0),
-                  child: new Theme(
-                      data: ThemeData(
-                        primaryColor: Colors.white,
-                        hintColor: Colors.white
-                      ),
-                      child: TextField(
-                          decoration: InputDecoration(
-                              labelText: 'Username',
-                              labelStyle: new TextStyle(color: Colors.white),
-                              border: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white))
-                          ),
-                          textAlign: TextAlign.center,
-                          cursorColor: Colors.white,
-                          keyboardType: TextInputType.text,
-                          onChanged: (value){
-                            username=value.isEmpty?null:value;
-                            print('entered username: '+value);
-                          },
-                          style: TextStyle(color: Colors.white)
+            margin: EdgeInsets.only(
+              left: 148,
+              top: 100
 
+            ),
+            child : Image(
+            image: AssetImage('assets/cherry.png'),
+            height: 100,
+          ),
+          ),
+          
+         
+            
+          new Container(
+            margin: EdgeInsets.only(
+              top: 350
+            ),
+            decoration: new BoxDecoration(
+              color: Colors.red[400],
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(120.0),
+                topRight: Radius.circular(120.0)
+              )
+              //borderRadius: BorderRadius.all(Radius.circular(100.0)),
+            ),
+            width: 410,
+            height: 870,
+            // decoration: new BoxDecoration(
+            //   image: new DecorationImage(
+            //       image: AssetImage('assets/Login_background.jpg'),
+            //       fit: BoxFit.fill
+            //   ),
+            // ),
+          ),
+          
+          new Center(
+                          decoration: InputDecoration(
+            
+            child: Container(
+              
+              
+              margin: EdgeInsets.only(
+                top: 200
+              ),
+              decoration: new BoxDecoration(
+                color: Colors.red[400],
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(120.0),
+                  topRight: Radius.circular(120.0)
+                )
+                //borderRadius: BorderRadius.all(Radius.circular(100.0)),
+              ),
+              width: 410,
+              height: 870,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(64.0, 74.0, 64.0, 4.0),
+                    child: TextField(
+                      decoration: InputDecoration(
+                        labelText: 'Username',
+                        labelStyle: new TextStyle(color: Colors.white),
                       ),
-                  )
-                ),
+                      textAlign: TextAlign.center,
+                      cursorColor: Colors.white,
+                      keyboardType: TextInputType.text,
+                      onChanged: (value){
+                        username=value.isEmpty?null:value;
+                        print('entered username: '+value);
+                      },
+                      style: TextStyle(color: Colors.white),
+
+                    ),
+                  ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(64.0, 4.0, 64.0, 35.0),
-                  child: new Theme(
-                      data: ThemeData(
-                        primaryColor: Colors.white,
-                        hintColor: Colors.white
-                      ),
-                      child: TextField(
-                        decoration: InputDecoration(
-                            labelText: 'Password',
-                            labelStyle: new TextStyle(color: Colors.white)
-                        ),
-                        textAlign: TextAlign.center,
-                        cursorColor: Colors.white,
-                        obscureText: true,
-                        keyboardType: TextInputType.text,
-                        onChanged: (value){
-                          password=value.isEmpty?null:value;
-                          print('entered password: '+value);
-                        },
-                        style: TextStyle(color: Colors.white),
-                      ),
-                  )
+                  padding: const EdgeInsets.fromLTRB(64.0, 30.0, 64.0, 35.0),
+                  child: TextField(
+                    decoration: InputDecoration(
+                        labelText: 'Password',
+                        labelStyle: new TextStyle(color: Colors.white)
+                    ),
+                    textAlign: TextAlign.center,
+                    cursorColor: Colors.white,
+                    obscureText: true,
+                    keyboardType: TextInputType.text,
+                    onChanged: (value){
+                      password=value.isEmpty?null:value;
+                      print('entered password: '+value);
+                    },
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+                Container(
+                  height: 0,
                 ),
                 RaisedButton(
+
                   color: Colors.white,
                   textColor: Colors.red,
                   child: Text(
@@ -144,6 +181,10 @@ class _LoginState extends State<LoginPage> {
                 ),
               ],
             ),
+            ),
+            
+            
+              
           )
         ],
 

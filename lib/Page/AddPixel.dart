@@ -83,50 +83,148 @@ class _AddPixelPage extends State<AddPixelPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          titleSpacing: 40,
+          leading: IconButton(
+            icon: Icon(Icons.date_range,size: 25,color: Colors.black54,),
+            onPressed:(){
+              print('select date');
+            },
+          ),
+          titleSpacing: 0,
           title: new Text(
-
+          
               getDate(_date), style: new TextStyle(
                 color: Colors.black54,
                 fontFamily: 'Cooper',
-                fontSize: 18.0
+                fontSize: 18.0,
+                
                 
                 )),
           backgroundColor: new Color(0xFFFFFFFF),
           
         ),
-        body: Center(
+        body: Container(
 
             child: Column(
                 
                 children: [
                   Container(
-                    height: 90,
+                    height: 85,
                   ),
                   Text('HOW ARE YOU?', style: new TextStyle(
                       fontFamily: 'Cooper',
-                   
-                      color: new Color(0xFFF34949),
+                      color: new Color(0xFFC43A3A),
+                      fontSize: 36,
+                      shadows:<Shadow>[
+                        Shadow(
+                        offset: Offset(3, 3),
+                        blurRadius: 2.0,
+                        color: Colors.black12
+                              )
+                          ]
+                      ),
+                  ),
+                  Container(
+                    height: 15,
+                  ),
+                  
                       
-                      fontSize: 36),),
+                
                   Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Column(children: <Widget>[Text('Happy'),IconButton(icon: Icon(Icons.save),onPressed: (){happy+=1;})],),
-                        Column(children: <Widget>[Text('Angry'),IconButton(icon: Icon(Icons.save),onPressed: (){angry+=1;})],),
-                        Column(children: <Widget>[Text('Love'),IconButton(icon: Icon(Icons.save),onPressed: (){love+=1;})],),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                          Text('Happy', style: new TextStyle(
+                            
+                          )),
+                          
+                          IconButton(icon: Icon(Icons.save),onPressed: (){happy+=1;})
+                           ],),
+                          Container(
+                            width: 22,
+                          ),
+                        Column(
+                          children: <Widget>[
+                          Text('Angry',style: new TextStyle(
+
+                          )),
+                          IconButton(icon: Icon(Icons.save),onPressed: (){angry+=1;})
+                          ],),
+                          Container(
+                            width: 22,
+                          ),
+                        Column(
+                          children: <Widget>[
+                          Text('Love',style: new TextStyle(
+
+                          )),
+                          IconButton(icon: Icon(Icons.save),onPressed: (){love+=1;})
+                          ],)
                       ]
                   ),
+
+                  Container(
+                    height: 10,
+                  ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Column(children: <Widget>[Text('Passive'),IconButton(icon: Icon(Icons.save),onPressed: (){passive+=1;})],),
-                        Column(children: <Widget>[Text('Confused'),IconButton(icon: Icon(Icons.save),onPressed: (){confused+=1;})],),
-                        Column(children: <Widget>[Text('Sad'),IconButton(icon: Icon(Icons.save),onPressed: (){sad+=1;})],),
+                        
+                        Column(
+                          children: <Widget>[
+                          Text('Passive',style: new TextStyle(
+
+                          )),
+                          IconButton(icon: Icon(Icons.save),onPressed: (){passive+=1;})
+                          ],),
+                          Container(
+                            width: 15,
+                          ),
+                        Column(
+                          children: <Widget>[
+                          Text('Confused',style: new TextStyle(
+
+                          )),
+                          IconButton(icon: Icon(Icons.save),onPressed: (){confused+=1;})
+                          ],),
+                          Container(
+                            width: 15,
+                          ),
+                        Column(
+                          children: <Widget>[
+                          Text('Sad',style: new TextStyle(
+
+                          )),
+                          IconButton(icon: Icon(Icons.save),onPressed: (){sad+=1;})
+                          ],),
+                      
                       ]
                   ),
-                  Text('Feeling of the day', style: new TextStyle(
-                      color: new Color(0xFFF34949),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 40),),
+                  Container(
+                    height: 10,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(
+                      left: 57
+                    ),
+
+                    child: new Row(
+                      children: <Widget>[
+                         new Text('Feeling of the day', style: new TextStyle(
+                          color: new Color(0xFFC43A3A),
+                          fontFamily: 'Cooper',
+                          shadows:<Shadow>[
+                            Shadow(
+                            offset: Offset(3, 3),
+                            blurRadius: 2.0,
+                            color: Colors.black12
+                                  )
+                              ],
+                          fontSize: 20),
+                          ),
+                      ],
+                    )),
                   IconButton(icon: Icon(Icons.score),onPressed: display,),
                   IconButton(icon: Icon(Icons.add_box),onPressed: save,)
             ])
@@ -135,6 +233,8 @@ class _AddPixelPage extends State<AddPixelPage> {
         )
 
 
+    
     );
   }
+
 }
