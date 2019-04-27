@@ -139,7 +139,7 @@ class _AddPixelPage extends State<AddPixelPage> {
                             
                           )),
                           
-                          IconButton(icon: Icon(Icons.),onPressed: (){happy+=1;})
+                          IconButton(icon: Icon(Icons.save),onPressed: (){happy+=1;})
                            ],),
                           Container(
                             width: 22,
