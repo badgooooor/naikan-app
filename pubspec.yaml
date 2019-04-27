@@ -13,6 +13,7 @@ dependencies:
   firebase_messaging: ^4.0.0+1
   event_bus: ^1.1.0
   configurable_expansion_tile: ^1.0.0
+  month_picker_dialog: ^0.0.8
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
