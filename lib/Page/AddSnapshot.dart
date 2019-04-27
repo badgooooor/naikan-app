@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'package:naikan/Model/Model.dart';
-import 'package:month_picker_dialog/month_picker_dialog.dart';
+import 'dart:convert';
 
 class AddSnapshot extends StatelessWidget{
   @override
@@ -35,8 +35,6 @@ class _HomePageState extends State<HomePage>{
   TimeOfDay _time = new TimeOfDay.now();
   File image;
   Api api = new Api();
-  
-  DateTime test_ym = new DateTime.now();
 
   void _display(){
     setState(() {
@@ -76,7 +74,7 @@ class _HomePageState extends State<HomePage>{
         "detail":story,
         "time":_time.toString().substring(10,15),
         "place":where,
-        "date":dateInt+100,
+        "date":dateInt,
         "pic":image==null?null:image.path
     };
     print('--------------------save--------------------');
@@ -90,10 +88,8 @@ class _HomePageState extends State<HomePage>{
     // print(json.decode(res.body)['date']);
     // Snapshot x = await api.getSnapshotDate(20190425);
     // print(x.toString());
-    // List<Snapshot> snaps =  await api.getSnapshotAll();
-    // print(snaps); 
-    List<Snapshot> snaps =  await api.getSnapshotYearMonth(2019,5);
-    print(snaps); 
+    List<Snapshot> snaps =  await api.getSnapshotAll();
+    // print(snaps[0]); 
   }
   Future<Null> selectDate(BuildContext context) async{
     final DateTime pickedDateTime = await showDatePicker(
@@ -116,17 +112,6 @@ class _HomePageState extends State<HomePage>{
     if(pickedTime != null){
       setState(() {
         _time = pickedTime;
-      });
-    }
-  }
-  Future<Null> selectYearMonth(BuildContext context) async{
-    final DateTime pickedYearMonth = await showMonthPicker(
-      context: context,initialDate: DateTime(2019)
-    );
-        if(pickedYearMonth != null){
-      setState(() {
-        test_ym = pickedYearMonth;
-        print(test_ym);
       });
     }
   }
@@ -172,11 +157,13 @@ class _HomePageState extends State<HomePage>{
           backgroundColor: new Color(0xFFF34949),
           centerTitle: true,
       ),
-      body: Center(
-        
+      body: Container(
+       width: double.infinity,
         child: Column(
-//          mainAxisAlignment: MainAxisAlignment.center,
+        // mainAxisAlignment: MainAxisAlignment.start,
+         crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+           
             Container(
               height: 30,
             ),
@@ -187,7 +174,7 @@ class _HomePageState extends State<HomePage>{
               
               child:
               Row(
-                //mainAxisAlignment: MainAxisAlignment.center,
+               mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Image(
                     image: AssetImage('assets/heart.png'),
@@ -220,9 +207,16 @@ class _HomePageState extends State<HomePage>{
                 style: TextStyle(color:Colors.red[400], fontSize: 15),
                 maxLength: 30,
                 cursorColor: Colors.red[400],
+                
                 decoration: InputDecoration(
                   prefixIcon: Icon(Icons.title,color: Colors.red[300],),
                   hintText: "Title",
+                  border: UnderlineInputBorder(
+                    
+                    borderSide: BorderSide(
+                      color: Colors.red[300]
+                    )
+                  )
                 ),
                 onChanged: (text){
                   name = text;
@@ -235,30 +229,44 @@ class _HomePageState extends State<HomePage>{
               keyboardType: TextInputType.text,
               // textInputAction: TextInputAction.continueAction,
               textAlign: TextAlign.left,
-              style: TextStyle(color: color, fontWeight: FontWeight.w600, fontSize: 20),
+              style: TextStyle(color: color, fontSize: 15),
               // maxLines: 4,
               maxLength: 280,
               decoration: InputDecoration(
-                prefixIcon: Icon(Icons.book),
-                hintText: "    What's happening?",
+                prefixIcon: Icon(Icons.speaker_notes,color: Colors.red[300],),
+                hintText: "What's happening?",
               ),
               onChanged: (text){
                 story = text;
               },
             ),
-            FlatButton(
-                child: new Text('When?',style: TextStyle(color: Colors.grey, fontWeight: FontWeight.w600, fontSize: 20) ,),
+            Container(
+              margin: EdgeInsets.only(
+                left: 10
+              ),
+              child:Row(
+                children: <Widget>[
+                  Icon(Icons.access_time,color:Colors.red[300]),
+                  FlatButton(
+                
+                child: new Text('When?',style: TextStyle(color: Colors.grey, fontSize: 15) ,),
                 onPressed: (){selectTime(context);}
             ),          
+                ],
+              ),
+
+              
+            ),
+            
 
             TextField(
               keyboardType: TextInputType.text,
               // textInputAction: TextInputAction.continueAction,
               textAlign: TextAlign.left,
-              style: TextStyle(color: color, fontWeight: FontWeight.w800, fontSize: 20),
+              style: TextStyle(color: color, fontSize: 15),
               maxLength: 30,
               decoration: InputDecoration(
-                prefixIcon: Icon(Icons.location_on),
+                prefixIcon: Icon(Icons.location_on,color: Colors.red[300],),
                 hintText: "Where?",
               ),
               onChanged: (text){
@@ -276,7 +284,7 @@ class _HomePageState extends State<HomePage>{
             ),
             FlatButton(
               child: new Text('for test?',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.w600,fontSize: 20 )),
-              onPressed: (){selectYearMonth(context);},//getSnapshot,
+              onPressed: getSnapshot,
             ),
 
           ],
