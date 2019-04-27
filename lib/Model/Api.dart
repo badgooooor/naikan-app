@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as client;
-import 'dart:io';
 
 
 class Api{
@@ -82,6 +81,7 @@ class Api{
     // print(allSnapshot);
   return allSnapshot;
   }
+
   Future<List<Snapshot>> getSnapshotYearMonth(int year,int month) async{
     String urlGetYearMonth = 'https://us-central1-naikan-87838.cloudfunctions.net/webApi/api/v1/snapshots/monthSnapshot/$year/$month';
     client.Response response = await client.get(urlGetYearMonth,headers: {"Content-Type" : "application/json"});

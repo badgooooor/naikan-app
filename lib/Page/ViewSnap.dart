@@ -31,6 +31,7 @@ class Body extends StatelessWidget{
             icon: Icon(Icons.search,size:30),
             onPressed: (){
               print('searchhh');
+              print(5~/2);
             },
           )
           // Container( 
