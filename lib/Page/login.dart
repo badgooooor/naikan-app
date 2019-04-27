@@ -35,8 +35,14 @@ class _LoginState extends State<LoginPage> {
     setState(() {
       print('Logging in with username: '+(username==null?'NULL':username)+'\tpassword: '+(password==null?'NULL':password));
       if(username!=null&&password!=null){
-        print('Logged in as $username with password $password');
-        loginDialog = 'Logging in Completed';
+        if(username=='naikan'&&password=='naikan') {
+          print('Logged in as $username with password $password');
+          loginDialog = 'Logging in Completed';
+        }
+        else{
+          print('Username $username or password $password is not matched');
+          loginDialog = 'Logging in failed: Wrong Username or Password';
+        }
       }
       else {
         print('Logging in failed: Invalid Username or Password');
