@@ -8,6 +8,7 @@ class LoginStateSet extends StatelessWidget {
       title: 'Naikan',
       theme: ThemeData(
           primarySwatch: Colors.red,
+          hintColor: Colors.white,
           fontFamily: 'Leelawadee'
       ),
       home: LoginPage(title: 'Naikan_Login'),
@@ -82,39 +83,52 @@ class _LoginState extends State<LoginPage> {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.fromLTRB(64.0, 120.0, 64.0, 4.0),
-                  child: TextField(
-                    decoration: InputDecoration(
-                      labelText: 'Username',
-                      labelStyle: new TextStyle(color: Colors.white),
-                    ),
-                    textAlign: TextAlign.center,
-                    cursorColor: Colors.white,
-                    keyboardType: TextInputType.text,
-                    onChanged: (value){
-                      username=value.isEmpty?null:value;
-                      print('entered username: '+value);
-                    },
-                    style: TextStyle(color: Colors.white),
+                  child: new Theme(
+                      data: ThemeData(
+                        primaryColor: Colors.white,
+                        hintColor: Colors.white
+                      ),
+                      child: TextField(
+                          decoration: InputDecoration(
+                              labelText: 'Username',
+                              labelStyle: new TextStyle(color: Colors.white),
+                              border: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white))
+                          ),
+                          textAlign: TextAlign.center,
+                          cursorColor: Colors.white,
+                          keyboardType: TextInputType.text,
+                          onChanged: (value){
+                            username=value.isEmpty?null:value;
+                            print('entered username: '+value);
+                          },
+                          style: TextStyle(color: Colors.white)
 
-                  ),
+                      ),
+                  )
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(64.0, 4.0, 64.0, 35.0),
-                  child: TextField(
-                    decoration: InputDecoration(
-                        labelText: 'Password',
-                        labelStyle: new TextStyle(color: Colors.white)
-                    ),
-                    textAlign: TextAlign.center,
-                    cursorColor: Colors.white,
-                    obscureText: true,
-                    keyboardType: TextInputType.text,
-                    onChanged: (value){
-                      password=value.isEmpty?null:value;
-                      print('entered password: '+value);
-                    },
-                    style: TextStyle(color: Colors.white),
-                  ),
+                  child: new Theme(
+                      data: ThemeData(
+                        primaryColor: Colors.white,
+                        hintColor: Colors.white
+                      ),
+                      child: TextField(
+                        decoration: InputDecoration(
+                            labelText: 'Password',
+                            labelStyle: new TextStyle(color: Colors.white)
+                        ),
+                        textAlign: TextAlign.center,
+                        cursorColor: Colors.white,
+                        obscureText: true,
+                        keyboardType: TextInputType.text,
+                        onChanged: (value){
+                          password=value.isEmpty?null:value;
+                          print('entered password: '+value);
+                        },
+                        style: TextStyle(color: Colors.white),
+                      ),
+                  )
                 ),
                 RaisedButton(
                   color: Colors.white,
