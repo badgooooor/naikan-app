@@ -16,6 +16,25 @@ class ViewSnapPage extends StatelessWidget{
   
 }
 class Body extends StatelessWidget{
+  Api api = new Api();
+  DateTime test_ym = new DateTime.now();
+  List<Snapshot> ym;
+   getyearmont() async{
+    ym = await api.getSnapshotYearMonth(test_ym.month,test_ym.year);
+  }
+
+
+Future<Null> selectYearMonth(BuildContext context) async{
+    final DateTime pickedYearMonth = await showMonthPicker(
+      context: context,initialDate: DateTime(2019)
+    );
+        if(pickedYearMonth != null){
+      setState() {
+        test_ym = pickedYearMonth;
+        print(test_ym);
+      };
+    }
+  }
   //static const PrimaryColor = const Color(0xFFFFFF100);
   @override
   Widget build(BuildContext context){
@@ -32,7 +51,8 @@ class Body extends StatelessWidget{
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.search,size:30),
-            onPressed: (){
+            onPressed: (){ 
+              selectYearMonth(context);
               print('searchhh');
               print(5~/2);
             },
@@ -45,7 +65,7 @@ class Body extends StatelessWidget{
         title: Text('SNAPSHOT'),
         
       ),
-      body: Viewsnap(),
+      body: Viewsnap(ym),
       bottomNavigationBar: Footer(),
     );
   }
@@ -129,6 +149,8 @@ class FooterState extends State<Footer>{
   }
 }
 class BodyContent extends StatelessWidget{
+  List<Snapshot> ym = new List();
+  BodyContent(this.ym);
   @override
   Widget build(BuildContext context) {
 
@@ -139,7 +161,7 @@ class BodyContent extends StatelessWidget{
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              Viewsnap(),
+              Viewsnap(ym),
 
             ],
           ),
@@ -150,39 +172,54 @@ class BodyContent extends StatelessWidget{
 
 }
 class Viewsnap extends StatefulWidget{
-
+  List<Snapshot> ym = new List();
+  Viewsnap(this.ym);
   @override
   ViewsnapState createState() {
-      return new ViewsnapState();
+      return new ViewsnapState(ym);
     }
 }
 
 class ViewsnapState extends State<Viewsnap>{
+  List<Snapshot> ym = new List();
+  ViewsnapState(this.ym);
   Api api = new Api(); 
-  DateTime test_ym = new DateTime.now();
+ // DateTime test_ym = new DateTime.now();
   
   @override
   initState() {
     getAll();
     // print(rdata.length);
   }
+
   List<Snapshot> data;
   getAll() async{
     data = await api.getSnapshotAll();
   }
 
-  
- Future<Null> selectYearMonth(BuildContext context) async{
-    final DateTime pickedYearMonth = await showMonthPicker(
-      context: context,initialDate: DateTime(2019)
-    );
-        if(pickedYearMonth != null){
-      setState(() {
-        test_ym = pickedYearMonth;
-        print(test_ym);
-      });
-    }
+  setDATA(data,ym){
+    List data_v ;
+    if(ym!=null){
+      data_v = ym;
+    } data_v = data;
+    return data_v;
   }
+  
+ 
+
+
+  
+//  Future<Null> selectYearMonth(BuildContext context) async{
+//     final DateTime pickedYearMonth = await showMonthPicker(
+//       context: context,initialDate: DateTime(2019)
+//     );
+//         if(pickedYearMonth != null){
+//       setState(() {
+//         test_ym = pickedYearMonth;
+//         print(test_ym);
+//       });
+//     }
+//   }
 
   @override
   Widget build(BuildContext context) {
@@ -322,7 +359,7 @@ class ContentState extends State<Content>{
                                 Text('  '),
                                 Icon(Icons.access_time,size: 20,color: Colors.red[300],),
                                 Text(' '),
-                                Text('13:00 PM'),
+                                Text(data.time),
                                 //
                               ],
                             )
@@ -334,7 +371,7 @@ class ContentState extends State<Content>{
                                 Text('  '),
                                 Icon(Icons.location_on,size: 20,color: Colors.red[300]),
                                 Text(' '),
-                                Text('Amadf'),
+                                Text(data.place),
                                                                    
                               ],
                             )
