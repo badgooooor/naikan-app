@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:event_bus/event_bus.dart';
 import 'package:configurable_expansion_tile/configurable_expansion_tile.dart';
+
 class ViewSnapPage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class Body extends StatelessWidget{
   @override
   Widget build(BuildContext context){
     return Scaffold(
-      backgroundColor: new Color(0xFFF34343),
+      backgroundColor: Colors.white,
       appBar: AppBar(
 
         leading: new IconButton(
