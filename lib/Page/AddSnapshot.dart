@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'package:naikan/Model/Model.dart';
-import 'dart:convert';
+import 'package:month_picker_dialog/month_picker_dialog.dart';
 
 class AddSnapshot extends StatelessWidget{
   @override
@@ -35,6 +35,8 @@ class _HomePageState extends State<HomePage>{
   TimeOfDay _time = new TimeOfDay.now();
   File image;
   Api api = new Api();
+  
+  DateTime test_ym = new DateTime.now();
 
   void _display(){
     setState(() {
@@ -74,7 +76,7 @@ class _HomePageState extends State<HomePage>{
         "detail":story,
         "time":_time.toString().substring(10,15),
         "place":where,
-        "date":dateInt,
+        "date":dateInt+100,
         "pic":image==null?null:image.path
     };
     print('--------------------save--------------------');
@@ -88,8 +90,10 @@ class _HomePageState extends State<HomePage>{
     // print(json.decode(res.body)['date']);
     // Snapshot x = await api.getSnapshotDate(20190425);
     // print(x.toString());
-    List<Snapshot> snaps =  await api.getSnapshotAll();
-    // print(snaps[0]); 
+    // List<Snapshot> snaps =  await api.getSnapshotAll();
+    // print(snaps); 
+    List<Snapshot> snaps =  await api.getSnapshotYearMonth(2019,5);
+    print(snaps); 
   }
   Future<Null> selectDate(BuildContext context) async{
     final DateTime pickedDateTime = await showDatePicker(
@@ -112,6 +116,17 @@ class _HomePageState extends State<HomePage>{
     if(pickedTime != null){
       setState(() {
         _time = pickedTime;
+      });
+    }
+  }
+  Future<Null> selectYearMonth(BuildContext context) async{
+    final DateTime pickedYearMonth = await showMonthPicker(
+      context: context,initialDate: DateTime(2019)
+    );
+        if(pickedYearMonth != null){
+      setState(() {
+        test_ym = pickedYearMonth;
+        print(test_ym);
       });
     }
   }
@@ -261,7 +276,7 @@ class _HomePageState extends State<HomePage>{
             ),
             FlatButton(
               child: new Text('for test?',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.w600,fontSize: 20 )),
-              onPressed: getSnapshot,
+              onPressed: (){selectYearMonth(context);},//getSnapshot,
             ),
 
           ],
