@@ -13,7 +13,7 @@ class AddSnapshot extends StatelessWidget{
         theme: ThemeData(
 
         ),
-        home: HomePage(title: 'Add Snapshot')
+        home: HomePage(title:'AddSnapshot')
     );
   }
 }
@@ -89,7 +89,7 @@ class _HomePageState extends State<HomePage>{
     // Snapshot x = await api.getSnapshotDate(20190425);
     // print(x.toString());
     List<Snapshot> snaps =  await api.getSnapshotAll();
-    print(snaps[0]); 
+    // print(snaps[0]); 
   }
   Future<Null> selectDate(BuildContext context) async{
     final DateTime pickedDateTime = await showDatePicker(
@@ -127,32 +127,95 @@ class _HomePageState extends State<HomePage>{
   @override
   Widget build(BuildContext context){
     return Scaffold(
+      
         appBar: AppBar(
-        title: Text(widget.title),
+          
+                leading: new IconButton(
+          icon : Icon(Icons.chevron_left,size:30,color: Colors.white70,),
+          onPressed: (){
+            print('backk');
+          },
+        ),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.date_range,size:30,color: Colors.white70),
+            onPressed: (){
+              print('Calendar');
+            },
+          )
+        ],
+          titleSpacing: 0,
+          title: new Text(
+              
+              getDate(_date), style: new TextStyle(
+                color: Colors.white70,
+                fontFamily: 'Cooper',
+                fontSize: 20.0,
+                
+                
+                )),
           backgroundColor: new Color(0xFFF34949),
           centerTitle: true,
       ),
       body: Center(
+        
         child: Column(
 //          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-                'SNAPSHOT',style: TextStyle(fontSize: 35,color: color)
+            Container(
+              height: 30,
             ),
-            TextField(
-              keyboardType: TextInputType.text,
-              // textInputAction: TextInputAction.continueAction,
-              textAlign: TextAlign.left,
-              style: TextStyle(color: color, fontWeight: FontWeight.w800, fontSize: 20),
-              maxLength: 30,
-              decoration: InputDecoration(
-                prefixIcon: Icon(Icons.accessibility_new),
-                hintText: "Title",
+            Container(
+              margin: EdgeInsets.only(
+                left: 95
               ),
-              onChanged: (text){
-                name = text;
-              },
+              
+              child:
+              Row(
+                //mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Image(
+                    image: AssetImage('assets/heart.png'),
+                    height: 35,
+                  ),
+                  Text(
+                    'SNAPSHOT',style: new TextStyle(
+                      fontFamily: 'Cooper',
+                      color: new Color(0xFFC43A3A),
+                      fontSize: 30,
+                      shadows:<Shadow>[
+                        Shadow(
+                        offset: Offset(3, 3),
+                        blurRadius: 2.0,
+                        color: Colors.black12
+                              )
+                          ]
+                      ),
+                  )
+                ],
+              ),
+               
+
             ),
+            Container(
+              child: TextField(
+                keyboardType: TextInputType.text,                                                                                                                                     
+                // textInputAction: TextInputAction.continueAction,
+                textAlign: TextAlign.left,
+                style: TextStyle(color:Colors.red[400], fontSize: 15),
+                maxLength: 30,
+                cursorColor: Colors.red[400],
+                decoration: InputDecoration(
+                  prefixIcon: Icon(Icons.title,color: Colors.red[300],),
+                  hintText: "Title",
+                ),
+                onChanged: (text){
+                  name = text;
+                },
+              ),
+            ),
+            
+            
             TextField(
               keyboardType: TextInputType.text,
               // textInputAction: TextInputAction.continueAction,

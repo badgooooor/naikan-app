@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:event_bus/event_bus.dart';
 import 'package:configurable_expansion_tile/configurable_expansion_tile.dart';
+import 'package:naikan/Model/Model.dart';
 
 class ViewSnapPage extends StatelessWidget{
   @override
@@ -18,7 +19,7 @@ class Body extends StatelessWidget{
   @override
   Widget build(BuildContext context){
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xFFF34343),
       appBar: AppBar(
 
         leading: new IconButton(
@@ -34,17 +35,6 @@ class Body extends StatelessWidget{
               print('searchhh');
             },
           )
-          // Container( 
-          //   margin: EdgeInsets.only(
-          //     right: 16,
-            
-          //   ),
-            
-          //   child: new IconButton(
-              
-          //   )
-              
-          //   ),
         ],
         backgroundColor: new Color(0xFFF34343),
         
@@ -122,7 +112,7 @@ class FooterState extends State<Footer>{
             ),
             child:
             new IconButton(
-              icon:Icon(Icons.settings,color: Colors.white30,size: 30),
+              icon:Icon(Icons.view_comfy,color: Colors.white30,size: 30),
               onPressed: (){
                 print('setting');
               },
@@ -143,14 +133,9 @@ class BodyContent extends StatelessWidget{
     return Container(
       child: Column(
         children: <Widget>[
+      
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text('tao'),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Viewsnap(),
 
@@ -171,15 +156,25 @@ class Viewsnap extends StatefulWidget{
 }
 
 class ViewsnapState extends State<Viewsnap>{
-  var data = [
-    {
-      'title':'PLAYING FOOTBAL WITH FRIEND'
-    },{
-      'title':'bananababanana'
-    },{
-      'title':'First time with my dog'
-    }
-  ];
+  Api api = new Api(); 
+  @override
+  initState() {
+    getAll();
+    // print(rdata.length);
+  }
+  List<Snapshot> data;
+  getAll() async{
+    data = await api.getSnapshotAll();
+  }
+  // var data = [
+  //   {
+  //     'title':'PLAYING FOOTBAL WITH FRIEND'
+  //   },{
+  //     'title':'bananababanana'
+  //   },{
+  //     'title':'First time with my dog'
+  //   }
+  // ];
   
   @override
   Widget build(BuildContext context) {
@@ -199,7 +194,7 @@ class ViewsnapState extends State<Viewsnap>{
 }
 
 class Content extends StatefulWidget{
-  Map data = new Map();
+  Snapshot data = new Snapshot();
   Content(this.data);
 @override
 ContentState createState() {
@@ -208,7 +203,7 @@ ContentState createState() {
 
 }
 class ContentState extends State<Content>{
-  Map data = new Map();
+  Snapshot data = new Snapshot();
   ContentState(this.data);
   @override
   Widget build(BuildContext context){
@@ -239,7 +234,7 @@ class ContentState extends State<Content>{
             height: 26,
             child: new Row(
               children: <Widget>[
-                new Text('TODAY 23 APRILL',
+                new Text(data.date.toString(),
                         style: TextStyle(fontSize: 13.5,color: Colors.grey[700]),
                         ),
             
@@ -278,35 +273,67 @@ class ContentState extends State<Content>{
           ConfigurableExpansionTile(
                // headerExpanded: Flexible(child: Center(child: Text("ssssssssssssss"))),
                 header: Container(
+                  
                   child: new Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[                  
                       Container(
-                        child: Icon(Icons.mood,size:60,color:Colors.redAccent),
+                        child: Icon(Icons.mood,size:60,color:Colors.red[300]),
                       ),
-                      Container(
-                        margin: EdgeInsets.only(
-                          left: 10
-                        ),
-                        width:250 ,
-                        child: 
-                        
-                        new Text(data['title'],
-                        style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14,color: Color(0xFFF34949)),
-                        ),
-                        
-                        
-                        
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Container(
+                            margin: EdgeInsets.only(
+                              left: 10
+                            ),
+                            width:250 ,
+                            child: 
+                            new Text(data.title,
+                            style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14,color: Color(0xFFF34949)),
+                            ),
+                            
+                          ),
+                          Container(
+                            
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                Text('  '),
+                                Icon(Icons.access_time,size: 20,color: Colors.red[300],),
+                                Text(' '),
+                                Text('13:00 PM'),
+                                //
+                              ],
+                            )
+                          ),
+                          Container(
+                            child: Row(
+                            
+                              children: <Widget>[
+                                Text('  '),
+                                Icon(Icons.location_on,size: 20,color: Colors.red[300]),
+                                Text(' '),
+                                Text('Amadf'),
+                                                                   
+                              ],
+                            )
+                          ),
+                          
+                        ],
+                      ),
 
-                      ),
                     ],
                   )
-                    ),
+                  
+                ),
+                
+                  
                 children: [
                   Row(
                     children: <Widget>[
                       Container(
-                        color: Colors.black,
+                        
                         height: 150,
                       )
                       ],
@@ -314,14 +341,10 @@ class ContentState extends State<Content>{
                   // + more params, see example !!
                 ],
               ),
-          
-        
-         
+              
         ],
+        
       ),
-      
-
-
     );
   }
 

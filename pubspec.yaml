@@ -35,6 +35,7 @@ flutter:
    - assets/moodpixel/Group40.png
    - assets/moodpixel/Group 36.png
    - assets/moodpixel/update.png
+   - assets/heart.png
    
 
   fonts:
