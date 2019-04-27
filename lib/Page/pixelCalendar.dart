@@ -102,7 +102,7 @@ class CalendarState extends State<PixelCalendar> {
   void _nextMonth(){
     print('ButtonDebugger: _nextMonth pressed');
     _count=0;
-    if(month+1==12) _changeMonth(year+1, 1);
+    if(month+1==13) _changeMonth(year+1, 1);
     else _changeMonth(year, month+1);
   }
 
@@ -314,7 +314,7 @@ class CalendarState extends State<PixelCalendar> {
               child: Icon(Icons.add,size: 30),
             ),
           ),
-          
+          //Button Row
           new Center(
             child: new Padding(
               padding: EdgeInsets.fromLTRB(0, 450, 0, 0),
