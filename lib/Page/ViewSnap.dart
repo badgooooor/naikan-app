@@ -3,6 +3,7 @@ import 'package:event_bus/event_bus.dart';
 import 'package:configurable_expansion_tile/configurable_expansion_tile.dart';
 import 'package:naikan/Model/Model.dart';
 import 'package:month_picker_dialog/month_picker_dialog.dart';
+import 'package:naikan/main.dart';
 
 class ViewSnapPage extends StatelessWidget{
   @override
@@ -29,10 +30,9 @@ Future<Null> selectYearMonth(BuildContext context) async{
       context: context,initialDate: DateTime(2019)
     );
         if(pickedYearMonth != null){
-      setState() {
-        test_ym = pickedYearMonth;
-        print(test_ym);
-      };
+          test_ym = pickedYearMonth;
+          getyearmont();
+          eventBus.fire(ym);
     }
   }
   //static const PrimaryColor = const Color(0xFFFFFF100);
@@ -54,7 +54,7 @@ Future<Null> selectYearMonth(BuildContext context) async{
             onPressed: (){ 
               selectYearMonth(context);
               print('searchhh');
-              print(5~/2);
+             
             },
           )
         ],
@@ -185,45 +185,74 @@ class ViewsnapState extends State<Viewsnap>{
   ViewsnapState(this.ym);
   Api api = new Api(); 
  // DateTime test_ym = new DateTime.now();
-  
+  @override
+  void dispose(){
+    super.dispose();
+    ym = new List();
+  }
   @override
   initState() {
-    getAll();
-    // print(rdata.length);
+    super.initState();
+    eventBus.on().listen((event) {
+      print(event);
+  });
+   
   }
 
   List<Snapshot> data;
-  getAll() async{
-    data = await api.getSnapshotAll();
-  }
-
-  setDATA(data,ym){
-    List data_v ;
-    if(ym!=null){
-      data_v = ym;
-    } data_v = data;
-    return data_v;
+  getAll() {
+    return api.getSnapshotAll();
   }
   
- 
-
-
-  
-//  Future<Null> selectYearMonth(BuildContext context) async{
-//     final DateTime pickedYearMonth = await showMonthPicker(
-//       context: context,initialDate: DateTime(2019)
-//     );
-//         if(pickedYearMonth != null){
-//       setState(() {
-//         test_ym = pickedYearMonth;
-//         print(test_ym);
-//       });
-//     }
-//   }
 
   @override
   Widget build(BuildContext context) {
-    return new ListView.builder(
+    return FutureBuilder(
+      future:getAll(),
+        builder:(context , snapshot){
+          if(snapshot.connectionState == ConnectionState.waiting ){
+            
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(Colors.white70))
+                  ],
+                )
+              ],
+            ); 
+            
+          }
+          else if (ym != null){
+            return listView(ym);
+          }
+          else if(snapshot.connectionState == ConnectionState.done){
+            return listView(snapshot.data);
+          }
+      });
+
+    }
+}
+class listView extends StatefulWidget{
+  List<Snapshot> data = new List();
+  listView(this.data);
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return listViewState(data);
+  }
+
+
+  } 
+class listViewState extends State<listView>{
+  List<Snapshot> data = new List();
+  listViewState(this.data);
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return  new ListView.builder(
       
       itemCount: data.length,
       itemBuilder: (BuildContext context, int index){
@@ -234,8 +263,10 @@ class ViewsnapState extends State<Viewsnap>{
           ],
         );
       },
-    );
+    );;
   }
+
+  
 }
 
 class Content extends StatefulWidget{
