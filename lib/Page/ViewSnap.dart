@@ -95,7 +95,7 @@ class FooterState extends State<Footer>{
             ),
             child:
             new IconButton(
-              icon: Icon(Icons.home,color: Colors.white30,size: 30,),
+              icon: Icon(Icons.home,color: Colors.white70,size: 30,),
               onPressed: (){
                 print('home');
               },
@@ -108,7 +108,7 @@ class FooterState extends State<Footer>{
             ),
             child:
             new IconButton(
-              icon :Icon(Icons.edit,color: Colors.white30,size: 30),
+              icon :Icon(Icons.edit,color: Colors.white70,size: 30),
               onPressed: (){
                 print('addsnap');
               },
@@ -121,7 +121,7 @@ class FooterState extends State<Footer>{
             ),
             child:
              new IconButton(
-              icon: Icon(Icons.favorite,color: Colors.white30,size: 30),
+              icon: Icon(Icons.favorite,color: Colors.white70,size: 30),
               onPressed: (){
                 print('snap');
               },
@@ -134,9 +134,9 @@ class FooterState extends State<Footer>{
             ),
             child:
             new IconButton(
-              icon:Icon(Icons.view_comfy,color: Colors.white30,size: 30),
+              icon:Icon(Icons.view_comfy,color: Colors.white70,size: 30),
               onPressed: (){
-                print('setting');
+                print('overView');
               },
             )
            
@@ -366,7 +366,7 @@ class ContentState extends State<Content>{
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[                  
                       Container(
-                        child: Icon(Icons.mood,size:60,color:Colors.red[300]),
+                        child: Icon(Icons.mood_bad,size:60,color:Colors.redAccent),
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,

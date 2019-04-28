@@ -20,6 +20,7 @@ dependencies:
   cupertino_icons: ^0.1.2
   image_picker:
   charts_flutter: ^0.6.0
+  flutter_calendar_carousel: ^1.3.16
 
 dev_dependencies:
   flutter_test:
@@ -39,6 +40,7 @@ flutter:
    - assets/heart.png
    
 
+   - assets/cherry.png
   fonts:
     - family: Leelawadee
       fonts:

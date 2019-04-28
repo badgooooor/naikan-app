@@ -26,10 +26,10 @@ class Pixel{
     int _love = 0;
     int _passive = 0;
     int _sad = 0;
+    int _none = 0;
     Map<String, dynamic> emotionSummary;
 
     if (data != null) {
-      //print('###DEBUG###\n\t\tdata.length = $data.length.toString()');
     for (int i = 0; i < data.length; i++) {
       switch (data.values.elementAt(i)['finalEmotion']) {
         case 'angry':
@@ -62,6 +62,11 @@ class Pixel{
             _sad++;
             break;
           }
+        case 'none':
+          {
+            _none++;
+            break;
+          }
       }
     }
 
@@ -71,7 +76,8 @@ class Pixel{
       'happy': _happy,
       'love': _love,
       'passive': _passive,
-      'sad': _sad
+      'sad': _sad,
+      'none': _none,
     };
 
     return emotionSummary;
@@ -87,7 +93,7 @@ class Pixel{
       for (int i = 0; i < data.length; i++) {
         dataList.add(new LinearData(i, data.values.elementAt(i).toInt(), null));
         dataList[i].setColor(i);
-        print(dataList[i].toList().toString());
+        //print(dataList[i].toList().toString());
       }
 
       return [
@@ -118,7 +124,7 @@ class MonthPixel extends Pixel{
   Future loadMonthPixel(String year,String month) async{
     resp= await http.get("https://us-central1-naikan-87838.cloudfunctions.net/webApi/api/v1/pixels/monthPixel/$year/$month");
     if(resp.body=='No such document!') {
-      data=null;
+      data={'none':{'finalEmotion':'none'}};
     }
     else {
       data = json.decode(resp.body);
@@ -136,24 +142,24 @@ class MonthPixel extends Pixel{
       if(month==1||month==3||month==5||month==7||month==8||month==10||month==12){
         days=31;
       }
-      else if(month==4||month==6||month==9||month==11) days=31;
+      else if(month==4||month==6||month==9||month==11) days=30;
       else if(month==2) {
         if (year % 4 == 0) days=29;
         else days=28;
       }
-      //print('###DEBUG###\n\t\tdata = $data,\n\t\tmonth = $month, days = $days');
-      for(int i=1;i<=days;i++){
-
-        //String date=(i<10?('0'+i.toString()):i.toString());
-        String value='NULL';
-        for(int j=0;j<data.length;j++){
-          int date=data.values.elementAt(j)['date']%100;
-          if(i==date) value=data.values.elementAt(j)['finalEmotion'];
-          //print('###DEBUG###\n\t\ti = $i, date = $date,j = $j, value = $value');
+        for (int i = 1; i <= days; i++) {
+          String value = 'NULL';
+          //print('###DEBUG###\n\t\t '+(data.values.elementAt(0)['finalEmotion']!='none').toString());
+          if(data.values.elementAt(0)['finalEmotion']!='none') {
+            for (int j = 0; j < data.length; j++) {
+              int date = data.values.elementAt(j)['date'] % 100;
+              if (i == date) value = data.values.elementAt(j)['finalEmotion'];
+              //print('###DEBUG###\n\t\ti = $i, date = $date,j = $j, value = $value');
+            }
+          }
+          pixelList.add(value);
+          //print('###DEBUG###\n\t\tpixelList = $pixelList');
         }
-        pixelList.add(value);
-        //print('###DEBUG###\n\t\tpixelList = $pixelList');
-      }
     }
     return pixelList;
   }
@@ -194,6 +200,8 @@ class LinearData {
         return 'passive';
       case 5:
         return 'sad';
+      case 6:
+        return 'none';
       default:
         return null;
     }
@@ -213,6 +221,8 @@ class LinearData {
         return new charts.Color(r: 104, g: 232, b: 142, a: 255);
       case 5:
         return new charts.Color(r: 64, g: 64, b: 64, a: 255);
+      case 6:
+        return new charts.Color(r: 128, g: 128, b: 128, a: 255);
       default:
         return null;
     }
