@@ -41,7 +41,6 @@ class PixelCalendar extends StatefulWidget {
 
 class CalendarState extends State<PixelCalendar> {
   IconData pixelIcon = Icons.brightness_1;
-  double pixelSize=19.5;
 
   Color _toColor(String value){
     switch(value){
@@ -76,14 +75,12 @@ class CalendarState extends State<PixelCalendar> {
   }
 
   void _changeMonth(int _year,int _month){
-    //print('###DEBUG###\n\t\tyear = $year, month = $month\n\t\t_year = $_year, _month = $_month');
-    year=_year;
+     year=_year;
     month=_month;
     pixel = MonthPixel(_year.toString(),_month.toString());
     _selectedDateTime = DateTime(_year,_month);
     _count=0;
     print('Changing to $_year/$_month');
-    //print('###DEBUG###\n\t\tyear = $year, month = $month\n\t\t_year = $_year, _month = $_month');
 
     _reload();
   }
@@ -108,7 +105,9 @@ class CalendarState extends State<PixelCalendar> {
 
   @override
   Widget build(BuildContext context) {
-    //print('###DEBUG### selectedDateTime = $_selectedDateTime');
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+    double pixelSize=height/30;
 
     new Timer(const Duration(milliseconds: 2000),()async{
       if(pixel.getLoadingStatus()) {
@@ -128,13 +127,13 @@ class CalendarState extends State<PixelCalendar> {
           icon:Icon(Icons.chevron_left,size:30),
           onPressed: _back
         ),
-        title: Text('PIXEL CALENDAR',style: TextStyle(fontWeight: FontWeight.bold),),
+        title: Text('PIXEL CALENDAR',style: TextStyle(fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
       ),
       body: new Stack(
         children: <Widget>[
           //Pie Chart
           new Padding(
-            padding: EdgeInsets.fromLTRB(0, 200, 200, 40),
+            padding: EdgeInsets.only(top: height/2,right: width*3/5,bottom: height/6),
             child: pixel.getLoadingStatus()
                 ?Center(
                   child: Column(
@@ -148,13 +147,13 @@ class CalendarState extends State<PixelCalendar> {
                   seriesList,
                   animate: false,
                   defaultRenderer: new charts.ArcRendererConfig(
-                      arcWidth: 20,
+                      arcWidth: width~/24,
                   )
                 ),
           ),
           //Chart Label <jpg>
           new Padding(
-            padding: EdgeInsets.fromLTRB(160, 200, 20, 50),
+            padding: EdgeInsets.only(left: width*2/5,top: height/2,right: width/16,bottom: height/6),
             child: new Container(
               decoration: new BoxDecoration(
                 image: new DecorationImage(
@@ -166,14 +165,14 @@ class CalendarState extends State<PixelCalendar> {
           ),
           //Upper Decoration Box Background
           new Container(
-            margin: EdgeInsets.only(bottom: 280),
+            margin: EdgeInsets.only(bottom: height*14/32),
             decoration: new BoxDecoration(
               color: Colors.red,
             ),
           ),
           //Calendar Box
           new Container(
-            margin: EdgeInsets.fromLTRB(45,75,45,290),
+            margin: EdgeInsets.only(left:45,top:75,right:45,bottom:height*15/32),
             decoration: new BoxDecoration(
               shape: BoxShape.rectangle,
               color: Colors.white,
@@ -182,7 +181,7 @@ class CalendarState extends State<PixelCalendar> {
           ),
           //Button
           new Container(
-            margin: EdgeInsets.fromLTRB(45,30,45,290),
+            margin: EdgeInsets.only(left:45,top:30,right:45),
             child: new Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -194,9 +193,9 @@ class CalendarState extends State<PixelCalendar> {
           ),
           //DayColor
           new Container(
-              margin: EdgeInsets.fromLTRB(45,102,45,290),
+              margin: EdgeInsets.only(left:45,top:102,right:45,bottom:290),
               child: Table(
-                defaultColumnWidth: FixedColumnWidth(38.5),
+                defaultColumnWidth: FixedColumnWidth((width-90)/7),
                 children: [
                   TableRow(
                       children: [
@@ -269,7 +268,7 @@ class CalendarState extends State<PixelCalendar> {
           ),
           //Calendar
           new Container(
-            margin: EdgeInsets.fromLTRB(45,24,45,290),
+            margin: EdgeInsets.only(left:45,top:24,right:45),
             child: calendar.CalendarCarousel(
               childAspectRatio: 2,
               weekdayTextStyle: TextStyle(fontFamily: 'Leelawadee'),
@@ -291,14 +290,14 @@ class CalendarState extends State<PixelCalendar> {
           ),
           //Lower Decoration Box Background
           new Container(
-            margin: EdgeInsets.only(top:450),
+            margin: EdgeInsets.only(top:height*25/32),
             decoration: new BoxDecoration(
               color: Colors.red,
             ),
           ),
           //AddButton Background
           new Container(
-            margin: EdgeInsets.only(top:425,bottom: 25),
+            margin: EdgeInsets.only(top:height*23/32,bottom: height/32),
             foregroundDecoration: new BoxDecoration(
               color: Colors.white,
               shape: BoxShape.circle
@@ -306,7 +305,7 @@ class CalendarState extends State<PixelCalendar> {
           ),
           //AddButton
           new Container(
-            margin: EdgeInsets.only(top:431,left:135.5),
+            padding: EdgeInsets.only(top:height*24/32,left:width*5/12,right:width*5/12),
             child: RaisedButton(
                 shape: CircleBorder(),
                 color: Colors.redAccent,
@@ -317,7 +316,7 @@ class CalendarState extends State<PixelCalendar> {
           //Button Row
           new Center(
             child: new Padding(
-              padding: EdgeInsets.fromLTRB(0, 450, 0, 0),
+              padding: EdgeInsets.only(top:height*0.775),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -329,14 +328,14 @@ class CalendarState extends State<PixelCalendar> {
                       )
                   ),
                   Container(
-                      margin: EdgeInsets.only(left:20,right:50),
+                      margin: EdgeInsets.only(left:width/25,right:width/6),
                       child:new IconButton(
                         icon:Icon(Icons.edit,color:Colors.white30,size:30),
                         onPressed: () => print('ButtonDebugger: addsnap pressed'),
                       )
                   ),
                   Container(
-                      margin: EdgeInsets.only(left:50,right:20),
+                      margin: EdgeInsets.only(left:width/6,right:width/25),
                       child:new IconButton(
                         icon:Icon(Icons.favorite,color:Colors.white30,size:30),
                         onPressed: () => print('ButtonDebugger: favourite pressed'),
