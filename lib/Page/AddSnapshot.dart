@@ -37,14 +37,6 @@ class _HomePageState extends State<HomePage>{
   Api api = new Api();
 
   void _display(){
-    setState(() {
-      if (color == Colors.red){
-        color = Colors.blue;
-      }
-      else {
-        color = Colors.red;
-      }
-    });
     print('--------------------------------------------');
     print('title  = '+name);
     print('detial = '+story);
@@ -62,7 +54,7 @@ class _HomePageState extends State<HomePage>{
     'October', 'November', 'December'
     ];
     String str = '';
-    str += month[_date.month] + ' ';
+    str += month[_date.month-1] + ' ';
     str += _date.day.toString() + ' , ';
     str += _date.year.toString();
     return str;
@@ -83,14 +75,14 @@ class _HomePageState extends State<HomePage>{
     print('--------------------------------------------');
   }
 
-  getSnapshot()async{
-    // http.Response res = await api.getSnapshotDate(20190425);
-    // print(json.decode(res.body)['date']);
-    // Snapshot x = await api.getSnapshotDate(20190425);
-    // print(x.toString());
-    List<Snapshot> snaps =  await api.getSnapshotAll();
-    // print(snaps[0]); 
-  }
+  // getSnapshot()async{
+  //   // http.Response res = await api.getSnapshotDate(20190425);
+  //   // print(json.decode(res.body)['date']);
+  //   // Snapshot x = await api.getSnapshotDate(20190425);
+  //   // print(x.toString());
+  //   List<Snapshot> snaps =  await api.getSnapshotAll();
+  //   // print(snaps[0]); 
+  // }
   Future<Null> selectDate(BuildContext context) async{
     final DateTime pickedDateTime = await showDatePicker(
         context: context,
@@ -98,9 +90,10 @@ class _HomePageState extends State<HomePage>{
         firstDate: new DateTime(2019),
         lastDate: new DateTime(2020)
     );
-    if (pickedDateTime != null && pickedDateTime != _date){
+    if (pickedDateTime != null /*&& pickedDateTime != _date*/){
       setState(() {
         _date = pickedDateTime;
+        dateInt = _date.year*10000+_date.month*100+_date.day;
       });
     }
   }
@@ -141,6 +134,7 @@ class _HomePageState extends State<HomePage>{
             icon: Icon(Icons.date_range,size:30,color: Colors.white70),
             onPressed: (){
               print('Calendar');
+              selectDate(context);
             },
           )
         ],
@@ -282,10 +276,10 @@ class _HomePageState extends State<HomePage>{
               child: new Text('Save?',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.w600,fontSize: 20 )),
               onPressed: save,
             ),
-            FlatButton(
-              child: new Text('for test?',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.w600,fontSize: 20 )),
-              onPressed: getSnapshot,
-            ),
+            // FlatButton(
+            //   child: new Text('for test?',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.w600,fontSize: 20 )),
+            //   onPressed: getSnapshot,
+            // ),
 
           ],
         ),
