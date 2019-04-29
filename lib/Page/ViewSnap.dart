@@ -50,6 +50,7 @@ Future<Null> selectYearMonth(BuildContext context) async{
           icon : Icon(Icons.chevron_left,size:30,),
           onPressed: (){
             print('backk');
+            Navigator.pop(context);
           },
         ),
         actions: <Widget>[

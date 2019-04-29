@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'Page.dart';
 
 class Footer extends StatefulWidget{
   @override
@@ -34,6 +35,8 @@ class FooterState extends State<Footer>{
                               icon: Icon(Icons.home,color: Colors.white70,size: 30,),
                               onPressed: (){
                                 print('home');
+                                Navigator.push(context,
+                                MaterialPageRoute(builder: (context)=> AddPixel()));
                               },
                             )
 
@@ -48,6 +51,9 @@ class FooterState extends State<Footer>{
                               icon :Icon(Icons.edit,color: Colors.white70,size: 30),
                               onPressed: (){
                                 print('addsnap');
+                                Navigator.push(context,
+                                MaterialPageRoute(builder: (context)=> AddSnapshot()));
+                                
                               },
                             )
 
@@ -62,6 +68,8 @@ class FooterState extends State<Footer>{
                               icon: Icon(Icons.favorite,color: Colors.white70,size: 30),
                               onPressed: (){
                                 print('snap');
+                                Navigator.push(context,
+                                MaterialPageRoute(builder: (context)=> ViewSnapPage()));
                               },
                             )
                           //overView
@@ -76,6 +84,8 @@ class FooterState extends State<Footer>{
                               icon:Icon(Icons.view_comfy,color: Colors.white70,size: 30),
                               onPressed: (){
                                 print('overView');
+                                Navigator.push(context,
+                                MaterialPageRoute(builder: (context)=> PixelCalendar()));
                               },
                             )
                         ),
@@ -111,7 +121,12 @@ class FooterState extends State<Footer>{
                     child: new RaisedButton(
                       shape: CircleBorder(),
                       color: Colors.redAccent,
-                      onPressed: () =>print('ButtonDebugger: add pressed'),
+                      onPressed: () {
+                        print('ButtonDebugger: add pressed');
+                        Navigator.push(context,
+                        MaterialPageRoute(builder: (context)=> AddPixel()));
+                        
+                        },
                       child: Icon(Icons.add,size: 30),
                     ),
                   )

@@ -31,12 +31,13 @@ class _HomePageState extends State<HomePage>{
   String name = "";
   String story = "";
   String where = "";
+  String time = "When?";
   DateTime _date = new DateTime.now();
   int dateInt = new DateTime.now().year*10000+new DateTime.now().month*100+new DateTime.now().day;
   TimeOfDay _time = new TimeOfDay.now();
   File image;
   Api api = new Api();
-
+  var colorTime = Colors.grey;
   void _display(){
     print('--------------------------------------------');
     print('title  = '+name);
@@ -128,6 +129,7 @@ class _HomePageState extends State<HomePage>{
           icon : Icon(Icons.chevron_left,size:30,color: Colors.white70,),
           onPressed: (){
             print('backk');
+            Navigator.pop(context);
           },
         ),
         actions: <Widget>[
@@ -245,9 +247,25 @@ class _HomePageState extends State<HomePage>{
                 children: <Widget>[
                   Icon(Icons.access_time,color:Colors.red[300]),
                   FlatButton(
-                
-                child: new Text('When?',style: TextStyle(color: Colors.grey, fontSize: 15) ,),
-                onPressed: (){selectTime(context);}
+                //tao
+                // .########.####.##.....##.########.########.########.##.....##.########
+                // ....##.....##..###...###.##..........##....##........##...##.....##...
+                // ....##.....##..####.####.##..........##....##.........##.##......##...
+                // ....##.....##..##.###.##.######......##....######......###.......##...
+                // ....##.....##..##.....##.##..........##....##.........##.##......##...
+                // ....##.....##..##.....##.##..........##....##........##...##.....##...
+                // ....##....####.##.....##.########....##....########.##.....##....##...
+                child: new Text(time,style: TextStyle(color: colorTime, fontSize: 15) ,),
+                onPressed: ()async{
+                  await selectTime(context);
+                  time = _time.hour.toString()+" : "+_time.minute.toString();
+                  setState(() {
+                     if(colorTime == Colors.grey){
+                      colorTime = Colors.red[400];
+                     }
+                  });
+                  
+                }
             ),          
                 ],
               ),

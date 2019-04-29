@@ -126,7 +126,10 @@ class CalendarState extends State<PixelCalendar> {
       appBar: AppBar(
         leading: new IconButton(
           icon:Icon(Icons.chevron_left,size:30),
-          onPressed: _back
+          onPressed: (){
+            _back();
+            Navigator.pop(context);
+          }
         ),
         title: Text('PIXEL CALENDAR',style: TextStyle(fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
       ),
