@@ -107,7 +107,7 @@ class CalendarState extends State<PixelCalendar> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    double pixelSize=height/30;
+    double pixelSize=height*2/75;
 
     new Timer(const Duration(milliseconds: 2000),()async{
       if(pixel.getLoadingStatus()) {
@@ -297,7 +297,7 @@ class CalendarState extends State<PixelCalendar> {
           ),
           //AddButton Background
           new Container(
-            margin: EdgeInsets.only(top:height*23/32,bottom: height/32),
+            margin: EdgeInsets.only(top:height*47/64,bottom: height*5/64),
             foregroundDecoration: new BoxDecoration(
               color: Colors.white,
               shape: BoxShape.circle
@@ -328,14 +328,14 @@ class CalendarState extends State<PixelCalendar> {
                       )
                   ),
                   Container(
-                      margin: EdgeInsets.only(left:width/25,right:width/6),
+                      margin: EdgeInsets.only(left:width/25,right:width/7),
                       child:new IconButton(
                         icon:Icon(Icons.edit,color:Colors.white30,size:30),
                         onPressed: () => print('ButtonDebugger: addsnap pressed'),
                       )
                   ),
                   Container(
-                      margin: EdgeInsets.only(left:width/6,right:width/25),
+                      margin: EdgeInsets.only(left:width/7,right:width/25),
                       child:new IconButton(
                         icon:Icon(Icons.favorite,color:Colors.white30,size:30),
                         onPressed: () => print('ButtonDebugger: favourite pressed'),
