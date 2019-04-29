@@ -31,6 +31,7 @@ class _AddPixelPage extends State<AddPixelPage> {
   int passive=0;
   int confused=0;
   int sad=0;
+  List<String> _emo=[];
   Api api = new Api();
 
   String getDate(DateTime _date) {
@@ -57,13 +58,42 @@ class _AddPixelPage extends State<AddPixelPage> {
     print('Sad  \t=\t'+sad.toString());
     print('finalEmotion=\t'+getFinalEmotion());
   }
+
+
   String getFinalEmotion(){
-    String mostEmotion = 'Happy';
-    var map = new SortedMap();
-    
-    // map.addEntries({'happy':happy});
-    return mostEmotion;
+    // print('emo=\t'+_emo.toString());
+    List temp = [happy,angry,love,passive,confused,sad];
+    List tempStr = ['happy','angry','love','passive','confused','sad'];
+    List maxList = [];
+    int max = 0,sizeMax = 0,maxIndex=-1;
+
+    for(int i = 0 ;i < temp.length ; i++){
+      if(temp[i] > sizeMax) 
+        sizeMax = temp[i];
+    }
+    for(int i = 0 ;i < temp.length ; i++){
+      if(temp[i] == sizeMax) {
+          max+=1;
+          maxIndex=i;
+          maxList.add(tempStr[i]);
+      }
+    }
+    if(max != 1){
+      // print('maxSize =\t'+sizeMax.toString());
+      // print('max emotion =\t'+max.toString());
+      // print('maxList =\t'+maxList.toString());
+      // print(maxIndex);
+      for(int i = _emo.length-1 ; i >= 0 ; i--){
+        if(maxList.contains(_emo[i]))
+          // print(_emo[i]);
+          return _emo[i];
+      }
+    }
+    // print(tempStr[maxIndex]);
+    return tempStr[maxIndex];
   }
+  
+  
   save() async{
     Map data={
       "angry": angry,
@@ -73,7 +103,6 @@ class _AddPixelPage extends State<AddPixelPage> {
       "sad": sad,
       "love": love,
       "finalEmotion": getFinalEmotion()
-//      ,"date" : 19990326
     };
     print('-------------save-------------');
     http.Response res = await api.postPixel(data);
@@ -154,7 +183,10 @@ class _AddPixelPage extends State<AddPixelPage> {
                           )),
                           GestureDetector(
                             onTap: (){
+                              setState(() {
                               happy+=1;
+                              _emo.add('happy');
+                              });
                             },
                             child: Image(
                               image: AssetImage('assets/moodpixel/Group35.png'),width: 80,
@@ -175,6 +207,7 @@ class _AddPixelPage extends State<AddPixelPage> {
                           GestureDetector(
                             onTap: (){
                               angry+=1;
+                              _emo.add('angry');
                             },
                             child: Image(
                               image: AssetImage('assets/moodpixel/Group36.png'),width: 80,
@@ -194,6 +227,7 @@ class _AddPixelPage extends State<AddPixelPage> {
                           GestureDetector(
                             onTap: (){
                               love+=1;
+                              _emo.add('love');
                             },
                             child: Image(
                               image: AssetImage('assets/moodpixel/Group37.png'),width: 80,
@@ -220,6 +254,7 @@ class _AddPixelPage extends State<AddPixelPage> {
                           GestureDetector(
                             onTap: (){
                               passive+=1;
+                              _emo.add('passive');
                             },
                             child: Image(
                               image: AssetImage('assets/moodpixel/Group38.png'),width: 80,
@@ -239,6 +274,7 @@ class _AddPixelPage extends State<AddPixelPage> {
                           GestureDetector(
                             onTap: (){
                               confused+=1;
+                              _emo.add('confuse');
                             },
                             child: Image(
                               image: AssetImage('assets/moodpixel/Group39.png'),width: 80,
@@ -258,6 +294,7 @@ class _AddPixelPage extends State<AddPixelPage> {
                           GestureDetector(
                             onTap: (){
                               sad+=1;
+                              _emo.add('sad');
                             },
                             child: Image(
                               image: AssetImage('assets/moodpixel/Group40.png'),width: 80,
