@@ -38,9 +38,12 @@ flutter:
    - assets/moodpixel/Group 36.png
    - assets/moodpixel/update.png
    - assets/heart.png
-   
-
    - assets/cherry.png
+   - assets/PixelCalendar_label.jpg
+   - assets/Login_background.jpg
+
+
+
   fonts:
     - family: Leelawadee
       fonts:
