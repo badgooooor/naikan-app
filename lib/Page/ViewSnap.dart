@@ -293,6 +293,7 @@ ContentState createState() {
 class ContentState extends State<Content>{
   Snapshot data = new Snapshot();
   String getStingDate(int date){  
+    
     int y = date~/10000;
     int d = date%100;
     int m = (date~/100)%100;
@@ -301,8 +302,10 @@ class ContentState extends State<Content>{
     'July', 'August', 'September',
     'October', 'November', 'December'
     ];
-
-    return  d.toString()+'  ' +month[m-1] +'  ' + y.toString();
+    if(date!=0)
+      return  d.toString()+'  ' +month[m-1] +'  ' + y.toString();
+    else 
+      return '';//'No snapshot here :)';
   }
   ContentState(this.data);
   @override
