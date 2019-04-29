@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import './Page.dart';
 class LoginStateSet extends StatelessWidget {
 
   @override
@@ -39,6 +39,7 @@ class _LoginState extends State<LoginPage> {
         if(username=='naikan'&&password=='naikan') {
           print('Logged in as $username with password $password');
           loginDialog = 'Logging in Completed';
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>AddPixel()));
         }
         else{
           print('Username $username or password $password is not matched');
