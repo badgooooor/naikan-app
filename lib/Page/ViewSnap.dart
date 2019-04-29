@@ -199,6 +199,7 @@ class ViewsnapState extends State<Viewsnap>{
      
       setState(() {
          ym = event;
+
       });
      
  
@@ -234,12 +235,10 @@ class ViewsnapState extends State<Viewsnap>{
             
           }
         
-          else if(ym != []){
-            print(ym);
+          if(ym.length != 0){
             return listView(ym); 
           }
-          else if (snapshot.connectionState == ConnectionState.done){
-            // print(ym);
+          if (snapshot.connectionState == ConnectionState.done){
             return listView(snapshot.data);
           }
          
