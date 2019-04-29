@@ -349,7 +349,9 @@ class _AddPixelPage extends State<AddPixelPage> {
                           ),
                           GestureDetector(
                             onTap: (){
-                              display();
+                              if(sad+happy+confused+passive+angry+love!=0){
+                                display();
+                              }
                             },
                             child: Image(
                             image: AssetImage('assets/moodpixel/Group 36.png'),
@@ -368,7 +370,9 @@ class _AddPixelPage extends State<AddPixelPage> {
                   ),
                   GestureDetector(
                             onTap: (){
-                              save();
+                              if(sad+happy+confused+passive+angry+love!=0){
+                                save();
+                              }
                             },
                             child: Image(
                               image: AssetImage('assets/moodpixel/update.png'),height: 65,
