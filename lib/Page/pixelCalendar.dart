@@ -40,7 +40,7 @@ class PixelCalendar extends StatefulWidget {
 }
 
 class CalendarState extends State<PixelCalendar> {
-  IconData pixelIcon = Icons.brightness_1;
+  IconData pixelIcon = Icons.stop;
 
   Color _toColor(String value){
     switch(value){
@@ -107,7 +107,7 @@ class CalendarState extends State<PixelCalendar> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    double pixelSize=height/30;
+    double pixelSize=height*31/600;
 
     new Timer(const Duration(milliseconds: 2000),()async{
       if(pixel.getLoadingStatus()) {
@@ -133,7 +133,7 @@ class CalendarState extends State<PixelCalendar> {
         children: <Widget>[
           //Pie Chart
           new Padding(
-            padding: EdgeInsets.only(top: height/2,right: width*3/5,bottom: height/6),
+            padding: EdgeInsets.only(top: height*17/32,right: width*3/5,bottom: height/8),
             child: pixel.getLoadingStatus()
                 ?Center(
                   child: Column(
@@ -143,17 +143,32 @@ class CalendarState extends State<PixelCalendar> {
                     ],
                   )
                 )
-                :new charts.PieChart(
+                :new Stack(
+              children: <Widget>[
+                new charts.PieChart(
                   seriesList,
                   animate: false,
                   defaultRenderer: new charts.ArcRendererConfig(
-                      arcWidth: width~/24,
-                  )
+                    arcWidth: (width~/48)*3,
+                  ),
                 ),
+                //TextPixel
+                new Padding(
+                    padding: EdgeInsets.only(top: 97, left:63),
+                    child: Text('PIXEL',style: TextStyle(
+                      fontFamily: 'Leelawadee',
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255,133,109,109),
+                    ),)
+                ),
+              ],
+            )
+
           ),
-          //Chart Label <jpg>
+          //Chart Layout <jpg>
           new Padding(
-            padding: EdgeInsets.only(left: width*2/5,top: height/2,right: width/16,bottom: height/6),
+            padding: EdgeInsets.only(left: width*2/5,top: height*17/32,right: width/16,bottom: height/8),
             child: new Container(
               decoration: new BoxDecoration(
                 image: new DecorationImage(
@@ -165,7 +180,7 @@ class CalendarState extends State<PixelCalendar> {
           ),
           //Upper Decoration Box Background
           new Container(
-            margin: EdgeInsets.only(bottom: height*14/32),
+            margin: EdgeInsets.only(bottom: height*13/32),
             decoration: new BoxDecoration(
               color: Colors.red,
             ),
@@ -270,7 +285,6 @@ class CalendarState extends State<PixelCalendar> {
           new Container(
             margin: EdgeInsets.only(left:45,top:24,right:45),
             child: calendar.CalendarCarousel(
-              childAspectRatio: 2,
               weekdayTextStyle: TextStyle(fontFamily: 'Leelawadee'),
               daysTextStyle: TextStyle(fontFamily: 'Leelawadee',color: Colors.white),
               weekendTextStyle: TextStyle(fontFamily: 'Leelawadee',color: Colors.white),
@@ -285,73 +299,121 @@ class CalendarState extends State<PixelCalendar> {
               todayButtonColor: Color.fromARGB(0, 0, 0, 0),
               selectedDayButtonColor: Color.fromARGB(0, 0, 0, 0),
               showHeaderButton: false,
+              isScrollable: false,
+              onDayPressed: (dateTime,list){
+                print('Day $dateTime pressed.');
+                //print('###DEBUG###\n\t\tlist = $list');
+              },
+              minSelectedDate: DateTime(year,month),
+              maxSelectedDate: DateTime(year,month+1,0),
             )
             //Text('PIXEL CALENDAR',style: TextStyle(color: Color.fromARGB(255, 224, 61, 61)),)
           ),
-          //Lower Decoration Box Background
-          new Container(
-            margin: EdgeInsets.only(top:height*25/32),
-            decoration: new BoxDecoration(
-              color: Colors.red,
-            ),
+          //BottomBar
+          new Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children:<Widget>[
+                  new Container(
+                    height: 54,
+                    color: Colors.red,
+                    child: new Row(
+                      children: <Widget>[
+                        //home
+                        Container(
+                            margin: EdgeInsets.only(
+                                left: 32.5
+                            ),
+                            child:
+                            new IconButton(
+                              icon: Icon(Icons.home,color: Colors.white70,size: 30,),
+                              onPressed: (){
+                                print('home');
+                              },
+                            )
+
+                        ),
+                        //addSnap
+                        Container(
+                            margin: EdgeInsets.only(
+                                left: 32.5
+                            ),
+                            child:
+                            new IconButton(
+                              icon :Icon(Icons.edit,color: Colors.white70,size: 30),
+                              onPressed: (){
+                                print('addsnap');
+                              },
+                            )
+
+                        ),
+                        //snap
+                        Container(
+                            margin: EdgeInsets.only(
+                                left: 95
+                            ),
+                            child:
+                            new IconButton(
+                              icon: Icon(Icons.favorite,color: Colors.white70,size: 30),
+                              onPressed: (){
+                                print('snap');
+                              },
+                            )
+                          //overView
+                        ),
+                        //overview
+                        Container(
+                            margin: EdgeInsets.only(
+                                left: 32.5
+                            ),
+                            child:
+                            new IconButton(
+                              icon:Icon(Icons.view_comfy,color: Colors.white70,size: 30),
+                              onPressed: (){
+                                print('overView');
+                              },
+                            )
+                        ),
+                      ],
+                    ),
+                  ),
+            ]
           ),
-          //AddButton Background
-          new Container(
-            margin: EdgeInsets.only(top:height*23/32,bottom: height/32),
-            foregroundDecoration: new BoxDecoration(
-              color: Colors.white,
-              shape: BoxShape.circle
-            ),
+          //AddButtonBackground
+          new Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children:<Widget>[
+                new Container(
+                  margin: EdgeInsets.only(left:(width-72)/2,bottom:18),
+                  width: 72,
+                  height: 72,
+                  decoration: new BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle
+                  ),
+                ),
+              ]
           ),
           //AddButton
-          new Container(
-            padding: EdgeInsets.only(top:height*24/32,left:width*5/12,right:width*5/12),
-            child: RaisedButton(
-                shape: CircleBorder(),
-                color: Colors.redAccent,
-                onPressed: () =>print('ButtonDebugger: add pressed'),
-              child: Icon(Icons.add,size: 30),
-            ),
+          new Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children:<Widget>[
+                new Container(
+                  padding: EdgeInsets.only(left:(width-62)/2,right:(width-62)/2,bottom:28),
+                  child: ButtonTheme(
+                    height: 54,
+                    minWidth: 54,
+                    child: new RaisedButton(
+                      shape: CircleBorder(),
+                      color: Colors.redAccent,
+                      onPressed: () =>print('ButtonDebugger: add pressed'),
+                      child: Icon(Icons.add,size: 30),
+                    ),
+                  )
+                ),
+              ]
           ),
-          //Button Row
-          new Center(
-            child: new Padding(
-              padding: EdgeInsets.only(top:height*0.775),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                      margin: EdgeInsets.only(),
-                      child:new IconButton(
-                        icon:Icon(Icons.home,color:Colors.white30,size:30),
-                        onPressed: () => print('ButtonDebugger: home pressed'),
-                      )
-                  ),
-                  Container(
-                      margin: EdgeInsets.only(left:width/25,right:width/6),
-                      child:new IconButton(
-                        icon:Icon(Icons.edit,color:Colors.white30,size:30),
-                        onPressed: () => print('ButtonDebugger: addsnap pressed'),
-                      )
-                  ),
-                  Container(
-                      margin: EdgeInsets.only(left:width/6,right:width/25),
-                      child:new IconButton(
-                        icon:Icon(Icons.favorite,color:Colors.white30,size:30),
-                        onPressed: () => print('ButtonDebugger: favourite pressed'),
-                      )
-                  ),
-                  Container(
-                      margin: EdgeInsets.only(),
-                      child:new IconButton(
-                        icon:Icon(Icons.settings,color:Colors.white30,size:30),
-                        onPressed: () => print('ButtonDebugger: setting pressed'),
-                      )
-                  ),
-                ],
-              ),
-            ),
-          )
+
+
         ],
       ),
     );
