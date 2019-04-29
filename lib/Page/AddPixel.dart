@@ -33,6 +33,15 @@ class _AddPixelPage extends State<AddPixelPage> {
   int sad=0;
   List<String> _emo=[];
   Api api = new Api();
+  String _imgFinalEmotion = 'Group 36';
+  Map<String,String> pathImgFinalEmotino = {
+    'happy':'Group35',
+    'angry':'Group36',
+    'love':'Group37',
+    'passive':'Group38',
+    'confuse':'Group39',
+    'sad':'Group40'
+  };
 
   String getDate(DateTime _date) {
     var month = ['January', 'February', 'March',
@@ -63,7 +72,7 @@ class _AddPixelPage extends State<AddPixelPage> {
   String getFinalEmotion(){
     // print('emo=\t'+_emo.toString());
     List temp = [happy,angry,love,passive,confused,sad];
-    List tempStr = ['happy','angry','love','passive','confused','sad'];
+    List tempStr = ['happy','angry','love','passive','confuse','sad'];
     List maxList = [];
     int max = 0,sizeMax = 0,maxIndex=-1;
 
@@ -186,6 +195,9 @@ class _AddPixelPage extends State<AddPixelPage> {
                               setState(() {
                               happy+=1;
                               _emo.add('happy');
+                              setState(() {
+                                _imgFinalEmotion = pathImgFinalEmotino[getFinalEmotion()];
+                              });
                               });
                             },
                             child: Image(
@@ -208,6 +220,9 @@ class _AddPixelPage extends State<AddPixelPage> {
                             onTap: (){
                               angry+=1;
                               _emo.add('angry');
+                              setState(() {
+                                _imgFinalEmotion = pathImgFinalEmotino[getFinalEmotion()];
+                              });
                             },
                             child: Image(
                               image: AssetImage('assets/moodpixel/Group36.png'),width: 80,
@@ -228,6 +243,9 @@ class _AddPixelPage extends State<AddPixelPage> {
                             onTap: (){
                               love+=1;
                               _emo.add('love');
+                              setState(() {
+                                _imgFinalEmotion = pathImgFinalEmotino[getFinalEmotion()];
+                              });
                             },
                             child: Image(
                               image: AssetImage('assets/moodpixel/Group37.png'),width: 80,
@@ -255,6 +273,9 @@ class _AddPixelPage extends State<AddPixelPage> {
                             onTap: (){
                               passive+=1;
                               _emo.add('passive');
+                              setState(() {
+                                _imgFinalEmotion = pathImgFinalEmotino[getFinalEmotion()];
+                              });
                             },
                             child: Image(
                               image: AssetImage('assets/moodpixel/Group38.png'),width: 80,
@@ -275,6 +296,9 @@ class _AddPixelPage extends State<AddPixelPage> {
                             onTap: (){
                               confused+=1;
                               _emo.add('confuse');
+                              setState(() {
+                                _imgFinalEmotion = pathImgFinalEmotino[getFinalEmotion()];
+                              });
                             },
                             child: Image(
                               image: AssetImage('assets/moodpixel/Group39.png'),width: 80,
@@ -295,6 +319,9 @@ class _AddPixelPage extends State<AddPixelPage> {
                             onTap: (){
                               sad+=1;
                               _emo.add('sad');
+                              setState(() {
+                                _imgFinalEmotion = pathImgFinalEmotino[getFinalEmotion()];
+                              });
                             },
                             child: Image(
                               image: AssetImage('assets/moodpixel/Group40.png'),width: 80,
@@ -354,7 +381,7 @@ class _AddPixelPage extends State<AddPixelPage> {
                               }
                             },
                             child: Image(
-                            image: AssetImage('assets/moodpixel/Group 36.png'),
+                            image: AssetImage('assets/moodpixel/$_imgFinalEmotion.png'),
                             width: 80,
                             height: 80,
                           
@@ -369,12 +396,14 @@ class _AddPixelPage extends State<AddPixelPage> {
                     height: 30,
                   ),
                   GestureDetector(
+                    
                             onTap: (){
                               if(sad+happy+confused+passive+angry+love!=0){
                                 save();
                               }
                             },
                             child: Image(
+                              
                               image: AssetImage('assets/moodpixel/update.png'),height: 65,
                             )
                           ),
