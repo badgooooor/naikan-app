@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart' as calendar;
+import 'package:naikan/Page/footer.dart';
 import 'dart:async';
 
 import 'Pixel.dart';
@@ -310,108 +311,7 @@ class CalendarState extends State<PixelCalendar> {
             //Text('PIXEL CALENDAR',style: TextStyle(color: Color.fromARGB(255, 224, 61, 61)),)
           ),
           //BottomBar
-          new Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children:<Widget>[
-                  new Container(
-                    height: 54,
-                    color: Colors.red,
-                    child: new Row(
-                      children: <Widget>[
-                        //home
-                        Container(
-                            margin: EdgeInsets.only(
-                                left: 32.5
-                            ),
-                            child:
-                            new IconButton(
-                              icon: Icon(Icons.home,color: Colors.white70,size: 30,),
-                              onPressed: (){
-                                print('home');
-                              },
-                            )
-
-                        ),
-                        //addSnap
-                        Container(
-                            margin: EdgeInsets.only(
-                                left: 32.5
-                            ),
-                            child:
-                            new IconButton(
-                              icon :Icon(Icons.edit,color: Colors.white70,size: 30),
-                              onPressed: (){
-                                print('addsnap');
-                              },
-                            )
-
-                        ),
-                        //snap
-                        Container(
-                            margin: EdgeInsets.only(
-                                left: 95
-                            ),
-                            child:
-                            new IconButton(
-                              icon: Icon(Icons.favorite,color: Colors.white70,size: 30),
-                              onPressed: (){
-                                print('snap');
-                              },
-                            )
-                          //overView
-                        ),
-                        //overview
-                        Container(
-                            margin: EdgeInsets.only(
-                                left: 32.5
-                            ),
-                            child:
-                            new IconButton(
-                              icon:Icon(Icons.view_comfy,color: Colors.white70,size: 30),
-                              onPressed: (){
-                                print('overView');
-                              },
-                            )
-                        ),
-                      ],
-                    ),
-                  ),
-            ]
-          ),
-          //AddButtonBackground
-          new Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children:<Widget>[
-                new Container(
-                  margin: EdgeInsets.only(left:(width-72)/2,bottom:18),
-                  width: 72,
-                  height: 72,
-                  decoration: new BoxDecoration(
-                      color: Colors.white,
-                      shape: BoxShape.circle
-                  ),
-                ),
-              ]
-          ),
-          //AddButton
-          new Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children:<Widget>[
-                new Container(
-                  padding: EdgeInsets.only(left:(width-62)/2,right:(width-62)/2,bottom:28),
-                  child: ButtonTheme(
-                    height: 54,
-                    minWidth: 54,
-                    child: new RaisedButton(
-                      shape: CircleBorder(),
-                      color: Colors.redAccent,
-                      onPressed: () =>print('ButtonDebugger: add pressed'),
-                      child: Icon(Icons.add,size: 30),
-                    ),
-                  )
-                ),
-              ]
-          ),
+          new Footer(),
 
 
         ],

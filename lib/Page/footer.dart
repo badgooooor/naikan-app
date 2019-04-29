@@ -1,0 +1,126 @@
+import 'package:flutter/material.dart';
+
+class Footer extends StatefulWidget{
+  @override
+  FooterState createState(){
+    return new FooterState();
+  }
+}
+
+class FooterState extends State<Footer>{
+  
+  @override
+  Widget build(BuildContext context){
+    double width = MediaQuery.of(context).size.width;
+    
+    return new Stack(
+      children: <Widget>[
+        //BottomBar
+          new Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children:<Widget>[
+                  new Container(
+                    height: 54,
+                    color: Colors.red,
+                    child: new Row(
+                      children: <Widget>[
+                        //home
+                        Container(
+                            margin: EdgeInsets.only(
+                                left: 32.5
+                            ),
+                            child:
+                            new IconButton(
+                              icon: Icon(Icons.home,color: Colors.white70,size: 30,),
+                              onPressed: (){
+                                print('home');
+                              },
+                            )
+
+                        ),
+                        //addSnap
+                        Container(
+                            margin: EdgeInsets.only(
+                                left: 32.5
+                            ),
+                            child:
+                            new IconButton(
+                              icon :Icon(Icons.edit,color: Colors.white70,size: 30),
+                              onPressed: (){
+                                print('addsnap');
+                              },
+                            )
+
+                        ),
+                        //snap
+                        Container(
+                            margin: EdgeInsets.only(
+                                left: 95
+                            ),
+                            child:
+                            new IconButton(
+                              icon: Icon(Icons.favorite,color: Colors.white70,size: 30),
+                              onPressed: (){
+                                print('snap');
+                              },
+                            )
+                          //overView
+                        ),
+                        //overview
+                        Container(
+                            margin: EdgeInsets.only(
+                                left: 32.5
+                            ),
+                            child:
+                            new IconButton(
+                              icon:Icon(Icons.view_comfy,color: Colors.white70,size: 30),
+                              onPressed: (){
+                                print('overView');
+                              },
+                            )
+                        ),
+                      ],
+                    ),
+                  ),
+            ]
+          ),
+          //AddButtonBackground
+          new Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children:<Widget>[
+                new Container(
+                  margin: EdgeInsets.only(left:(width-72)/2,bottom:18),
+                  width: 72,
+                  height: 72,
+                  decoration: new BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle
+                  ),
+                ),
+              ]
+          ),
+          //AddButton
+          new Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children:<Widget>[
+                new Container(
+                  padding: EdgeInsets.only(left:(width-62)/2,right:(width-62)/2,bottom:28),
+                  child: ButtonTheme(
+                    height: 54,
+                    minWidth: 54,
+                    child: new RaisedButton(
+                      shape: CircleBorder(),
+                      color: Colors.redAccent,
+                      onPressed: () =>print('ButtonDebugger: add pressed'),
+                      child: Icon(Icons.add,size: 30),
+                    ),
+                  )
+                ),
+              ]
+          ),
+
+
+      ],
+    );
+  }
+}

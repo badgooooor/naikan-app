@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'package:naikan/Model/Model.dart';
+import 'package:naikan/Page/footer.dart';
 import 'dart:convert';
 
 class AddSnapshot extends StatelessWidget{
@@ -151,9 +152,11 @@ class _HomePageState extends State<HomePage>{
           backgroundColor: new Color(0xFFF34949),
           centerTitle: true,
       ),
-      body: Container(
-       width: double.infinity,
-        child: Column(
+      body: new Stack(
+        children:[
+          Container(
+            width: double.infinity,
+            child: Column(
         // mainAxisAlignment: MainAxisAlignment.start,
          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -283,6 +286,9 @@ class _HomePageState extends State<HomePage>{
 
           ],
         ),
+          ),
+          new Footer()
+        ]
       ),
       floatingActionButton: FloatingActionButton(
           onPressed: _display,

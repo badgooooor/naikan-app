@@ -4,6 +4,7 @@ import 'package:configurable_expansion_tile/configurable_expansion_tile.dart';
 import 'package:naikan/Model/Model.dart';
 import 'package:month_picker_dialog/month_picker_dialog.dart';
 import 'package:naikan/main.dart';
+import 'package:naikan/Page/footer.dart';
 
 class ViewSnapPage extends StatelessWidget{
   @override
@@ -68,89 +69,18 @@ Future<Null> selectYearMonth(BuildContext context) async{
         title: Text('SNAPSHOT'),
         
       ),
-      body: Viewsnap(),
-      bottomNavigationBar: Footer(),
-    );
-  }
-
-}
-class Footer extends StatefulWidget{
-@override
-FooterState createState(){
-  return new FooterState();
-}
-
-}
-
-class FooterState extends State<Footer>{
-  @override
-  Widget build(BuildContext context){
-    return Container(
-      
-      width: 370,
-      height: 54,
-      color: new Color(0xFFF34949),
-      child: new Row(
+      body: new Stack(
         children: <Widget>[
-          Container(
-            margin: EdgeInsets.only(
-              left: 45
-            ),
-            child:
-            new IconButton(
-              icon: Icon(Icons.home,color: Colors.white70,size: 30,),
-              onPressed: (){
-                print('home');
-              },
-            )
-            
-          ),
-          Container(
-            margin: EdgeInsets.only(
-              left: 45
-            ),
-            child:
-            new IconButton(
-              icon :Icon(Icons.edit,color: Colors.white70,size: 30),
-              onPressed: (){
-                print('addsnap');
-              },
-            )
-          
-          ),
-          Container(
-            margin: EdgeInsets.only(
-              left: 45
-            ),
-            child:
-             new IconButton(
-              icon: Icon(Icons.favorite,color: Colors.white70,size: 30),
-              onPressed: (){
-                print('snap');
-              },
-            )
-            
-            ),
-          Container(
-            margin: EdgeInsets.only(
-              left: 45
-            ),
-            child:
-            new IconButton(
-              icon:Icon(Icons.view_comfy,color: Colors.white70,size: 30),
-              onPressed: (){
-                print('overView');
-              },
-            )
-           
-          ),
-          
-        
+          Viewsnap(),
+          new Footer(),
         ],
-      ),
+      )
+      //bottomNavigationBar: Footer(),
     );
   }
+
 }
+
 class BodyContent extends StatelessWidget{
 
 

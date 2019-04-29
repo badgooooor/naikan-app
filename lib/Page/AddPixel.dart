@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:naikan/Model/Model.dart';
+import 'package:naikan/Page/footer.dart';
 import 'package:sortedmap/sortedmap.dart';
 
 class AddPixel extends StatelessWidget{
@@ -31,17 +32,7 @@ class _AddPixelPage extends State<AddPixelPage> {
   int passive=0;
   int confused=0;
   int sad=0;
-  List<String> _emo=[];
   Api api = new Api();
-  String _imgFinalEmotion = 'Group 36';
-  Map<String,String> pathImgFinalEmotino = {
-    'happy':'Group35',
-    'angry':'Group36',
-    'love':'Group37',
-    'passive':'Group38',
-    'confuse':'Group39',
-    'sad':'Group40'
-  };
 
   String getDate(DateTime _date) {
     var month = ['January', 'February', 'March',
@@ -67,42 +58,13 @@ class _AddPixelPage extends State<AddPixelPage> {
     print('Sad  \t=\t'+sad.toString());
     print('finalEmotion=\t'+getFinalEmotion());
   }
-
-
   String getFinalEmotion(){
-    // print('emo=\t'+_emo.toString());
-    List temp = [happy,angry,love,passive,confused,sad];
-    List tempStr = ['happy','angry','love','passive','confuse','sad'];
-    List maxList = [];
-    int max = 0,sizeMax = 0,maxIndex=-1;
-
-    for(int i = 0 ;i < temp.length ; i++){
-      if(temp[i] > sizeMax) 
-        sizeMax = temp[i];
-    }
-    for(int i = 0 ;i < temp.length ; i++){
-      if(temp[i] == sizeMax) {
-          max+=1;
-          maxIndex=i;
-          maxList.add(tempStr[i]);
-      }
-    }
-    if(max != 1){
-      // print('maxSize =\t'+sizeMax.toString());
-      // print('max emotion =\t'+max.toString());
-      // print('maxList =\t'+maxList.toString());
-      // print(maxIndex);
-      for(int i = _emo.length-1 ; i >= 0 ; i--){
-        if(maxList.contains(_emo[i]))
-          // print(_emo[i]);
-          return _emo[i];
-      }
-    }
-    // print(tempStr[maxIndex]);
-    return tempStr[maxIndex];
+    String mostEmotion = 'Happy';
+    var map = new SortedMap();
+    
+    // map.addEntries({'happy':happy});
+    return mostEmotion;
   }
-  
-  
   save() async{
     Map data={
       "angry": angry,
@@ -112,6 +74,7 @@ class _AddPixelPage extends State<AddPixelPage> {
       "sad": sad,
       "love": love,
       "finalEmotion": getFinalEmotion()
+//      ,"date" : 19990326
     };
     print('-------------save-------------');
     http.Response res = await api.postPixel(data);
@@ -127,7 +90,6 @@ class _AddPixelPage extends State<AddPixelPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Color(0xFFFFFFFF),
-        bottomNavigationBar: Footerr(),
         appBar: AppBar(
           
           leading: IconButton(
@@ -152,8 +114,8 @@ class _AddPixelPage extends State<AddPixelPage> {
           backgroundColor: new Color(0xFFF34949),
           
         ),
-        body: Container(
-            
+        body: new Stack( children:[
+          Container(         
             child: Column(
                 
                 children: [
@@ -192,13 +154,7 @@ class _AddPixelPage extends State<AddPixelPage> {
                           )),
                           GestureDetector(
                             onTap: (){
-                              setState(() {
                               happy+=1;
-                              _emo.add('happy');
-                              setState(() {
-                                _imgFinalEmotion = pathImgFinalEmotino[getFinalEmotion()];
-                              });
-                              });
                             },
                             child: Image(
                               image: AssetImage('assets/moodpixel/Group35.png'),width: 80,
@@ -219,10 +175,6 @@ class _AddPixelPage extends State<AddPixelPage> {
                           GestureDetector(
                             onTap: (){
                               angry+=1;
-                              _emo.add('angry');
-                              setState(() {
-                                _imgFinalEmotion = pathImgFinalEmotino[getFinalEmotion()];
-                              });
                             },
                             child: Image(
                               image: AssetImage('assets/moodpixel/Group36.png'),width: 80,
@@ -242,10 +194,6 @@ class _AddPixelPage extends State<AddPixelPage> {
                           GestureDetector(
                             onTap: (){
                               love+=1;
-                              _emo.add('love');
-                              setState(() {
-                                _imgFinalEmotion = pathImgFinalEmotino[getFinalEmotion()];
-                              });
                             },
                             child: Image(
                               image: AssetImage('assets/moodpixel/Group37.png'),width: 80,
@@ -272,10 +220,6 @@ class _AddPixelPage extends State<AddPixelPage> {
                           GestureDetector(
                             onTap: (){
                               passive+=1;
-                              _emo.add('passive');
-                              setState(() {
-                                _imgFinalEmotion = pathImgFinalEmotino[getFinalEmotion()];
-                              });
                             },
                             child: Image(
                               image: AssetImage('assets/moodpixel/Group38.png'),width: 80,
@@ -295,10 +239,6 @@ class _AddPixelPage extends State<AddPixelPage> {
                           GestureDetector(
                             onTap: (){
                               confused+=1;
-                              _emo.add('confuse');
-                              setState(() {
-                                _imgFinalEmotion = pathImgFinalEmotino[getFinalEmotion()];
-                              });
                             },
                             child: Image(
                               image: AssetImage('assets/moodpixel/Group39.png'),width: 80,
@@ -318,10 +258,6 @@ class _AddPixelPage extends State<AddPixelPage> {
                           GestureDetector(
                             onTap: (){
                               sad+=1;
-                              _emo.add('sad');
-                              setState(() {
-                                _imgFinalEmotion = pathImgFinalEmotino[getFinalEmotion()];
-                              });
                             },
                             child: Image(
                               image: AssetImage('assets/moodpixel/Group40.png'),width: 80,
@@ -376,12 +312,10 @@ class _AddPixelPage extends State<AddPixelPage> {
                           ),
                           GestureDetector(
                             onTap: (){
-                              if(sad+happy+confused+passive+angry+love!=0){
-                                display();
-                              }
+                              display();
                             },
                             child: Image(
-                            image: AssetImage('assets/moodpixel/$_imgFinalEmotion.png'),
+                            image: AssetImage('assets/moodpixel/Group 36.png'),
                             width: 80,
                             height: 80,
                           
@@ -396,253 +330,23 @@ class _AddPixelPage extends State<AddPixelPage> {
                     height: 30,
                   ),
                   GestureDetector(
-                    
                             onTap: (){
-                              if(sad+happy+confused+passive+angry+love!=0){
-                                save();
-                              }
+                              save();
                             },
                             child: Image(
-                              
                               image: AssetImage('assets/moodpixel/update.png'),height: 65,
                             )
                           ),
 
             ])
-
-
-        )
-        
-
-
-    
-    );
-  }
-
-}
-class Footerr extends StatefulWidget{
-  @override
-  FooterrState createState(){
-    return new FooterrState();
-}
-
-}
-class FooterrState extends State<Footerr>{
-  
-  @override
-  Widget build(BuildContext context){
-    double width = MediaQuery.of(context).size.width;
-    
-    return 
-      Container(
-      
-      width: 370,
-      height: 54,
-      color: new Color(0xFFF34949),
-      child: new Column(
-        children: <Widget>[
-          Container(
-            child: Row(
-              children: <Widget>[
-                Container(
-                  margin: EdgeInsets.only(
-                    left: 30
-                  ),
-                  child:
-                  new IconButton(
-                    icon: Icon(Icons.home,color: Colors.white30,size: 30,),
-                    onPressed: (){
-                      print('home');
-                    },
-                  )
-                  
-                ),
-                Container(
-                  margin: EdgeInsets.only(
-                    left: 30
-                  ),
-                  child:
-                  new IconButton(
-                    icon :Icon(Icons.edit,color: Colors.white30,size: 30),
-                    onPressed: (){
-                      print('addsnap');
-                    },
-                  )
-                
-                ),
-              
-                  Container(
-                  margin: EdgeInsets.only(
-                    left: 100
-                  ),
-                  child:
-                  new IconButton(
-                    icon: Icon(Icons.favorite,color: Colors.white30,size: 30),
-                    onPressed: (){
-                      print('snap');
-                    },
-                  )
-                  
-                  ),
-
-                Container(
-                  margin: EdgeInsets.only(
-                    left: 30
-                  ),
-                  child:
-                  new IconButton(
-                    icon:Icon(Icons.settings,color: Colors.white30,size: 30),
-                    onPressed: (){
-                      print('setting');
-                    },
-                  )
-                
-                ),
-          
-              
-              ],
-            ),
           ),
-      //     new Column(
-      //         mainAxisAlignment: MainAxisAlignment.end,
-      //         children:<Widget>[
-      //           new Container(
-      //             margin: EdgeInsets.only(left:72,bottom:18),
-      //             width: 72,
-      //             height: 72,
-      //             decoration: new BoxDecoration(
-      //                 color: Colors.white,
-      //                 shape: BoxShape.circle
-      //             ),
-      //           ),
-      //         ]
-      //     ),
-      //     //AddButton
-      //     new Column(
-      //         mainAxisAlignment: MainAxisAlignment.end,
-      //         children:<Widget>[
-      //           new Container(
-      //             padding: EdgeInsets.only(left:(width-62)/2,right:(width-62)/2,bottom:28),
-      //             child: ButtonTheme(
-      //               height: 54,
-      //               minWidth: 54,
-      //               child: new RaisedButton(
-      //                 shape: CircleBorder(),
-      //                 color: Colors.redAccent,
-      //                 onPressed: () =>print('ButtonDebugger: add pressed'),
-      //                 child: Icon(Icons.add,size: 30),
-      //               ),
-      //             )
-      //           ),
-      //         ]
-      // )
+          new Footer()
+        ]
+    )
 
-        ],
-      )
+
+    
     );
-    // return Column(
-    //         mainAxisAlignment: MainAxisAlignment.end,
-    //         children:<Widget>[
-    //               new Container(
-    //                 height: 54,
-    //                 color: Colors.red,
-    //                 child: new Row(
-    //                   children: <Widget>[
-    //                     //home
-    //                     Container(
-    //                         margin: EdgeInsets.only(
-    //                             left: 32.5
-    //                         ),
-    //                         child:
-    //                         new IconButton(
-    //                           icon: Icon(Icons.home,color: Colors.white70,size: 30,),
-    //                           onPressed: (){
-    //                             print('home');
-    //                           },
-    //                         )
-
-    //                     ),
-    //                     //addSnap
-    //                     Container(
-    //                         margin: EdgeInsets.only(
-    //                             left: 32.5
-    //                         ),
-    //                         child:
-    //                         new IconButton(
-    //                           icon :Icon(Icons.edit,color: Colors.white70,size: 30),
-    //                           onPressed: (){
-    //                             print('addsnap');
-    //                           },
-    //                         )
-
-    //                     ),
-    //                     //snap
-    //                     Container(
-    //                         margin: EdgeInsets.only(
-    //                             left: 95
-    //                         ),
-    //                         child:
-    //                         new IconButton(
-    //                           icon: Icon(Icons.favorite,color: Colors.white70,size: 30),
-    //                           onPressed: (){
-    //                             print('snap');
-    //                           },
-    //                         )
-    //                       //overView
-    //                     ),
-    //                     //overview
-    //                     Container(
-    //                         margin: EdgeInsets.only(
-    //                             left: 32.5
-    //                         ),
-    //                         child:
-    //                         new IconButton(
-    //                           icon:Icon(Icons.view_comfy,color: Colors.white70,size: 30),
-    //                           onPressed: (){
-    //                             print('overView');
-    //                           },
-    //                         )
-    //                     ),
-    //                   ],
-    //                 ),
-    //               ),
-    //       //   ]
-    //       // ),
-    //       //AddButtonBackground
-    //       new Column(
-    //           mainAxisAlignment: MainAxisAlignment.end,
-    //           children:<Widget>[
-    //             new Container(
-    //               margin: EdgeInsets.only(left:(width-72)/2,bottom:18),
-    //               width: 72,
-    //               height: 72,
-    //               decoration: new BoxDecoration(
-    //                   color: Colors.white,
-    //                   shape: BoxShape.circle
-    //               ),
-    //             ),
-    //           ]
-    //       ),
-    //       //AddButton
-    //       new Column(
-    //           mainAxisAlignment: MainAxisAlignment.end,
-    //           children:<Widget>[
-    //             new Container(
-    //               padding: EdgeInsets.only(left:(width-62)/2,right:(width-62)/2,bottom:28),
-    //               child: ButtonTheme(
-    //                 height: 54,
-    //                 minWidth: 54,
-    //                 child: new RaisedButton(
-    //                   shape: CircleBorder(),
-    //                   color: Colors.redAccent,
-    //                   onPressed: () =>print('ButtonDebugger: add pressed'),
-    //                   child: Icon(Icons.add,size: 30),
-    //                 ),
-    //               )
-    //             ),
-    //           ]
-    //  )]
-     // );
-  
   }
+
 }
