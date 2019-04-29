@@ -17,11 +17,13 @@ class ViewSnapPage extends StatelessWidget{
   
 }
 class Body extends StatelessWidget{
+
   Api api = new Api();
   DateTime test_ym = new DateTime.now();
   List<Snapshot> ym;
    getyearmont() async{
-    ym = await api.getSnapshotYearMonth(test_ym.month,test_ym.year);
+    ym = await api.getSnapshotYearMonth(test_ym.year,test_ym.month);
+    // print('in getFunction'+ym.toString());
   }
 
 
@@ -31,6 +33,7 @@ Future<Null> selectYearMonth(BuildContext context) async{
     );
         if(pickedYearMonth != null){
           test_ym = pickedYearMonth;
+          // print('in SelevtYearMonth'+ym.toString());
           getyearmont();
           eventBus.fire(ym);
     }
@@ -280,7 +283,7 @@ ContentState createState() {
 }
 class ContentState extends State<Content>{
   Snapshot data = new Snapshot();
-  String getStingDate(int date){
+  String getStingDate(int date){  
     int y = date~/10000;
     int d = date%100;
     int m = (date~/100)%100;
