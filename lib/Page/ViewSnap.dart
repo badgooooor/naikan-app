@@ -34,7 +34,7 @@ Future<Null> selectYearMonth(BuildContext context) async{
         if(pickedYearMonth != null){
           test_ym = pickedYearMonth;
           // print('in SelevtYearMonth'+ym.toString());
-          getyearmont();
+          await getyearmont();
           eventBus.fire(ym);
     }
   }
@@ -68,7 +68,7 @@ Future<Null> selectYearMonth(BuildContext context) async{
         title: Text('SNAPSHOT'),
         
       ),
-      body: Viewsnap(ym),
+      body: Viewsnap(),
       bottomNavigationBar: Footer(),
     );
   }
@@ -152,8 +152,8 @@ class FooterState extends State<Footer>{
   }
 }
 class BodyContent extends StatelessWidget{
-  List<Snapshot> ym = new List();
-  BodyContent(this.ym);
+
+
   @override
   Widget build(BuildContext context) {
 
@@ -164,7 +164,7 @@ class BodyContent extends StatelessWidget{
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              Viewsnap(ym),
+              Viewsnap(),
 
             ],
           ),
@@ -175,17 +175,16 @@ class BodyContent extends StatelessWidget{
 
 }
 class Viewsnap extends StatefulWidget{
-  List<Snapshot> ym = new List();
-  Viewsnap(this.ym);
+
   @override
   ViewsnapState createState() {
-      return new ViewsnapState(ym);
+      return new ViewsnapState();
     }
 }
 
 class ViewsnapState extends State<Viewsnap>{
   List<Snapshot> ym = new List();
-  ViewsnapState(this.ym);
+
   Api api = new Api(); 
  // DateTime test_ym = new DateTime.now();
   @override
@@ -197,7 +196,13 @@ class ViewsnapState extends State<Viewsnap>{
   initState() {
     super.initState();
     eventBus.on().listen((event) {
-      print(event);
+     
+      setState(() {
+         ym = event;
+      });
+     
+ 
+      
   });
    
   }
@@ -228,12 +233,17 @@ class ViewsnapState extends State<Viewsnap>{
             ); 
             
           }
-          else if (ym != null){
-            return listView(ym);
+        
+          else if(ym != []){
+            print(ym);
+            return listView(ym); 
           }
-          else if(snapshot.connectionState == ConnectionState.done){
+          else if (snapshot.connectionState == ConnectionState.done){
+            // print(ym);
             return listView(snapshot.data);
           }
+         
+
       });
 
     }
@@ -369,7 +379,7 @@ class ContentState extends State<Content>{
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[                  
                       Container(
-                        child: Icon(Icons.mood_bad,size:60,color:Colors.redAccent),
+                        child: Icon(Icons.mood,size:60,color:Colors.redAccent),
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,

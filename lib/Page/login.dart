@@ -106,7 +106,7 @@ class _LoginState extends State<LoginPage> {
           ),
           
           new Center(
-                          decoration: InputDecoration(
+         
             
             child: Container(
               
