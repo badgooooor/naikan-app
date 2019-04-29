@@ -123,9 +123,7 @@ class FooterState extends State<Footer>{
                       color: Colors.redAccent,
                       onPressed: () {
                         print('ButtonDebugger: add pressed');
-                        Navigator.push(context,
-                        MaterialPageRoute(builder: (context)=> AddPixel()));
-                        
+                        Navigator.push(context,MaterialPageRoute(builder: (context)=> AddPixel()));
                         },
                       child: Icon(Icons.add,size: 30),
                     ),

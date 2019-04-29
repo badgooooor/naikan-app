@@ -7,26 +7,26 @@ import 'package:naikan/Model/Model.dart';
 import 'package:naikan/Page/footer.dart';
 import 'dart:convert';
 
-class AddSnapshot extends StatelessWidget{
-  @override
-  Widget build(BuildContext context){
-    return MaterialApp(
-        theme: ThemeData(
+// class AddSnapshot extends StatelessWidget{
+//   @override
+//   Widget build(BuildContext context){
+//     return MaterialApp(
+//         theme: ThemeData(
 
-        ),
-        home: HomePage(title:'AddSnapshot')
-    );
-  }
-}
+//         ),
+//         home: HomePage(title:'AddSnapshot')
+//     );
+//   }
+// }
 
-class HomePage extends StatefulWidget{
-  HomePage({Key key, this.title}) : super(key: key);
+class AddSnapshot extends StatefulWidget{
+  AddSnapshot({Key key, this.title}) : super(key: key);
   final String title;
   @override
-  _HomePageState createState() => _HomePageState();
+  _AddSnapshotState createState() => _AddSnapshotState();
 }
 
-class _HomePageState extends State<HomePage>{
+class _AddSnapshotState extends State<AddSnapshot>{
   var color = Colors.red;
   String name = "";
   String story = "";

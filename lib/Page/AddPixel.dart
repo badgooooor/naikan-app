@@ -24,6 +24,10 @@ class AddPixelPage extends StatefulWidget{
 
 class _AddPixelPage extends State<AddPixelPage> {
   
+
+
+
+  
   DateTime _date = new DateTime.now();
   int dateInt = new DateTime.now().year*10000+new DateTime.now().month*100+new DateTime.now().day;
   int happy=0;
@@ -43,8 +47,6 @@ class _AddPixelPage extends State<AddPixelPage> {
     'confuse':'Group39',
     'sad':'Group40'
   };
-
-
 
 
   String getDate(DateTime _date) {
@@ -383,6 +385,7 @@ class _AddPixelPage extends State<AddPixelPage> {
                             if(sad+happy+confused+passive+angry+love!=0){
                               display();
                               }
+                              api.getPixelToday();
                             },
                             child: Image(
                             image: AssetImage('assets/moodpixel/$_imgFinalEmotion.png'),

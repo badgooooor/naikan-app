@@ -4,6 +4,17 @@ import 'package:http/http.dart' as client;
 
 
 class Api{
+  
+    getPixelToday() async {
+    String urlGet = 'https://us-central1-naikan-87838.cloudfunctions.net/webApi/api/v1/pixels/todayPixel';
+    client.Response response = await client.get(urlGet,headers: {"Content-Type" : "application/json"});
+    Map<String,dynamic> l = json.decode(response.body);
+    l.forEach((k,v){
+      l = v;
+    });
+    // print(l);
+    return l;
+  }
   Future<client.Response>postPixel(Map data) async {
     String urlPost = 'https://us-central1-naikan-87838.cloudfunctions.net/webApi/api/v1/pixels/todayPixel';
     String pixelText = json.encode(data);

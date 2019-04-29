@@ -6,18 +6,18 @@ import 'package:month_picker_dialog/month_picker_dialog.dart';
 import 'package:naikan/main.dart';
 import 'package:naikan/Page/footer.dart';
 
-class ViewSnapPage extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
+// class ViewSnapPage extends StatelessWidget{
+//   @override
+//   Widget build(BuildContext context) {
     
-    return MaterialApp(
-      title: "ViewSnap",
-      home: Body(),
-    );
-  }
-  
-}
-class Body extends StatelessWidget{
+//     return MaterialApp(
+//       title: "ViewSnap",
+//       home: Body(),
+//     );
+//   }
+// }
+
+class ViewSnapPage extends StatelessWidget{
 
   Api api = new Api();
   DateTime test_ym = new DateTime.now();
