@@ -59,7 +59,8 @@ class _AddPixelPage extends State<AddPixelPage> {
   }
   String getFinalEmotion(){
     String mostEmotion = 'Happy';
-    // var map = new SortedMap();
+    var map = new SortedMap();
+    
     // map.addEntries({'happy':happy});
     return mostEmotion;
   }

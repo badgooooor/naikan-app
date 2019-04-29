@@ -101,8 +101,8 @@ class Api{
        int dateInt = _date.year*10000+_date.month*100+_date.day;
       allSnapshot.add(new Snapshot(
         title: 'No Snapshot here :)'
-        ,time: 'Better late than never'
-        ,place: 'Utopia'
+        ,time: '-'//'Better late than never'
+        ,place: '-'//'Utopia'
         ,detail: 'Please add Snapshot when you feel it :D'
         ,date: 0 ));
     }
