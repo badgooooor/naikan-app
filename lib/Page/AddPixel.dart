@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:naikan/Model/Model.dart';
+import 'package:sortedmap/sortedmap.dart';
+
 class AddPixel extends StatelessWidget{
   @override
   Widget build(BuildContext context){
@@ -56,7 +58,10 @@ class _AddPixelPage extends State<AddPixelPage> {
     print('finalEmotion=\t'+getFinalEmotion());
   }
   String getFinalEmotion(){
-    String mostEmotion = 'Happier';
+    String mostEmotion = 'Happy';
+    var map = new SortedMap();
+    
+    // map.addEntries({'happy':happy});
     return mostEmotion;
   }
   save() async{

@@ -17,11 +17,13 @@ class ViewSnapPage extends StatelessWidget{
   
 }
 class Body extends StatelessWidget{
+
   Api api = new Api();
   DateTime test_ym = new DateTime.now();
   List<Snapshot> ym;
    getyearmont() async{
-    ym = await api.getSnapshotYearMonth(test_ym.month,test_ym.year);
+    ym = await api.getSnapshotYearMonth(test_ym.year,test_ym.month);
+    // print('in getFunction'+ym.toString());
   }
 
 
@@ -31,7 +33,8 @@ Future<Null> selectYearMonth(BuildContext context) async{
     );
         if(pickedYearMonth != null){
           test_ym = pickedYearMonth;
-          getyearmont();
+          // print('in SelevtYearMonth'+ym.toString());
+          await getyearmont();
           eventBus.fire(ym);
     }
   }
@@ -65,7 +68,7 @@ Future<Null> selectYearMonth(BuildContext context) async{
         title: Text('SNAPSHOT'),
         
       ),
-      body: Viewsnap(ym),
+      body: Viewsnap(),
       bottomNavigationBar: Footer(),
     );
   }
@@ -149,8 +152,8 @@ class FooterState extends State<Footer>{
   }
 }
 class BodyContent extends StatelessWidget{
-  List<Snapshot> ym = new List();
-  BodyContent(this.ym);
+
+
   @override
   Widget build(BuildContext context) {
 
@@ -161,7 +164,7 @@ class BodyContent extends StatelessWidget{
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              Viewsnap(ym),
+              Viewsnap(),
 
             ],
           ),
@@ -172,17 +175,16 @@ class BodyContent extends StatelessWidget{
 
 }
 class Viewsnap extends StatefulWidget{
-  List<Snapshot> ym = new List();
-  Viewsnap(this.ym);
+
   @override
   ViewsnapState createState() {
-      return new ViewsnapState(ym);
+      return new ViewsnapState();
     }
 }
 
 class ViewsnapState extends State<Viewsnap>{
   List<Snapshot> ym = new List();
-  ViewsnapState(this.ym);
+
   Api api = new Api(); 
  // DateTime test_ym = new DateTime.now();
   @override
@@ -194,7 +196,14 @@ class ViewsnapState extends State<Viewsnap>{
   initState() {
     super.initState();
     eventBus.on().listen((event) {
-      print(event);
+     
+      setState(() {
+         ym = event;
+
+      });
+     
+ 
+      
   });
    
   }
@@ -225,12 +234,15 @@ class ViewsnapState extends State<Viewsnap>{
             ); 
             
           }
-          else if (ym != null){
-            return listView(ym);
+        
+          if(ym.length != 0){
+            return listView(ym); 
           }
-          else if(snapshot.connectionState == ConnectionState.done){
+          if (snapshot.connectionState == ConnectionState.done){
             return listView(snapshot.data);
           }
+         
+
       });
 
     }
@@ -280,7 +292,8 @@ ContentState createState() {
 }
 class ContentState extends State<Content>{
   Snapshot data = new Snapshot();
-  String getStingDate(int date){
+  String getStingDate(int date){  
+    
     int y = date~/10000;
     int d = date%100;
     int m = (date~/100)%100;
@@ -289,8 +302,10 @@ class ContentState extends State<Content>{
     'July', 'August', 'September',
     'October', 'November', 'December'
     ];
-
-    return  d.toString()+'  ' +month[m-1] +'  ' + y.toString();
+    if(date!=0)
+      return  d.toString()+'  ' +month[m-1] +'  ' + y.toString();
+    else 
+      return '';//'No snapshot here :)';
   }
   ContentState(this.data);
   @override
@@ -366,7 +381,7 @@ class ContentState extends State<Content>{
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[                  
                       Container(
-                        child: Icon(Icons.mood_bad,size:60,color:Colors.redAccent),
+                        child: Icon(Icons.mood,size:60,color:Colors.redAccent),
                       ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,

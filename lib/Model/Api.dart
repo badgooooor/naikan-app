@@ -84,17 +84,29 @@ class Api{
 
   Future<List<Snapshot>> getSnapshotYearMonth(int year,int month) async{
     String urlGetYearMonth = 'https://us-central1-naikan-87838.cloudfunctions.net/webApi/api/v1/snapshots/monthSnapshot/$year/$month';
+    // print(urlGetYearMonth);
     client.Response response = await client.get(urlGetYearMonth,headers: {"Content-Type" : "application/json"});
-    print(json.decode(response.body));
-    Map<String,dynamic> l = json.decode(response.body);
     List<Snapshot> allSnapshot = new List();
+    if(response.body!='No such document!'){
+    // print(json.decode(response.body));
+    Map<String,dynamic> l = json.decode(response.body);
     // print(l);
     l.forEach((k,v){
       var snap = Snapshot.fromJson(v);
       allSnapshot.add(snap);
     });
-  
-    // print(allSnapshot);
+    }
+    else{
+      DateTime _date = new DateTime.now();
+       int dateInt = _date.year*10000+_date.month*100+_date.day;
+      allSnapshot.add(new Snapshot(
+        title: 'No Snapshot here :)'
+        ,time: '-'//'Better late than never'
+        ,place: '-'//'Utopia'
+        ,detail: 'Please add Snapshot when you feel it :D'
+        ,date: 0 ));
+    }
+    print(allSnapshot);
     return allSnapshot;
   }
 
