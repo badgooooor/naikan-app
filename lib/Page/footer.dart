@@ -35,6 +35,7 @@ class FooterState extends State<Footer>{
                               icon: Icon(Icons.home,color: Colors.white70,size: 30,),
                               onPressed: (){
                                 print('home');
+                                AddPixel().setDate(new DateTime.now());
                                 Navigator.push(context,
                                 MaterialPageRoute(builder: (context)=> AddPixel()));
                               },
@@ -84,8 +85,8 @@ class FooterState extends State<Footer>{
                               icon:Icon(Icons.view_comfy,color: Colors.white70,size: 30),
                               onPressed: (){
                                 print('overView');
-                                Navigator.push(context,
-                                MaterialPageRoute(builder: (context)=> PixelCalendar()));
+                                CalendarState().reload();
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=> PixelCalendar()));
                               },
                             )
                         ),
@@ -123,6 +124,7 @@ class FooterState extends State<Footer>{
                       color: Colors.redAccent,
                       onPressed: () {
                         print('ButtonDebugger: add pressed');
+                        AddPixel().setDate(new DateTime.now());
                         Navigator.push(context,MaterialPageRoute(builder: (context)=> AddPixel()));
                         },
                       child: Icon(Icons.add,size: 30),

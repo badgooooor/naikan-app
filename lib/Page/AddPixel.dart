@@ -5,7 +5,14 @@ import 'package:naikan/Model/Model.dart';
 import 'package:naikan/Page/footer.dart';
 import 'package:sortedmap/sortedmap.dart';
 
+DateTime _date = new DateTime.now();
+
 class AddPixel extends StatelessWidget{
+
+  void setDate(DateTime dateTime){
+    _date=dateTime;
+  }
+
   @override
   Widget build(BuildContext context){
     return MaterialApp(
@@ -23,13 +30,9 @@ class AddPixelPage extends StatefulWidget{
 }
 
 class _AddPixelPage extends State<AddPixelPage> {
-  
 
 
-
-  
-  DateTime _date = new DateTime.now();
-  int dateInt = new DateTime.now().year*10000+new DateTime.now().month*100+new DateTime.now().day;
+  int dateInt = _date.year*10000+_date.month*100+_date.day;
   int happy=0;
   int angry=0;
   int love=0;
