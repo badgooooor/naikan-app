@@ -8,7 +8,11 @@ class Api{
     getPixelToday() async {
     String urlGet = 'https://us-central1-naikan-87838.cloudfunctions.net/webApi/api/v1/pixels/todayPixel';
     client.Response response = await client.get(urlGet,headers: {"Content-Type" : "application/json"});
-    Map<String,dynamic> l = json.decode(response.body);
+    // print('from API\t'+response.body.toString());
+    Map<String,dynamic> l ={};
+    if(response.body=='No such document!')
+      return l;
+    l = json.decode(response.body);
     l.forEach((k,v){
       l = v;
     });
