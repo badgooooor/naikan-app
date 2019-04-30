@@ -59,7 +59,7 @@ class _AddPixelPage extends State<AddPixelPage> {
     'October', 'November', 'December'
     ];
     String str = '';
-    str += month[_date.month] + ' ';
+    str += month[_date.month-1] + ' ';
     str += _date.day.toString() + ' , ';
     str += _date.year.toString();
     return str;
