@@ -6,5 +6,3 @@ EventBus eventBus = EventBus();
 void main() => runApp(LoginStateSet());
 
 
-
-

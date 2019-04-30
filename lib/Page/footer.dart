@@ -35,14 +35,15 @@ class FooterState extends State<Footer>{
                               icon: Icon(Icons.edit,color: Colors.white70,size: 30,),
                               onPressed: (){
                                 print('home');
-                                
-                                Navigator.push(context,
+                                //cil
+                                Navigator.pushReplacement(context,
                                 MaterialPageRoute(builder: (context)=> AddSnapshot()));
                               },
                             )
 
                         ),
-                        //addSnap
+                        //love button
+                        //view snapshot page
                         Container(
                             margin: EdgeInsets.only(
                                 left: 32.5
@@ -51,8 +52,9 @@ class FooterState extends State<Footer>{
                             new IconButton(
                               icon :Icon(Icons.favorite,color: Colors.white70,size: 30),
                               onPressed: (){
+                                // cil
                                 print('addsnap');
-                                Navigator.push(context,
+                                Navigator.pushReplacement(context,
                                 MaterialPageRoute(builder: (context)=> ViewSnapPage()));
                                 
                               },
@@ -68,9 +70,10 @@ class FooterState extends State<Footer>{
                             new IconButton(
                               icon: Icon(Icons.view_comfy,color: Colors.white70,size: 30),
                               onPressed: (){
+                                // cil
                                 print('snap');
                                 CalendarState().reload();
-                                Navigator.push(context,
+                                Navigator.pushReplacement(context,
                                 MaterialPageRoute(builder: (context)=> new PixelCalendarSet()));
                               },
                             )

@@ -5,7 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'package:naikan/Model/Model.dart';
 import 'package:naikan/Page/footer.dart';
-import 'dart:convert';
+import 'package:naikan/Page/Page.dart';
 
 // class AddSnapshot extends StatelessWidget{
 //   @override
@@ -311,7 +311,27 @@ class _AddSnapshotState extends State<AddSnapshot>{
                     )
                   ],
               ),
-              onPressed: save,
+              onPressed: ()async{
+                if(name != ""){
+                  print('yayayayay you can save');
+                  await save();
+                  //cil
+                  Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context)=> ViewSnapPage()));
+                }
+                else{
+                  //.########....###.....#######.
+                  //....##......##.##...##.....##
+                  //....##.....##...##..##.....##
+                  //....##....##.....##.##.....##
+                  //....##....#########.##.....##
+                  //....##....##.....##.##.....##
+                  //....##....##.....##..#######.
+                   //tao implement here
+                   // Snapshot must have title!
+                  print('no you can\'t save');
+                }
+              },
             
             ),
             // FlatButton(

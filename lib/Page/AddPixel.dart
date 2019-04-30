@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:naikan/Model/Model.dart';
 import 'package:naikan/Page/footer.dart';
 import 'package:sortedmap/sortedmap.dart';
+import 'Save.dart';
 
 DateTime _date = new DateTime.now();
 class AddpixelPage extends StatelessWidget {
@@ -55,15 +56,15 @@ class _AddPixelPage extends State<AddPixelPage> {
 
 
   int dateInt = _date.year*10000+_date.month*100+_date.day;
-  int happy=0;
-  int angry=0;
-  int love=0;
-  int passive=0;
-  int confused=0;
-  int sad=0;
+  int happy=Save.happy;
+  int angry=Save.angry;
+  int love=Save.love;
+  int passive=Save.passive;
+  int confused=Save.passive;
+  int sad=Save.sad;
   List<String> _emo=[];
   Api api = new Api();
-  String _imgFinalEmotion = 'Group 36';
+  String _imgFinalEmotion = Save.finalEmotion;//'Group 36';
   Map<String,String> pathImgFinalEmotino = {
     'happy':'Group35',
     'angry':'Group36',
@@ -229,8 +230,12 @@ class _AddPixelPage extends State<AddPixelPage> {
                             onTap: (){
                               setState(() {
                               happy+=1;
+                              Save.happy+=1;
                               _emo.add('happy');
-                              _imgFinalEmotion = pathImgFinalEmotino[getFinalEmotion()];
+                              // print('Save is here !!!! = '+ Save.happy.toString());
+                              String pathEmo = pathImgFinalEmotino[getFinalEmotion()];
+                              _imgFinalEmotion = pathEmo;
+                              Save.finalEmotion = pathEmo;
                               });
                             },
                             child: Image(
@@ -253,8 +258,11 @@ class _AddPixelPage extends State<AddPixelPage> {
                             onTap: (){
                               angry+=1;
                               _emo.add('angry');
+                              Save.angry+=1;
                               setState(() {
-                                _imgFinalEmotion = pathImgFinalEmotino[getFinalEmotion()];
+                                String pathEmo = pathImgFinalEmotino[getFinalEmotion()];
+                                _imgFinalEmotion = pathEmo;
+                                Save.finalEmotion = pathEmo;
                               });
                             },
                             child: Image(
@@ -276,8 +284,11 @@ class _AddPixelPage extends State<AddPixelPage> {
                             onTap: (){
                               love+=1;
                               _emo.add('love');
+                              Save.love+=1;
                               setState(() {
-                                _imgFinalEmotion = pathImgFinalEmotino[getFinalEmotion()];
+                                String pathEmo = pathImgFinalEmotino[getFinalEmotion()];
+                                _imgFinalEmotion = pathEmo;
+                                Save.finalEmotion = pathEmo;
                               });
                             },
                             child: Image(
@@ -306,8 +317,11 @@ class _AddPixelPage extends State<AddPixelPage> {
                             onTap: (){
                               passive+=1;
                               _emo.add('passive');
+                              Save.passive+=1;
                               setState(() {
-                                _imgFinalEmotion = pathImgFinalEmotino[getFinalEmotion()];
+                              String pathEmo = pathImgFinalEmotino[getFinalEmotion()];
+                              _imgFinalEmotion = pathEmo;
+                              Save.finalEmotion = pathEmo;
                               });
                             },
                             child: Image(
@@ -329,8 +343,11 @@ class _AddPixelPage extends State<AddPixelPage> {
                             onTap: (){
                               confused+=1;
                               _emo.add('confuse');
+                              Save.confused+=1;
                               setState(() {
-                                _imgFinalEmotion = pathImgFinalEmotino[getFinalEmotion()];
+                                String pathEmo = pathImgFinalEmotino[getFinalEmotion()];
+                                _imgFinalEmotion = pathEmo;
+                                Save.finalEmotion = pathEmo;
                               });
                             },
                             child: Image(
@@ -352,8 +369,11 @@ class _AddPixelPage extends State<AddPixelPage> {
                             onTap: (){
                               sad+=1;
                               _emo.add('sad');
+                              Save.sad+=1;
                               setState(() {
-                                _imgFinalEmotion = pathImgFinalEmotino[getFinalEmotion()];
+                                String pathEmo = pathImgFinalEmotino[getFinalEmotion()];
+                                _imgFinalEmotion = pathEmo;
+                                Save.finalEmotion = pathEmo;
                               });
                             },
                             child: Image(
@@ -557,10 +577,23 @@ class _AddPixelPage extends State<AddPixelPage> {
                     height: 30,
                   ),
                   GestureDetector(
-                            onTap: (){
+                          //.########....###.....#######.
+                          //....##......##.##...##.....##
+                          //....##.....##...##..##.....##
+                          //....##....##.....##.##.....##
+                          //....##....#########.##.....##
+                          //....##....##.....##.##.....##
+                          //....##....##.....##..#######.
+                          //tao
+                            onTap: ()async{
                             if(sad+happy+confused+passive+angry+love!=0){
-                              save();                           
+                              await save(); 
+                                                        
                               }
+                            else{
+                              //tao implement here
+                              // 
+                            }
                             },
                             child: Image(
                               image: AssetImage('assets/moodpixel/update.png'),height: 65,

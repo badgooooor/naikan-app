@@ -311,11 +311,11 @@ class CalendarState extends State<PixelCalendar> {
               isScrollable: false,
               onDayPressed: (dateTime,list){
                 print('Day $dateTime pressed.');
-                AddPixel().setDate(dateTime);
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context)=> AddPixel())
-                );
+                // AddPixel().setDate(dateTime);
+                // Navigator.push(
+                //     context,
+                //     MaterialPageRoute(builder: (context)=> AddPixel())
+                // );
               },
               minSelectedDate: DateTime(year,month),
               maxSelectedDate: DateTime(year,month+1,0),
