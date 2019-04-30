@@ -71,7 +71,7 @@ class FooterState extends State<Footer>{
                                 print('snap');
                                 CalendarState().reload();
                                 Navigator.push(context,
-                                MaterialPageRoute(builder: (context)=> new PixelCalendar()));
+                                MaterialPageRoute(builder: (context)=> new PixelCalendarSet()));
                               },
                             )
                           //overView
@@ -125,7 +125,10 @@ class FooterState extends State<Footer>{
                       onPressed: () {
                         print('ButtonDebugger: add pressed');
                         AddPixel().setDate(new DateTime.now());
-                        Navigator.push(context,MaterialPageRoute(builder: (context)=> AddPixel()));
+                        // if(Navigator.canPop(context))
+                        //   Navigator.popUntil(context, ModalRoute.withName('/addpixel'));
+                        // else 
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>new AddPixel()));
                         },
                       child: Icon(Icons.add,size: 30),
                     ),

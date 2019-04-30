@@ -12,6 +12,10 @@ class LoginStateSet extends StatelessWidget {
           fontFamily: 'Leelawadee'
       ),
       home: LoginPage(title: 'Naikan_Login'),
+      initialRoute: '/',
+      routes: {
+        '/addpixel' : (context) => AddPixelPage()
+      },
     );
   }
 }
@@ -39,7 +43,7 @@ class _LoginState extends State<LoginPage> {
         if(username=='naikan'&&password=='naikan') {
           print('Logged in as $username with password $password');
           loginDialog = 'Logging in Completed';
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>AddPixel()));
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>PixelCalendarSet()));
         }
         else{
           print('Username $username or password $password is not matched');

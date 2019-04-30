@@ -6,6 +6,28 @@ import 'package:naikan/Page/footer.dart';
 import 'package:sortedmap/sortedmap.dart';
 
 DateTime _date = new DateTime.now();
+class AddpixelPage extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'addpixel',
+      theme: ThemeData(
+          primarySwatch: Colors.red,
+          hintColor: Colors.white,
+          fontFamily: 'Leelawadee'
+      ),
+      home: AddPixel(),
+    
+      routes: {
+      // When we navigate to the "/" route, build the FirstScreen Widget
+      'addpixel': (context) => AddPixel(),
+    },
+      
+    );
+  }
+}
+
 
 class AddPixel extends StatelessWidget{
 
@@ -68,6 +90,8 @@ class _AddPixelPage extends State<AddPixelPage> {
   // String
   String percentage(int emotion){
       // int x = 
+      if(happy+angry+love+passive+confused+sad == 0)
+        return '0';
       return ((emotion/(happy+angry+love+passive+confused+sad))*100).toInt().toString();
       // return x.toString();
   }
@@ -344,11 +368,12 @@ class _AddPixelPage extends State<AddPixelPage> {
                     height: 25,
                   ),
                   Container(
-                    margin: EdgeInsets.only(
-                      left: 57
-                    ),
+                    // margin: EdgeInsets.only(
+                    //   // left: 100
+                    // ),
 
                     child: new Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                          new Text('Feeling of the day', style: new TextStyle(
                           color: new Color(0xFFC43A3A),
@@ -369,18 +394,21 @@ class _AddPixelPage extends State<AddPixelPage> {
                     height: 20,
                   ),
                     Container(
-                      decoration: new BoxDecoration(
-                        color: Color(0xFFF7A8A8),
-                        borderRadius: BorderRadius.all(Radius.circular(40.0)),
+                      // decoration: new BoxDecoration(
+                      //   color: Color(0xFFF7A8A8),
+                      //   borderRadius: BorderRadius.all(Radius.circular(40.0)),
+                      // ),
+                      // width: 350,
+                      // height: 80,
+                      margin: EdgeInsets.only(
+                        top: 10
                       ),
-                      width: 350,
-                      height: 80,
-                      
                       child: Row(
                         children: <Widget>[
                           Padding(
                             padding: EdgeInsets.only(
-                              left: 0
+                              left: 57.79,
+                     
                             ),
                           ),
                           GestureDetector(
@@ -397,6 +425,129 @@ class _AddPixelPage extends State<AddPixelPage> {
                           
                             )
                           ),
+                          new Column(
+                            children: <Widget>[
+                              Container(
+                              margin: EdgeInsets.only(
+                                left: 26),
+                              width: 30,
+                              height: 24,
+                              color: Color(0xFFFFE26E),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Text(percentage(happy),style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold
+                              ),)
+                              ],
+                            )
+                          ),
+                          Container(
+                            height: 15,
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(
+                              left: 23.21),
+                            width: 30,
+                            height: 24,
+                            color: Color(0xFF68E88E),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text(percentage(passive),style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold
+                             ),)
+                              ],
+                            )
+                          ),
+                  
+                         
+                            ],
+                          ),
+                           new Column(
+                            children: <Widget>[
+                              Container(
+                            margin: EdgeInsets.only(
+                              left: 23.21),
+                            width: 30,
+                            height: 24,
+                            color: Color(0xFFFF3A3A),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text(percentage(angry),style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold
+                             ),)
+                              ],
+                            )
+                          ),
+                          Container(
+                            height: 15,
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(
+                              left: 23.21),
+                            width: 30,
+                            height: 24,
+                            color: Color(0xFFDD78FB),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text(percentage(confused),style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold
+                             ),)
+                              ],
+                            )
+                          ),
+                         
+                            ],
+                          ),
+                           new Column(
+                            children: <Widget>[
+                              Container(
+                            margin: EdgeInsets.only(
+                              left: 23.21),
+                            width: 30,
+                            height: 24,
+                            color: Color(0xFFFF7596),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text(percentage(love),style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold
+                             ),)
+                              ],
+                            )
+                          ),
+                          Container(
+                            height: 15,
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(
+                              left: 23.21),
+                            width: 30,
+                            height: 24,
+                            color: Color(0xFF5A5151),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text(percentage(sad),style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold
+                             ),)
+                              ],
+                            )
+                          ),
+                         
+                            ],
+                          )
+                          
+                          
                           
                         ],
                          
