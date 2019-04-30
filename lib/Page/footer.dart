@@ -125,7 +125,7 @@ class FooterState extends State<Footer>{
                       onPressed: () {
                         print('ButtonDebugger: add pressed');
                         AddPixel().setDate(new DateTime.now());
-                        Navigator.push(context,MaterialPageRoute(builder: (context)=> AddPixel()));
+                        Navigator.popUntil(context, ModalRoute.withName('/'));
                         },
                       child: Icon(Icons.add,size: 30),
                     ),
