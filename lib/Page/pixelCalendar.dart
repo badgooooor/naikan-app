@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart' as calendar;
 import 'package:naikan/Page/footer.dart';
+import 'package:naikan/Page/AddPixel.dart';
 import 'dart:async';
 
 import 'Pixel.dart';
@@ -75,6 +76,13 @@ class CalendarState extends State<PixelCalendar> {
     //print('###DEBUG###\npixel.getLoadingStatus() = '+pixel.getLoadingStatus().toString());
   }
 
+  void reload(){
+    pixel = MonthPixel(year.toString(),month.toString());
+    _count=0;
+
+    _reload();
+  }
+
   void _changeMonth(int _year,int _month){
      year=_year;
     month=_month;
@@ -124,6 +132,7 @@ class CalendarState extends State<PixelCalendar> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.red,
         leading: new IconButton(
           icon:Icon(Icons.chevron_left,size:30),
           onPressed: (){
@@ -307,7 +316,11 @@ class CalendarState extends State<PixelCalendar> {
               isScrollable: false,
               onDayPressed: (dateTime,list){
                 print('Day $dateTime pressed.');
-                //print('###DEBUG###\n\t\tlist = $list');
+                AddPixel().setDate(dateTime);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context)=> AddPixel())
+                );
               },
               minSelectedDate: DateTime(year,month),
               maxSelectedDate: DateTime(year,month+1,0),
