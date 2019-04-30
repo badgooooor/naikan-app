@@ -46,13 +46,6 @@ Future<Null> selectYearMonth(BuildContext context) async{
       backgroundColor: Color(0xFFF34343),
       appBar: AppBar(
 
-        leading: new IconButton(
-          icon : Icon(Icons.chevron_left,size:30,),
-          onPressed: (){
-            print('backk');
-            Navigator.pop(context);
-          },
-        ),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.search,size:30),
@@ -127,14 +120,9 @@ class ViewsnapState extends State<Viewsnap>{
   initState() {
     super.initState();
     eventBus.on().listen((event) {
-     
       setState(() {
          ym = event;
-
       });
-     
- 
-      
   });
    
   }
@@ -196,7 +184,9 @@ class listViewState extends State<listView>{
   Widget build(BuildContext context) {
     // TODO: implement build
     return  new ListView.builder(
-      
+      padding: EdgeInsets.only(
+        bottom: 60
+      ),
       itemCount: data.length,
       itemBuilder: (BuildContext context, int index){
         return new Row(
@@ -206,7 +196,8 @@ class listViewState extends State<listView>{
           ],
         );
       },
-    );;
+    
+    );
   }
 
   

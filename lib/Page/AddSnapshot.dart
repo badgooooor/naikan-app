@@ -22,6 +22,7 @@ import 'dart:convert';
 class AddSnapshot extends StatefulWidget{
   AddSnapshot({Key key, this.title}) : super(key: key);
   final String title;
+  
   @override
   _AddSnapshotState createState() => _AddSnapshotState();
 }
@@ -119,20 +120,14 @@ class _AddSnapshotState extends State<AddSnapshot>{
     });
   }
   ///////////////////////////////////////////////////////////
-  Color btColor = Colors.red;
+  Color btColor = Colors.black54;
   @override
   Widget build(BuildContext context){
     return Scaffold(
-      
+        
         appBar: AppBar(
           
-                leading: new IconButton(
-          icon : Icon(Icons.chevron_left,size:30,color: Colors.white70,),
-          onPressed: (){
-            print('backk');
-            Navigator.pop(context);
-          },
-        ),
+               
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.date_range,size:30,color: Colors.white70),
@@ -165,7 +160,7 @@ class _AddSnapshotState extends State<AddSnapshot>{
           children: <Widget>[
            
             Container(
-              height: 30,
+              height: 50,
             ),
             Container(
               margin: EdgeInsets.only(
@@ -200,30 +195,30 @@ class _AddSnapshotState extends State<AddSnapshot>{
 
             ),
             Container(
+              height: 30,
+            ),
+            Container(
               child: TextField(
                 keyboardType: TextInputType.text,                                                                                                                                     
                 // textInputAction: TextInputAction.continueAction,
                 textAlign: TextAlign.left,
-                style: TextStyle(color:Colors.red[400], fontSize: 15),
+                style: TextStyle(color:Colors.red[300], fontSize: 15),
                 maxLength: 30,
-                cursorColor: Colors.red[400],
+                cursorColor: Colors.red[300],
                 
                 decoration: InputDecoration(
                   prefixIcon: Icon(Icons.title,color: Colors.red[300],),
                   hintText: "Title",
-                  border: UnderlineInputBorder(
-                    
-                    borderSide: BorderSide(
-                      color: Colors.red[300]
-                    )
-                  )
+                  labelStyle: new TextStyle(color: Colors.white)
                 ),
                 onChanged: (text){
                   name = text;
                 },
               ),
             ),
-            
+            Container(
+              height: 30,
+            ),
             
             TextField(
               keyboardType: TextInputType.text,
@@ -241,6 +236,9 @@ class _AddSnapshotState extends State<AddSnapshot>{
               },
             ),
             Container(
+              height: 30,
+            ),
+            Container(
               margin: EdgeInsets.only(
                 left: 10
               ),
@@ -248,19 +246,12 @@ class _AddSnapshotState extends State<AddSnapshot>{
                 children: <Widget>[
                   Icon(Icons.access_time,color:Colors.red[300]),
                   FlatButton(
-                //tao
-                // .########.####.##.....##.########.########.########.##.....##.########
-                // ....##.....##..###...###.##..........##....##........##...##.....##...
-                // ....##.....##..####.####.##..........##....##.........##.##......##...
-                // ....##.....##..##.###.##.######......##....######......###.......##...
-                // ....##.....##..##.....##.##..........##....##.........##.##......##...
-                // ....##.....##..##.....##.##..........##....##........##...##.....##...
-                // ....##....####.##.....##.########....##....########.##.....##....##...
+     
                 child: new Text(time,style: TextStyle(color: btColor, fontSize: 15) ,),
                 onPressed: ()async{
                   await selectTime(context);
                   setState(() {
-                    btColor = Colors.yellow;
+                    btColor = Colors.red[400];
                   });
                   
                   time = _time.hour.toString()+" : "+_time.minute.toString();
@@ -280,7 +271,9 @@ class _AddSnapshotState extends State<AddSnapshot>{
 
               
             ),
-            
+            Container(
+              height: 30,
+            ),
 
             TextField(
               keyboardType: TextInputType.text,
@@ -296,14 +289,30 @@ class _AddSnapshotState extends State<AddSnapshot>{
                 where = text;
               },
             ),
-            FlatButton(
-              child: new Text('Add photo?',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.w600,fontSize: 20 )),
-              onPressed: selectImage,
+            Container(
+              height: 170,
             ),
-            image!=null?new Image.file(image,width: 100,height: 100):new Text('select your image'),
+            // FlatButton(
+            //   child: new Text('Add photo?',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.w600,fontSize: 20 )),
+            //   onPressed: selectImage,
+            // ),
+            // image!=null?new Image.file(image,width: 100,height: 100):new Text('select your image'),
             FlatButton(
-              child: new Text('Save?',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.w600,fontSize: 20 )),
+              
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Column(
+                    
+                      children: <Widget>[
+                        new Image(
+                          image: AssetImage('assets/moodpixel/save.png'),height: 65,),
+                      ],
+                    )
+                  ],
+              ),
               onPressed: save,
+            
             ),
             // FlatButton(
             //   child: new Text('for test?',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.w600,fontSize: 20 )),
@@ -316,10 +325,10 @@ class _AddSnapshotState extends State<AddSnapshot>{
           new Footer()
         ]
       ),
-      floatingActionButton: FloatingActionButton(
-          onPressed: _display,
-          child: Icon(Icons.save)
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //     onPressed: _display,
+      //     child: Icon(Icons.save)
+      // ),
     );
   }
 

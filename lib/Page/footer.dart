@@ -32,12 +32,12 @@ class FooterState extends State<Footer>{
                             ),
                             child:
                             new IconButton(
-                              icon: Icon(Icons.home,color: Colors.white70,size: 30,),
+                              icon: Icon(Icons.edit,color: Colors.white70,size: 30,),
                               onPressed: (){
                                 print('home');
-                                AddPixel().setDate(new DateTime.now());
+                                
                                 Navigator.push(context,
-                                MaterialPageRoute(builder: (context)=> AddPixel()));
+                                MaterialPageRoute(builder: (context)=> AddSnapshot()));
                               },
                             )
 
@@ -49,11 +49,11 @@ class FooterState extends State<Footer>{
                             ),
                             child:
                             new IconButton(
-                              icon :Icon(Icons.edit,color: Colors.white70,size: 30),
+                              icon :Icon(Icons.favorite,color: Colors.white70,size: 30),
                               onPressed: (){
                                 print('addsnap');
                                 Navigator.push(context,
-                                MaterialPageRoute(builder: (context)=> AddSnapshot()));
+                                MaterialPageRoute(builder: (context)=> ViewSnapPage()));
                                 
                               },
                             )
@@ -66,11 +66,12 @@ class FooterState extends State<Footer>{
                             ),
                             child:
                             new IconButton(
-                              icon: Icon(Icons.favorite,color: Colors.white70,size: 30),
+                              icon: Icon(Icons.view_comfy,color: Colors.white70,size: 30),
                               onPressed: (){
                                 print('snap');
+                                CalendarState().reload();
                                 Navigator.push(context,
-                                MaterialPageRoute(builder: (context)=> ViewSnapPage()));
+                                MaterialPageRoute(builder: (context)=> new PixelCalendar()));
                               },
                             )
                           //overView
@@ -82,11 +83,10 @@ class FooterState extends State<Footer>{
                             ),
                             child:
                             new IconButton(
-                              icon:Icon(Icons.view_comfy,color: Colors.white70,size: 30),
+                              icon:Icon(Icons.settings,color: Colors.white70,size: 30),
                               onPressed: (){
-                                print('overView');
-                                CalendarState().reload();
-                                Navigator.push(context, MaterialPageRoute(builder: (context)=> PixelCalendar()));
+                                print('setting');
+                               
                               },
                             )
                         ),
