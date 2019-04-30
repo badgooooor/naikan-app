@@ -37,7 +37,7 @@ class _AddSnapshotState extends State<AddSnapshot>{
   TimeOfDay _time = new TimeOfDay.now();
   File image;
   Api api = new Api();
-  var colorTime = Colors.grey;
+ 
   void _display(){
     print('--------------------------------------------');
     print('title  = '+name);
@@ -119,6 +119,7 @@ class _AddSnapshotState extends State<AddSnapshot>{
     });
   }
   ///////////////////////////////////////////////////////////
+  Color btColor = Colors.red;
   @override
   Widget build(BuildContext context){
     return Scaffold(
@@ -255,15 +256,22 @@ class _AddSnapshotState extends State<AddSnapshot>{
                 // ....##.....##..##.....##.##..........##....##.........##.##......##...
                 // ....##.....##..##.....##.##..........##....##........##...##.....##...
                 // ....##....####.##.....##.########....##....########.##.....##....##...
-                child: new Text(time,style: TextStyle(color: colorTime, fontSize: 15) ,),
+                child: new Text(time,style: TextStyle(color: btColor, fontSize: 15) ,),
                 onPressed: ()async{
                   await selectTime(context);
-                  time = _time.hour.toString()+" : "+_time.minute.toString();
                   setState(() {
-                     if(colorTime == Colors.grey){
-                      colorTime = Colors.red[400];
-                     }
+                    btColor = Colors.yellow;
                   });
+                  
+                  time = _time.hour.toString()+" : "+_time.minute.toString();
+              
+                  
+                  
+                //   setState(() {
+                // //      if(colorTime == Colors.grey){
+                // // ///      colorTime = Colors.red[400];
+                // //      }
+                //   });
                   
                 }
             ),          

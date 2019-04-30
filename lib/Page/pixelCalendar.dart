@@ -131,7 +131,8 @@ class CalendarState extends State<PixelCalendar> {
             Navigator.pop(context);
           }
         ),
-        title: Text('PIXEL CALENDAR',style: TextStyle(fontWeight: FontWeight.bold),textAlign: TextAlign.center,),
+        title: Text('PIXEL CALENDAR',style: TextStyle(fontWeight: FontWeight.bold)),
+        centerTitle: true,
       ),
       body: new Stack(
         children: <Widget>[
