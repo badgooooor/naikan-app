@@ -10,7 +10,7 @@ class Save{
   static Map<int,int> passive = {dateTime:0};
   static Map<int,int> confused = {dateTime:0};
   static Map<int,int> sad = {dateTime:0};
-  static Map<int,String> finalEmotion = {dateTime:'Group36'};
+  static Map<int,String> finalEmotion = {dateTime:'Group 36'};
 
   static int getHappy(int dateTime){
     return happy[dateTime];
@@ -68,7 +68,7 @@ class Save{
 
   static void setFinalEmotion(int dateTime,String value){
     if(finalEmotion.containsKey(dateTime)) finalEmotion[dateTime]=value;
-    else finalEmotion.addAll({dateTime:(value==null?'Group36':value)});
+    else finalEmotion.addAll({dateTime:(value==null?'Group 36':value)});
   }
 
   static bool isDayEmpty(DateTime date){

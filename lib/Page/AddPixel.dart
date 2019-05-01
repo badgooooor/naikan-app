@@ -65,6 +65,7 @@ class _AddPixelPage extends State<AddPixelPage> {
   String _imgFinalEmotion = 'Group 36';
   List<String> _emo=[];
   Api api = new Api();
+  bool isSavable=false;
 
 
 
@@ -98,6 +99,38 @@ class _AddPixelPage extends State<AddPixelPage> {
     confused=Save.getConfused(dateInt);
     sad=Save.getSad(dateInt);
     _imgFinalEmotion = Save.getFinalEmotion(dateInt);//'Group 36';
+  }
+
+  Future setDialog(){
+    return showDialog(
+      context: context,
+      builder: (context){
+        return AlertDialog(
+          content: Text('Update Data Successful'),
+        );
+      },
+    );
+  }
+
+  Future setButtonDialog(){
+    return showDialog(
+      context: context,
+      builder: (context){
+        return AlertDialog(
+          content: Text('You will not be able to edit this data after this action\nAre you sure to continue?'),
+          actions: <Widget>[
+            FlatButton(onPressed: (){Navigator.pop(context,actionSave());}, child: Text('Sure')),
+            FlatButton(onPressed: (){Navigator.pop(context);}, child: Text('Cancel')),
+          ],
+        );
+      },
+    );
+  }
+
+  Future actionSave() async{
+    await save();
+    CalendarState().reload();
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => new PixelCalendarSet()));
   }
 
 
@@ -178,7 +211,7 @@ class _AddPixelPage extends State<AddPixelPage> {
       "date" : dateInt
     };
     print('-------------save-------------');
-    if(_date==DateTime.now()) http.Response res = await api.postPixel(data);
+    if(dateInt==(DateTime.now().year*10000+DateTime.now().month*100+DateTime.now().day)) http.Response res = await api.postPixel(data);
     else http.Response res = await api.postEditPixel(data);
 //    if(res.statusCode != 200){
 //      print(res.statusCode);
@@ -482,13 +515,13 @@ class _AddPixelPage extends State<AddPixelPage> {
                               Container(
                               margin: EdgeInsets.only(
                                 left: 26),
-                              width: 30,
-                              height: 24,
+                              width: 40,
+                              height: 34,
                               color: Color(0xFFFFE26E),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
-                                  Text(percentage(happy),style: TextStyle(
+                                  Text(percentage(happy)+'%',style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold
                               ),)
@@ -501,13 +534,13 @@ class _AddPixelPage extends State<AddPixelPage> {
                           Container(
                             margin: EdgeInsets.only(
                               left: 23.21),
-                            width: 30,
-                            height: 24,
+                            width: 40,
+                            height: 32,
                             color: Color(0xFF68E88E),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                Text(percentage(passive),style: TextStyle(
+                                Text(percentage(passive)+'%',style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold
                              ),)
@@ -523,13 +556,13 @@ class _AddPixelPage extends State<AddPixelPage> {
                               Container(
                             margin: EdgeInsets.only(
                               left: 23.21),
-                            width: 30,
-                            height: 24,
+                            width: 40,
+                            height: 32,
                             color: Color(0xFFFF3A3A),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                Text(percentage(angry),style: TextStyle(
+                                Text(percentage(angry)+'%',style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold
                              ),)
@@ -542,13 +575,13 @@ class _AddPixelPage extends State<AddPixelPage> {
                           Container(
                             margin: EdgeInsets.only(
                               left: 23.21),
-                            width: 30,
-                            height: 24,
+                            width: 40,
+                            height: 32,
                             color: Color(0xFFDD78FB),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                Text(percentage(confused),style: TextStyle(
+                                Text(percentage(confused)+'%',style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold
                              ),)
@@ -563,13 +596,13 @@ class _AddPixelPage extends State<AddPixelPage> {
                               Container(
                             margin: EdgeInsets.only(
                               left: 23.21),
-                            width: 30,
-                            height: 24,
+                            width: 40,
+                            height: 32,
                             color: Color(0xFFFF7596),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                Text(percentage(love),style: TextStyle(
+                                Text(percentage(love)+'%',style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold
                              ),)
@@ -582,13 +615,13 @@ class _AddPixelPage extends State<AddPixelPage> {
                           Container(
                             margin: EdgeInsets.only(
                               left: 23.21),
-                            width: 30,
-                            height: 24,
+                            width: 40,
+                            height: 32,
                             color: Color(0xFF5A5151),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                Text(percentage(sad),style: TextStyle(
+                                Text(percentage(sad)+'%',style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold
                              ),)
@@ -619,11 +652,13 @@ class _AddPixelPage extends State<AddPixelPage> {
                           //tao
                             onTap: ()async{
                             if(sad+happy+confused+passive+angry+love!=0){
-                              await save(); 
-                              if(_date!=DateTime.now()){
-                                CalendarState().reload();
-                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> new PixelCalendarSet()));
+
+                              if(dateInt!=(DateTime.now().year*10000+DateTime.now().month*100+DateTime.now().day)) setButtonDialog();
+                              else{
+                                await save();
+                                setDialog();
                               }
+
                             }
                             else{
                               //tao implement here
