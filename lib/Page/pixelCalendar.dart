@@ -3,6 +3,8 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart' as calendar;
 import 'package:naikan/Page/footer.dart';
 import 'package:naikan/Page/AddPixel.dart';
+import 'package:naikan/main.dart';
+import 'package:naikan/Page/Save.dart';
 import 'dart:async';
 
 import 'Pixel.dart';
@@ -93,10 +95,6 @@ class CalendarState extends State<PixelCalendar> {
     print('Changing to $_year/$_month');
 
     _reload();
-  }
-
-  void _back(){
-    print('ButtonDebugger: _back pressed');
   }
 
   void _lastMonth(){
@@ -309,13 +307,16 @@ class CalendarState extends State<PixelCalendar> {
               selectedDayButtonColor: Color.fromARGB(0, 0, 0, 0),
               showHeaderButton: false,
               isScrollable: false,
-              onDayPressed: (dateTime,list){
-                print('Day $dateTime pressed.');
-                // AddPixel().setDate(dateTime);
-                // Navigator.push(
-                //     context,
-                //     MaterialPageRoute(builder: (context)=> AddPixel())
-                // );
+              onDayPressed: (dateTime,list)async{
+                if(dateTime.isBefore(DateTime.now())){
+                  print('Day $dateTime pressed.');
+                  AddPixel().setDate(dateTime);
+                  await loadPastSave(dateTime);
+                  if(Save.isDayEmpty(dateTime))Navigator.push(context, MaterialPageRoute(builder: (context)=> AddPixel()));
+                  else print('The chosen day $dateTime is submitted and cannot be edited');
+                }
+                else print('Future days $dateTime cannot be edited');
+
               },
               minSelectedDate: DateTime(year,month),
               maxSelectedDate: DateTime(year,month+1,0),

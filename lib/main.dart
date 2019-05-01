@@ -6,29 +6,60 @@ import 'dart:async';
 
 EventBus eventBus = EventBus();
 
-  loadSave()async{
-    // print(0);
-    Api api = new Api();
-    // print(1);
-    Map<String,dynamic> l = await api.getPixelToday();
-    if(l!={}){
-      Map<String,String> pathImgFinalEmotino = {
-        'happy':'Group35',
-        'angry':'Group36',
-        'love':'Group37',
-        'passive':'Group38',
-        'confuse':'Group39',
-        'sad':'Group40'
-      };
-      Save.angry = l['angry'];
-      Save.love = l['love'];
-      Save.happy = l['happy'];
-      Save.confused = l['confuse'];
-      Save.sad = l['sad'];
-      Save.passive = l['passive'];
-      Save.finalEmotion = pathImgFinalEmotino[l['finalEmotion']];
-    }
+loadSave()async{
+  // print(0);
+  Api api = new Api();
+  // print(1);
+  Map<String,dynamic> l = await api.getPixelToday();
+  if(l!={}){
+    int dateTime = DateTime.now().year*10000+DateTime.now().month*100+DateTime.now().day;
+    Map<String,String> pathImgFinalEmotino = {
+      'happy':'Group35',
+      'angry':'Group36',
+      'love':'Group37',
+      'passive':'Group38',
+      'confuse':'Group39',
+      'sad':'Group40'
+    };
+    Save.setAngry(dateTime,l['angry']);
+    Save.setLove(dateTime,l['love']);
+    Save.setHappy(dateTime,l['happy']);
+    Save.setConfused(dateTime,l['confuse']);
+    Save.setSad(dateTime,l['sad']);
+    Save.setPassive(dateTime,l['passive']);
+    Save.setFinalEmotion(dateTime,pathImgFinalEmotino[l['finalEmotion']]);
   }
+}
+
+loadPastSave(DateTime date)async{
+  // print(0);
+  Api api = new Api();
+  // print(1);
+  Map<String,dynamic> l = await api.getPixelDay(date);
+  if(l!={}){
+    print(l);
+    int dateTime = date.year*10000+date.month*100+date.day;
+    Map<String,String> pathImgFinalEmotino = {
+      'happy':'Group35',
+      'angry':'Group36',
+      'love':'Group37',
+      'passive':'Group38',
+      'confuse':'Group39',
+      'sad':'Group40'
+    };
+
+    Save.setAngry(dateTime,l['angry']);
+    Save.setLove(dateTime,l['love']);
+    Save.setHappy(dateTime,l['happy']);
+    Save.setConfused(dateTime,l['confuse']);
+    Save.setSad(dateTime,l['sad']);
+    Save.setPassive(dateTime,l['passive']);
+    Save.setFinalEmotion(dateTime,pathImgFinalEmotino[l['finalEmotion']]);
+
+
+
+  }
+}
 
 void main(){
   print('starting the appppp');

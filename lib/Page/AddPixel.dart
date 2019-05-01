@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:naikan/Model/Model.dart';
 import 'package:naikan/Page/footer.dart';
+import 'package:naikan/Page/pixelCalendar.dart';
 import 'package:sortedmap/sortedmap.dart';
 import 'Save.dart';
 
@@ -34,6 +35,7 @@ class AddPixel extends StatelessWidget{
 
   void setDate(DateTime dateTime){
     _date=dateTime;
+
   }
 
   @override
@@ -53,18 +55,31 @@ class AddPixelPage extends StatefulWidget{
 }
 
 class _AddPixelPage extends State<AddPixelPage> {
-
-
-  int dateInt = _date.year*10000+_date.month*100+_date.day;
-  int happy=Save.happy;
-  int angry=Save.angry;
-  int love=Save.love;
-  int passive=Save.passive;
-  int confused=Save.passive;
-  int sad=Save.sad;
+  static int dateInt=0;
+  int happy=0;
+  int angry=0;
+  int love=0;
+  int passive=0;
+  int confused=0;
+  int sad=0;
+  String _imgFinalEmotion = 'Group 36';
   List<String> _emo=[];
   Api api = new Api();
-  String _imgFinalEmotion = Save.finalEmotion;//'Group 36';
+
+
+
+  /*
+  static int dateInt = _date.year*10000+_date.month*100+_date.day;
+  int happy=Save.getHappy(dateInt);
+  int angry=Save.getAngry(dateInt);
+  int love=Save.getLove(dateInt);
+  int passive=Save.getPassive(dateInt);
+  int confused=Save.getConfused(dateInt);
+  int sad=Save.getSad(dateInt);
+  List<String> _emo=[];
+  Api api = new Api();
+  String _imgFinalEmotion = Save.getFinalEmotion(dateInt);//'Group 36';
+  */
   Map<String,String> pathImgFinalEmotino = {
     'happy':'Group35',
     'angry':'Group36',
@@ -73,6 +88,17 @@ class _AddPixelPage extends State<AddPixelPage> {
     'confuse':'Group39',
     'sad':'Group40'
   };
+
+  void setData(){
+    dateInt = _date.year*10000+_date.month*100+_date.day;
+    happy=Save.getHappy(dateInt);
+    angry=Save.getAngry(dateInt);
+    love=Save.getLove(dateInt);
+    passive=Save.getPassive(dateInt);
+    confused=Save.getConfused(dateInt);
+    sad=Save.getSad(dateInt);
+    _imgFinalEmotion = Save.getFinalEmotion(dateInt);//'Group 36';
+  }
 
 
   String getDate(DateTime _date) {
@@ -90,7 +116,8 @@ class _AddPixelPage extends State<AddPixelPage> {
 
   // String
   String percentage(int emotion){
-      // int x = 
+      // int x =
+      //print('###DEBUG###\n\t\thappy = $happy\n\t\tangry = $angry\n\t\tpassive = $passive\n\t\tconfused = $confused\n\t\tsad = $sad\n\t\tlove = $love');
       if(happy+angry+love+passive+confused+sad == 0)
         return '0';
       return ((emotion/(happy+angry+love+passive+confused+sad))*100).toInt().toString();
@@ -147,11 +174,12 @@ class _AddPixelPage extends State<AddPixelPage> {
       "passive": passive,
       "sad": sad,
       "love": love,
-      "finalEmotion": getFinalEmotion()
-//      ,"date" : 19990326
+      "finalEmotion": getFinalEmotion(),
+      "date" : dateInt
     };
     print('-------------save-------------');
-    http.Response res = await api.postPixel(data);
+    if(_date==DateTime.now()) http.Response res = await api.postPixel(data);
+    else http.Response res = await api.postEditPixel(data);
 //    if(res.statusCode != 200){
 //      print(res.statusCode);
 //      print(res.body);
@@ -162,6 +190,10 @@ class _AddPixelPage extends State<AddPixelPage> {
   ///////////////////////////////////////////////////////////
   @override
   Widget build(BuildContext context) {
+    setData();
+    Save.debug();
+    print('$dateInt\n$_date');
+
     return Scaffold(
         backgroundColor: Color(0xFFFFFFFF),
         appBar: AppBar(
@@ -230,12 +262,12 @@ class _AddPixelPage extends State<AddPixelPage> {
                             onTap: (){
                               setState(() {
                               happy+=1;
-                              Save.happy+=1;
+                              Save.setHappy(dateInt, happy);
                               _emo.add('happy');
                               // print('Save is here !!!! = '+ Save.happy.toString());
                               String pathEmo = pathImgFinalEmotino[getFinalEmotion()];
                               _imgFinalEmotion = pathEmo;
-                              Save.finalEmotion = pathEmo;
+                              Save.setFinalEmotion(dateInt, pathEmo);
                               });
                             },
                             child: Image(
@@ -258,11 +290,11 @@ class _AddPixelPage extends State<AddPixelPage> {
                             onTap: (){
                               angry+=1;
                               _emo.add('angry');
-                              Save.angry+=1;
+                              Save.setAngry(dateInt, angry);
                               setState(() {
                                 String pathEmo = pathImgFinalEmotino[getFinalEmotion()];
                                 _imgFinalEmotion = pathEmo;
-                                Save.finalEmotion = pathEmo;
+                                Save.setFinalEmotion(dateInt, pathEmo);
                               });
                             },
                             child: Image(
@@ -284,11 +316,11 @@ class _AddPixelPage extends State<AddPixelPage> {
                             onTap: (){
                               love+=1;
                               _emo.add('love');
-                              Save.love+=1;
+                              Save.setLove(dateInt, love);
                               setState(() {
                                 String pathEmo = pathImgFinalEmotino[getFinalEmotion()];
                                 _imgFinalEmotion = pathEmo;
-                                Save.finalEmotion = pathEmo;
+                                Save.setFinalEmotion(dateInt, pathEmo);
                               });
                             },
                             child: Image(
@@ -317,11 +349,11 @@ class _AddPixelPage extends State<AddPixelPage> {
                             onTap: (){
                               passive+=1;
                               _emo.add('passive');
-                              Save.passive+=1;
+                              Save.setPassive(dateInt, passive);
                               setState(() {
                               String pathEmo = pathImgFinalEmotino[getFinalEmotion()];
                               _imgFinalEmotion = pathEmo;
-                              Save.finalEmotion = pathEmo;
+                              Save.setFinalEmotion(dateInt, pathEmo);
                               });
                             },
                             child: Image(
@@ -343,11 +375,11 @@ class _AddPixelPage extends State<AddPixelPage> {
                             onTap: (){
                               confused+=1;
                               _emo.add('confuse');
-                              Save.confused+=1;
+                              Save.setConfused(dateInt, confused);
                               setState(() {
                                 String pathEmo = pathImgFinalEmotino[getFinalEmotion()];
                                 _imgFinalEmotion = pathEmo;
-                                Save.finalEmotion = pathEmo;
+                                Save.setFinalEmotion(dateInt, pathEmo);
                               });
                             },
                             child: Image(
@@ -369,11 +401,11 @@ class _AddPixelPage extends State<AddPixelPage> {
                             onTap: (){
                               sad+=1;
                               _emo.add('sad');
-                              Save.sad+=1;
+                              Save.setSad(dateInt, sad);
                               setState(() {
                                 String pathEmo = pathImgFinalEmotino[getFinalEmotion()];
                                 _imgFinalEmotion = pathEmo;
-                                Save.finalEmotion = pathEmo;
+                                Save.setFinalEmotion(dateInt, pathEmo);
                               });
                             },
                             child: Image(
@@ -588,8 +620,11 @@ class _AddPixelPage extends State<AddPixelPage> {
                             onTap: ()async{
                             if(sad+happy+confused+passive+angry+love!=0){
                               await save(); 
-                                                        
+                              if(_date!=DateTime.now()){
+                                CalendarState().reload();
+                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> new PixelCalendarSet()));
                               }
+                            }
                             else{
                               //tao implement here
                               // 
