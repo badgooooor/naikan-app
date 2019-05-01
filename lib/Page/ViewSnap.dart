@@ -6,17 +6,6 @@ import 'package:month_picker_dialog/month_picker_dialog.dart';
 import 'package:naikan/main.dart';
 import 'package:naikan/Page/footer.dart';
 
-// class ViewSnapPage extends StatelessWidget{
-//   @override
-//   Widget build(BuildContext context) {
-    
-//     return MaterialApp(
-//       title: "ViewSnap",
-//       home: Body(),
-//     );
-//   }
-// }
-
 class ViewSnapPage extends StatelessWidget{
 
   Api api = new Api();
@@ -24,7 +13,7 @@ class ViewSnapPage extends StatelessWidget{
   List<Snapshot> ym;
    getyearmont() async{
     ym = await api.getSnapshotYearMonth(test_ym.year,test_ym.month);
-    // print('in getFunction'+ym.toString());
+
   }
 
 
@@ -34,12 +23,10 @@ Future<Null> selectYearMonth(BuildContext context) async{
     );
         if(pickedYearMonth != null){
           test_ym = pickedYearMonth;
-          // print('in SelevtYearMonth'+ym.toString());
           await getyearmont();
           eventBus.fire(ym);
     }
   }
-  //static const PrimaryColor = const Color(0xFFFFFF100);
   @override
   Widget build(BuildContext context){
     return Scaffold(
@@ -57,10 +44,9 @@ Future<Null> selectYearMonth(BuildContext context) async{
           )
         ],
         backgroundColor: new Color(0xFFF34343),
-        
-       // backgroundColor: PrimaryColor,
+    
         centerTitle: true ,
-        title: Text('SNAPSHOT'),
+        title: Text('SNAPSHOT',style: TextStyle(fontWeight: FontWeight.bold)),
         
       ),
       body: new Stack(
@@ -69,7 +55,6 @@ Future<Null> selectYearMonth(BuildContext context) async{
           new Footer(),
         ],
       )
-      //bottomNavigationBar: Footer(),
     );
   }
 
@@ -96,7 +81,6 @@ class BodyContent extends StatelessWidget{
       ),
     );
   }
-
 }
 class Viewsnap extends StatefulWidget{
 
@@ -131,8 +115,6 @@ class ViewsnapState extends State<Viewsnap>{
   getAll() {
     return api.getSnapshotAll();
   }
-  
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -171,7 +153,6 @@ class listView extends StatefulWidget{
   listView(this.data);
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return listViewState(data);
   }
 
@@ -182,7 +163,6 @@ class listViewState extends State<listView>{
   listViewState(this.data);
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return  new ListView.builder(
       padding: EdgeInsets.only(
         bottom: 60
@@ -199,10 +179,7 @@ class listViewState extends State<listView>{
     
     );
   }
-
-  
 }
-
 class Content extends StatefulWidget{
   Snapshot data = new Snapshot();
   Content(this.data);
@@ -227,7 +204,7 @@ class ContentState extends State<Content>{
     if(date!=0)
       return  d.toString()+'  ' +month[m-1] +'  ' + y.toString();
     else 
-      return '';//'No snapshot here :)';
+      return '';
   }
   ContentState(this.data);
   @override
@@ -238,10 +215,8 @@ class ContentState extends State<Content>{
         borderRadius: BorderRadius.all(Radius.circular(8.0)),
       ),
       width: 334,
-      //height: 157,
       margin: EdgeInsets.all(4),
       child: Column(
-        //crossAxisAlignment: CrossAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
@@ -260,7 +235,7 @@ class ContentState extends State<Content>{
             child: new Row(
               children: <Widget>[
                 new Text(getStingDate(data.date),
-                        style: TextStyle(fontSize: 13.5,color: Colors.grey[700]),
+                        style: TextStyle(fontSize: 14,color: Colors.black87),
                         ),
             
             
@@ -268,35 +243,9 @@ class ContentState extends State<Content>{
             ),
            
           ),
-          // Container(
 
-          //   width: 334,
-          //   height: 94,
-          //   color: Colors.white,
-            
-           
-          // ),
-          // new Divider(
-          //   height: 0,
-          //   color: Colors.grey,
-            
-          // ),
-          /*
-          Container(
-            padding: EdgeInsets.only(
-              left: 20,
-              top: 10
-            ),
-            child: new Row(
-              children: <Widget>[
-                Text('View detail')
-              ],
-            ),
-          ),
-          */
-    
-          ConfigurableExpansionTile(
-               // headerExpanded: Flexible(child: Center(child: Text("ssssssssssssss"))),
+  
+          ConfigurableExpansionTile(   
                 header: Container(
                   
                   child: new Row(
@@ -310,41 +259,54 @@ class ContentState extends State<Content>{
                         children: <Widget>[
                           Container(
                             margin: EdgeInsets.only(
-                              left: 10
+                              left: 10,
+                              top: 10
                             ),
                             width:250 ,
                             child: 
                             new Text(data.title,
-                            style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14,color: Color(0xFFF34949)),
+                            style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16,color: Color(0xFFF34949)),
                             ),
                             
                           ),
                           Container(
-                            
+                            margin: EdgeInsets.only(
+                              top: 3
+                            ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
                                 Text('  '),
                                 Icon(Icons.access_time,size: 20,color: Colors.red[300],),
                                 Text(' '),
-                                Text(data.time),
+                                Text(data.time,style: TextStyle( fontSize: 16)),
                                 //
                               ],
                             )
                           ),
                           Container(
+                            margin: EdgeInsets.only(
+                              top: 3
+                            ),
                             child: Row(
                             
                               children: <Widget>[
                                 Text('  '),
                                 Icon(Icons.location_on,size: 20,color: Colors.red[300]),
                                 Text(' '),
-                                Text(data.place),
+                                Text(data.place,style: TextStyle( fontSize: 16,),),
                                                                    
                               ],
                             )
                           ),
-                          
+                  
+
+                          Container(
+                            margin: EdgeInsets.only(
+                              left: 85
+                            ),
+                           
+                            child: Icon(Icons.expand_more,size:20,color:Colors.red[300]),),
                         ],
                       ),
 
@@ -358,12 +320,21 @@ class ContentState extends State<Content>{
                   Row(
                     children: <Widget>[
                       Container(
-                        
-                        height: 150,
-                      )
+                        margin: EdgeInsets.all(10),
+                      ),
+                      Flexible(
+                            child : Text(data.detail,style: TextStyle(
+                            color: Colors.red[400],
+                            fontSize: 16),overflow:TextOverflow.clip,)
+                        ),
+                       
+                      Container(
+                        margin: EdgeInsets.all(10),
+                      ),
+                      
                       ],
                   ),
-                  // + more params, see example !!
+                  Container(height: 10,)
                 ],
               ),
               

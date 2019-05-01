@@ -126,17 +126,13 @@ class _AddPixelPage extends State<AddPixelPage> {
       }
     }
     if(max != 1){
-      // print('maxSize =\t'+sizeMax.toString());
-      // print('max emotion =\t'+max.toString());
-      // print('maxList =\t'+maxList.toString());
-      // print(maxIndex);
+    
       for(int i = _emo.length-1 ; i >= 0 ; i--){
         if(maxList.contains(_emo[i]))
-          // print(_emo[i]);
+        
           return _emo[i];
       }
     }
-    // print(tempStr[maxIndex]);
     return tempStr[maxIndex]; 
   }
   save() async{
@@ -148,18 +144,15 @@ class _AddPixelPage extends State<AddPixelPage> {
       "sad": sad,
       "love": love,
       "finalEmotion": getFinalEmotion()
-//      ,"date" : 19990326
+
     };
     print('-------------save-------------');
     http.Response res = await api.postPixel(data);
-//    if(res.statusCode != 200){
-//      print(res.statusCode);
-//      print(res.body);
-//    }
+
     print('------------------------------');
 
   }
-  ///////////////////////////////////////////////////////////
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -232,7 +225,7 @@ class _AddPixelPage extends State<AddPixelPage> {
                               happy+=1;
                               Save.happy+=1;
                               _emo.add('happy');
-                              // print('Save is here !!!! = '+ Save.happy.toString());
+                             
                               String pathEmo = pathImgFinalEmotino[getFinalEmotion()];
                               _imgFinalEmotion = pathEmo;
                               Save.finalEmotion = pathEmo;
@@ -242,7 +235,7 @@ class _AddPixelPage extends State<AddPixelPage> {
                               image: AssetImage('assets/moodpixel/Group35.png'),width: 80,
                             )
                           ),
-                          // IconButton(icon: Icon( IconData(0xe900, fontFamily: 'happy')),onPressed: (){happy+=1;})
+                        
                             ],),
                           Container(
                             width: 15,
@@ -388,10 +381,7 @@ class _AddPixelPage extends State<AddPixelPage> {
                     height: 25,
                   ),
                   Container(
-                    // margin: EdgeInsets.only(
-                    //   // left: 100
-                    // ),
-
+                  
                     child: new Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
@@ -414,12 +404,7 @@ class _AddPixelPage extends State<AddPixelPage> {
                     height: 20,
                   ),
                     Container(
-                      // decoration: new BoxDecoration(
-                      //   color: Color(0xFFF7A8A8),
-                      //   borderRadius: BorderRadius.all(Radius.circular(40.0)),
-                      // ),
-                      // width: 350,
-                      // height: 80,
+                  
                       margin: EdgeInsets.only(
                         top: 10
                       ),
@@ -577,22 +562,14 @@ class _AddPixelPage extends State<AddPixelPage> {
                     height: 30,
                   ),
                   GestureDetector(
-                          //.########....###.....#######.
-                          //....##......##.##...##.....##
-                          //....##.....##...##..##.....##
-                          //....##....##.....##.##.....##
-                          //....##....#########.##.....##
-                          //....##....##.....##.##.....##
-                          //....##....##.....##..#######.
-                          //tao
+                          
                             onTap: ()async{
                             if(sad+happy+confused+passive+angry+love!=0){
                               await save(); 
                                                         
                               }
                             else{
-                              //tao implement here
-                              // 
+                            
                             }
                             },
                             child: Image(

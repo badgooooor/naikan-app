@@ -7,18 +7,6 @@ import 'package:naikan/Model/Model.dart';
 import 'package:naikan/Page/footer.dart';
 import 'package:naikan/Page/Page.dart';
 
-// class AddSnapshot extends StatelessWidget{
-//   @override
-//   Widget build(BuildContext context){
-//     return MaterialApp(
-//         theme: ThemeData(
-
-//         ),
-//         home: HomePage(title:'AddSnapshot')
-//     );
-//   }
-// }
-
 class AddSnapshot extends StatefulWidget{
   AddSnapshot({Key key, this.title}) : super(key: key);
   final String title;
@@ -45,7 +33,7 @@ class _AddSnapshotState extends State<AddSnapshot>{
     print('detial = '+story);
     print('time =  '+ _time.toString().substring(10,15));
     print('place = '+where);
-    print('date =  '+dateInt.toString());//${_date.toString()}');
+    print('date =  '+dateInt.toString());
     print('image=');
     print(image==null?null:image.path);
   }
@@ -74,18 +62,8 @@ class _AddSnapshotState extends State<AddSnapshot>{
     };
     print('--------------------save--------------------');
      http.Response res = await api.postSnapshot(data);
-    //  print(res.statusCode);
     print('--------------------------------------------');
   }
-
-  // getSnapshot()async{
-  //   // http.Response res = await api.getSnapshotDate(20190425);
-  //   // print(json.decode(res.body)['date']);
-  //   // Snapshot x = await api.getSnapshotDate(20190425);
-  //   // print(x.toString());
-  //   List<Snapshot> snaps =  await api.getSnapshotAll();
-  //   // print(snaps[0]); 
-  // }
   Future<Null> selectDate(BuildContext context) async{
     final DateTime pickedDateTime = await showDatePicker(
         context: context,
@@ -119,7 +97,6 @@ class _AddSnapshotState extends State<AddSnapshot>{
       image = img;
     });
   }
-  ///////////////////////////////////////////////////////////
   Color btColor = Colors.black54;
   @override
   Widget build(BuildContext context){
@@ -155,7 +132,7 @@ class _AddSnapshotState extends State<AddSnapshot>{
           Container(
             width: double.infinity,
             child: Column(
-        // mainAxisAlignment: MainAxisAlignment.start,
+
          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
            
@@ -200,7 +177,7 @@ class _AddSnapshotState extends State<AddSnapshot>{
             Container(
               child: TextField(
                 keyboardType: TextInputType.text,                                                                                                                                     
-                // textInputAction: TextInputAction.continueAction,
+
                 textAlign: TextAlign.left,
                 style: TextStyle(color:Colors.red[300], fontSize: 15),
                 maxLength: 30,
@@ -222,10 +199,8 @@ class _AddSnapshotState extends State<AddSnapshot>{
             
             TextField(
               keyboardType: TextInputType.text,
-              // textInputAction: TextInputAction.continueAction,
               textAlign: TextAlign.left,
               style: TextStyle(color: color, fontSize: 15),
-              // maxLines: 4,
               maxLength: 280,
               decoration: InputDecoration(
                 prefixIcon: Icon(Icons.speaker_notes,color: Colors.red[300],),
@@ -252,18 +227,8 @@ class _AddSnapshotState extends State<AddSnapshot>{
                   await selectTime(context);
                   setState(() {
                     btColor = Colors.red[400];
-                  });
-                  
+                  });         
                   time = _time.hour.toString()+" : "+_time.minute.toString();
-              
-                  
-                  
-                //   setState(() {
-                // //      if(colorTime == Colors.grey){
-                // // ///      colorTime = Colors.red[400];
-                // //      }
-                //   });
-                  
                 }
             ),          
                 ],
@@ -277,7 +242,7 @@ class _AddSnapshotState extends State<AddSnapshot>{
 
             TextField(
               keyboardType: TextInputType.text,
-              // textInputAction: TextInputAction.continueAction,
+            
               textAlign: TextAlign.left,
               style: TextStyle(color: color, fontSize: 15),
               maxLength: 30,
@@ -292,11 +257,7 @@ class _AddSnapshotState extends State<AddSnapshot>{
             Container(
               height: 170,
             ),
-            // FlatButton(
-            //   child: new Text('Add photo?',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.w600,fontSize: 20 )),
-            //   onPressed: selectImage,
-            // ),
-            // image!=null?new Image.file(image,width: 100,height: 100):new Text('select your image'),
+           
             FlatButton(
               
               child: Row(
@@ -320,35 +281,18 @@ class _AddSnapshotState extends State<AddSnapshot>{
                   MaterialPageRoute(builder: (context)=> ViewSnapPage()));
                 }
                 else{
-                  //.########....###.....#######.
-                  //....##......##.##...##.....##
-                  //....##.....##...##..##.....##
-                  //....##....##.....##.##.....##
-                  //....##....#########.##.....##
-                  //....##....##.....##.##.....##
-                  //....##....##.....##..#######.
-                   //tao implement here
-                   // Snapshot must have title!
+                
                   print('no you can\'t save');
                 }
               },
             
             ),
-            // FlatButton(
-            //   child: new Text('for test?',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.w600,fontSize: 20 )),
-            //   onPressed: getSnapshot,
-            // ),
-
           ],
         ),
           ),
           new Footer()
         ]
       ),
-      // floatingActionButton: FloatingActionButton(
-      //     onPressed: _display,
-      //     child: Icon(Icons.save)
-      // ),
     );
   }
 
