@@ -11,7 +11,7 @@ class Api{
     // print('from API\t'+response.body.toString());
     Map<String,dynamic> l ={};
     if(response.body=='No such document!')
-      return l;
+      l = {'noDocument':{'happy':0,'angry':0,'passive':0,'confuse':0,'love':0,'sad':0}};
     l = json.decode(response.body);
     l.forEach((k,v){
       l = v;
@@ -19,6 +19,40 @@ class Api{
     // print(l);
     return l;
   }
+
+    getPixelDay(DateTime dateTime) async {
+
+      int year=dateTime.year;
+      int month=dateTime.month;
+      int dateInt = dateTime.year*10000+dateTime.month*100+dateTime.day;
+      String date='demo-$dateInt';
+      String urlGet = 'https://us-central1-naikan-87838.cloudfunctions.net/webApi/api/v1/pixels/monthPixel/$year/$month';
+      client.Response response = await client.get(urlGet,headers: {"Content-Type" : "application/json"});
+      // print('from API\t'+response.body.toString());
+      Map<String,dynamic> l ={};
+      if(response.body=='No such document!') {
+        l = {
+          'noDocument': {
+            'happy': 0,
+            'angry': 0,
+            'passive': 0,
+            'confuse': 0,
+            'love': 0,
+            'sad': 0
+          }
+        };
+      }
+      l = json.decode(response.body);
+      l.forEach((k,v){
+        if(k==date){
+          l = v;
+        }
+      });
+      // print(l);
+      return l;
+    }
+
+
   Future<client.Response>postPixel(Map data) async {
     String urlPost = 'https://us-central1-naikan-87838.cloudfunctions.net/webApi/api/v1/pixels/todayPixel';
     String pixelText = json.encode(data);
