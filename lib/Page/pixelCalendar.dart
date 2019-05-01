@@ -62,7 +62,7 @@ class CalendarState extends State<PixelCalendar> {
       case 'sad':
         return new Color.fromARGB(255,64,64,64);
       default:
-        return new Color.fromARGB(255,128,128,128);
+        return new Color.fromARGB(255,224,226,228);
     }
   }
 
@@ -292,7 +292,7 @@ class CalendarState extends State<PixelCalendar> {
           new Container(
             margin: EdgeInsets.only(left:45,top:24,right:45),
             child: calendar.CalendarCarousel(
-              weekdayTextStyle: TextStyle(fontFamily: 'Leelawadee'),
+              weekdayTextStyle: TextStyle(fontFamily: 'Leelawadee',color: Color(0xFFc94c4c)),
               daysTextStyle: TextStyle(fontFamily: 'Leelawadee',color: Colors.white),
               weekendTextStyle: TextStyle(fontFamily: 'Leelawadee',color: Colors.white),
               todayTextStyle: TextStyle(fontFamily: 'Leelawadee',color: Colors.redAccent),

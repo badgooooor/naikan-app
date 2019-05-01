@@ -222,7 +222,7 @@ class LinearData {
       case 5:
         return new charts.Color(r: 64, g: 64, b: 64, a: 255);
       case 6:
-        return new charts.Color(r: 128, g: 128, b: 128, a: 255);
+        return new charts.Color(r: 240, g: 239, b: 239, a: 255);
       default:
         return null;
     }

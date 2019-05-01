@@ -279,7 +279,7 @@ class ContentState extends State<Content>{
                                 Text('  '),
                                 Icon(Icons.access_time,size: 20,color: Colors.red[300],),
                                 Text(' '),
-                                Text(data.time,style: TextStyle( fontSize: 16)),
+                                Text(data.time,style: TextStyle( fontSize: 15,color: Colors.black87)),
                                 //
                               ],
                             )
@@ -294,7 +294,7 @@ class ContentState extends State<Content>{
                                 Text('  '),
                                 Icon(Icons.location_on,size: 20,color: Colors.red[300]),
                                 Text(' '),
-                                Text(data.place,style: TextStyle( fontSize: 16,),),
+                                Text(data.place,style: TextStyle( fontSize: 15,color: Colors.black87),),
                                                                    
                               ],
                             )
@@ -325,7 +325,7 @@ class ContentState extends State<Content>{
                       Flexible(
                             child : Text(data.detail,style: TextStyle(
                             color: Colors.red[400],
-                            fontSize: 16),overflow:TextOverflow.clip,)
+                            fontSize: 15),overflow:TextOverflow.clip,)
                         ),
                        
                       Container(
